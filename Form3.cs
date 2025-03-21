@@ -10,7 +10,7 @@ namespace Inbentarioa
     public partial class Form3 : Form
     {
         // Cadena de conexión a la base de datos
-        private string konexioa = "server=localhost;database=Inbentarioa;user=root;password=;";
+        private string konexioa = "server=localhost;database=Inbentarioa;user=root;password=;";  
 
         public Form3()
         {
