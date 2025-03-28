@@ -1,6 +1,6 @@
 ﻿namespace Inbentarioa
 {
-    partial class Form1
+    partial class Sarrera
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,28 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            label1 = new Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Sarrera));
+            LbErabiltzailea = new Label();
             label2 = new Label();
-            label3 = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            label4 = new Label();
-            pictureBox1 = new PictureBox();
-            button1 = new Button();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            LbPasahitza = new Label();
+            TbErabiltzailea = new TextBox();
+            TbPasahitza = new TextBox();
+            LbIzarraitz = new Label();
+            PB1JB = new PictureBox();
+            BtBidali = new Button();
+            ((System.ComponentModel.ISupportInitialize)PB1JB).BeginInit();
             SuspendLayout();
             // 
-            // label1
+            // LbErabiltzailea
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(231, 156);
-            label1.Name = "label1";
-            label1.Size = new Size(168, 25);
-            label1.TabIndex = 0;
-            label1.Text = "Erabiltzailea=";
-            label1.Click += label1_Click;
+            LbErabiltzailea.AutoSize = true;
+            LbErabiltzailea.BackColor = Color.Transparent;
+            LbErabiltzailea.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LbErabiltzailea.ForeColor = SystemColors.ControlLightLight;
+            LbErabiltzailea.Location = new Point(231, 156);
+            LbErabiltzailea.Name = "LbErabiltzailea";
+            LbErabiltzailea.Size = new Size(146, 25);
+            LbErabiltzailea.TabIndex = 0;
+            LbErabiltzailea.Text = "Erabiltzailea:";
+            LbErabiltzailea.Click += label1_Click;
             // 
             // label2
             // 
@@ -59,96 +61,111 @@
             label2.Size = new Size(0, 20);
             label2.TabIndex = 1;
             // 
-            // label3
+            // LbPasahitza
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(262, 215);
-            label3.Name = "label3";
-            label3.Size = new Size(137, 25);
-            label3.TabIndex = 2;
-            label3.Text = "Pasahitza=";
-            label3.Click += label3_Click;
+            LbPasahitza.AutoSize = true;
+            LbPasahitza.BackColor = Color.Transparent;
+            LbPasahitza.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LbPasahitza.ForeColor = SystemColors.ControlLightLight;
+            LbPasahitza.Location = new Point(260, 216);
+            LbPasahitza.Name = "LbPasahitza";
+            LbPasahitza.Size = new Size(117, 25);
+            LbPasahitza.TabIndex = 2;
+            LbPasahitza.Text = "Pasahitza:";
+            LbPasahitza.Click += label3_Click;
             // 
-            // textBox1
+            // TbErabiltzailea
             // 
-            textBox1.Location = new Point(405, 154);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(209, 27);
-            textBox1.TabIndex = 3;
+            TbErabiltzailea.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            TbErabiltzailea.Location = new Point(383, 158);
+            TbErabiltzailea.Name = "TbErabiltzailea";
+            TbErabiltzailea.Size = new Size(164, 26);
+            TbErabiltzailea.TabIndex = 3;
+            TbErabiltzailea.TextChanged += TbErabiltzailea_TextChanged;
             // 
-            // textBox2
+            // TbPasahitza
             // 
-            textBox2.Location = new Point(405, 213);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(209, 27);
-            textBox2.TabIndex = 4;
-            textBox2.TextChanged += textBox2_TextChanged;
+            TbPasahitza.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            TbPasahitza.Location = new Point(383, 217);
+            TbPasahitza.Name = "TbPasahitza";
+            TbPasahitza.PasswordChar = '*';
+            TbPasahitza.Size = new Size(164, 26);
+            TbPasahitza.TabIndex = 4;
+            TbPasahitza.TextChanged += textBox2_TextChanged;
             // 
-            // label4
+            // LbIzarraitz
             // 
-            label4.AutoSize = true;
-            label4.BackColor = Color.Transparent;
-            label4.Font = new Font("Papyrus", 48F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(197, 12);
-            label4.Name = "label4";
-            label4.Size = new Size(591, 126);
-            label4.TabIndex = 5;
-            label4.Text = "IZARRAITZ";
+            LbIzarraitz.AutoSize = true;
+            LbIzarraitz.BackColor = Color.Transparent;
+            LbIzarraitz.Font = new Font("Verdana", 40.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            LbIzarraitz.ForeColor = SystemColors.ControlLightLight;
+            LbIzarraitz.Location = new Point(245, 36);
+            LbIzarraitz.Name = "LbIzarraitz";
+            LbIzarraitz.Size = new Size(454, 80);
+            LbIzarraitz.TabIndex = 5;
+            LbIzarraitz.Text = "IZARRAITZ";
             // 
-            // pictureBox1
+            // PB1JB
             // 
-            pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(73, 12);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(132, 126);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 6;
-            pictureBox1.TabStop = false;
+            PB1JB.BackColor = Color.Transparent;
+            PB1JB.Image = (Image)resources.GetObject("PB1JB.Image");
+            PB1JB.Location = new Point(107, 12);
+            PB1JB.Name = "PB1JB";
+            PB1JB.Size = new Size(132, 126);
+            PB1JB.SizeMode = PictureBoxSizeMode.StretchImage;
+            PB1JB.TabIndex = 6;
+            PB1JB.TabStop = false;
             // 
-            // button1
+            // BtBidali
             // 
-            button1.Font = new Font("Stencil", 19.8000011F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            button1.Location = new Point(319, 305);
-            button1.Name = "button1";
-            button1.Size = new Size(191, 71);
-            button1.TabIndex = 7;
-            button1.Text = "BIDALI";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            BtBidali.Anchor = AnchorStyles.None;
+            BtBidali.BackColor = Color.Transparent;
+            BtBidali.BackgroundImage = (Image)resources.GetObject("BtBidali.BackgroundImage");
+            BtBidali.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtBidali.ForeColor = Color.Transparent;
+            BtBidali.Location = new Point(330, 300);
+            BtBidali.Name = "BtBidali";
+            BtBidali.Size = new Size(163, 81);
+            BtBidali.TabIndex = 7;
+            BtBidali.UseVisualStyleBackColor = false;
+            BtBidali.Click += button1_Click;
             // 
-            // Form1
+            // Sarrera
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(button1);
-            Controls.Add(pictureBox1);
-            Controls.Add(label4);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
-            Controls.Add(label3);
+            Controls.Add(BtBidali);
+            Controls.Add(PB1JB);
+            Controls.Add(LbIzarraitz);
+            Controls.Add(TbPasahitza);
+            Controls.Add(TbErabiltzailea);
+            Controls.Add(LbPasahitza);
             Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(LbErabiltzailea);
             Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Name = "Form1";
-            Text = "Form1";
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MdiChildrenMinimizedAnchorBottom = false;
+            MinimizeBox = false;
+            Name = "Sarrera";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Izarraitz";
             Load += Form1_Load;
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PB1JB).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Label label1;
+        private Label LbErabiltzailea;
         private Label label2;
-        private Label label3;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private Label label4;
-        private PictureBox pictureBox1;
-        private Button button1;
+        private Label LbPasahitza;
+        private TextBox TbErabiltzailea;
+        private TextBox TbPasahitza;
+        private Label LbIzarraitz;
+        private PictureBox PB1JB;
+        private Button BtBidali;
     }
 }

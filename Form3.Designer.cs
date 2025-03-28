@@ -1,6 +1,6 @@
 ﻿namespace Inbentarioa
 {
-    partial class Form3
+    partial class GailuakGehitu
     {
         /// <summary>
         /// Required designer variable.
@@ -28,138 +28,123 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form3));
-            label4 = new Label();
-            pictureBox1 = new PictureBox();
-            label1 = new Label();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
-            button4 = new Button();
-            dataGridView1 = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GailuakGehitu));
+            TbGailuakGehitu = new Label();
+            dataGridViewGailuakGehitu = new DataGridView();
+            BtGehitu = new Button();
+            btAldatu = new Button();
+            btEzabatu = new Button();
+            btAtzera = new Button();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewGailuakGehitu).BeginInit();
             SuspendLayout();
             // 
-            // label4
+            // TbGailuakGehitu
             // 
-            label4.AutoSize = true;
-            label4.BackColor = Color.Transparent;
-            label4.Font = new Font("Papyrus", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(82, 20);
-            label4.Margin = new Padding(4, 0, 4, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(205, 44);
-            label4.TabIndex = 7;
-            label4.Text = "IZARRAITZ";
+            TbGailuakGehitu.AutoSize = true;
+            TbGailuakGehitu.BackColor = Color.Transparent;
+            TbGailuakGehitu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            TbGailuakGehitu.ForeColor = SystemColors.ControlLightLight;
+            TbGailuakGehitu.Location = new Point(361, 9);
+            TbGailuakGehitu.Name = "TbGailuakGehitu";
+            TbGailuakGehitu.Size = new Size(354, 41);
+            TbGailuakGehitu.TabIndex = 11;
+            TbGailuakGehitu.Text = "GAILUAK GEHITU";
+            TbGailuakGehitu.Click += label1_Click;
             // 
-            // pictureBox1
+            // dataGridViewGailuakGehitu
             // 
-            pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(16, 11);
-            pictureBox1.Margin = new Padding(4, 3, 4, 3);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(70, 50);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 8;
-            pictureBox1.TabStop = false;
+            dataGridViewGailuakGehitu.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewGailuakGehitu.Location = new Point(12, 71);
+            dataGridViewGailuakGehitu.Name = "dataGridViewGailuakGehitu";
+            dataGridViewGailuakGehitu.RowHeadersWidth = 51;
+            dataGridViewGailuakGehitu.Size = new Size(776, 284);
+            dataGridViewGailuakGehitu.TabIndex = 12;
+            dataGridViewGailuakGehitu.CellContentClick += dataGridView1_CellContentClick;
             // 
-            // label1
+            // BtGehitu
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Showcard Gothic", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(336, 20);
-            label1.Margin = new Padding(4, 0, 4, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(271, 35);
-            label1.TabIndex = 9;
-            label1.Text = "GAILUAK KUDEATU";
+            BtGehitu.Anchor = AnchorStyles.None;
+            BtGehitu.BackColor = Color.Transparent;
+            BtGehitu.BackgroundImage = (Image)resources.GetObject("BtGehitu.BackgroundImage");
+            BtGehitu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtGehitu.ForeColor = Color.Transparent;
+            BtGehitu.Location = new Point(144, 405);
+            BtGehitu.Name = "BtGehitu";
+            BtGehitu.Size = new Size(170, 74);
+            BtGehitu.TabIndex = 13;
+            BtGehitu.UseVisualStyleBackColor = false;
+            BtGehitu.Click += BtGehitu_Click;
             // 
-            // button1
+            // btAldatu
             // 
-            button1.Font = new Font("Stencil", 19.8000011F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            button1.Location = new Point(16, 346);
-            button1.Name = "button1";
-            button1.Size = new Size(155, 51);
-            button1.TabIndex = 10;
-            button1.Text = "GEHITU";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            btAldatu.Anchor = AnchorStyles.None;
+            btAldatu.BackColor = Color.Transparent;
+            btAldatu.BackgroundImage = (Image)resources.GetObject("btAldatu.BackgroundImage");
+            btAldatu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btAldatu.ForeColor = Color.Transparent;
+            btAldatu.Location = new Point(320, 405);
+            btAldatu.Name = "btAldatu";
+            btAldatu.Size = new Size(185, 74);
+            btAldatu.TabIndex = 14;
+            btAldatu.UseVisualStyleBackColor = false;
+            btAldatu.Click += btAldatu_Click;
             // 
-            // button2
+            // btEzabatu
             // 
-            button2.Font = new Font("Stencil", 19.8000011F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            button2.Location = new Point(217, 346);
-            button2.Name = "button2";
-            button2.Size = new Size(153, 51);
-            button2.TabIndex = 11;
-            button2.Text = "ALDATU";
-            button2.UseVisualStyleBackColor = true;
+            btEzabatu.Anchor = AnchorStyles.None;
+            btEzabatu.BackColor = Color.Transparent;
+            btEzabatu.BackgroundImage = (Image)resources.GetObject("btEzabatu.BackgroundImage");
+            btEzabatu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btEzabatu.ForeColor = Color.Transparent;
+            btEzabatu.Location = new Point(511, 403);
+            btEzabatu.Name = "btEzabatu";
+            btEzabatu.Size = new Size(204, 74);
+            btEzabatu.TabIndex = 15;
+            btEzabatu.UseVisualStyleBackColor = false;
             // 
-            // button3
+            // btAtzera
             // 
-            button3.Font = new Font("Stencil", 19.8000011F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            button3.Location = new Point(408, 346);
-            button3.Name = "button3";
-            button3.Size = new Size(225, 51);
-            button3.TabIndex = 12;
-            button3.Text = "EZABATU";
-            button3.UseVisualStyleBackColor = true;
+            btAtzera.Anchor = AnchorStyles.None;
+            btAtzera.BackColor = Color.Transparent;
+            btAtzera.BackgroundImage = (Image)resources.GetObject("btAtzera.BackgroundImage");
+            btAtzera.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btAtzera.ForeColor = Color.Transparent;
+            btAtzera.Location = new Point(721, 400);
+            btAtzera.Name = "btAtzera";
+            btAtzera.Size = new Size(179, 77);
+            btAtzera.TabIndex = 16;
+            btAtzera.UseVisualStyleBackColor = false;
+            btAtzera.Click += btAtzera_Click;
             // 
-            // button4
+            // GailuakGehitu
             // 
-            button4.Font = new Font("Stencil", 19.8000011F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            button4.Location = new Point(676, 346);
-            button4.Name = "button4";
-            button4.Size = new Size(160, 51);
-            button4.TabIndex = 13;
-            button4.Text = "ATZERA";
-            button4.UseVisualStyleBackColor = true;
-            button4.Click += button4_Click;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(16, 67);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(820, 262);
-            dataGridView1.TabIndex = 14;
-            // 
-            // Form3
-            // 
-            AutoScaleDimensions = new SizeF(11F, 19F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1100, 428);
-            Controls.Add(dataGridView1);
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(label1);
-            Controls.Add(pictureBox1);
-            Controls.Add(label4);
-            Font = new Font("Snap ITC", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Margin = new Padding(4, 3, 4, 3);
-            Name = "Form3";
-            Text = "Form3";
-            Load += Form3_Load;
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ClientSize = new Size(1064, 521);
+            Controls.Add(btAtzera);
+            Controls.Add(btEzabatu);
+            Controls.Add(btAldatu);
+            Controls.Add(BtGehitu);
+            Controls.Add(dataGridViewGailuakGehitu);
+            Controls.Add(TbGailuakGehitu);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "GailuakGehitu";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Izarraitz";
+            Load += GailuakGehitu_Load;
+            ((System.ComponentModel.ISupportInitialize)dataGridViewGailuakGehitu).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Label label4;
-        private PictureBox pictureBox1;
-        private Label label1;
-        private Button button1;
-        private Button button2;
-        private Button button3;
-        private Button button4;
-        private DataGridView dataGridView1;
+        private Label TbGailuakGehitu;
+        private DataGridView dataGridViewGailuakGehitu;
+        private Button BtGehitu;
+        private Button btAldatu;
+        private Button btEzabatu;
+        private Button btAtzera;
     }
 }

@@ -4,15 +4,14 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace Inbentarioa
-{   
-    //Fondoko kolorea ALDATZEKO
-    public partial class Form1 : Form
+{
+    public partial class Sarrera : Form
     {
-        public Form1()
+        public Sarrera()
         {
             InitializeComponent();
-            this.Resize += Form1_Resize; // Suscribir al evento Resize
-            //  this.WindowState = FormWindowState.Maximized; // Maximizar el formulario al iniciar
+            this.Resize += Form1_Resize;
+
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -63,8 +62,15 @@ namespace Inbentarioa
         private void button1_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form2 f2 = new Form2();
+            Aukerak f2 = new Aukerak();
             f2.ShowDialog();
+
+
+        }
+
+        private void TbErabiltzailea_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

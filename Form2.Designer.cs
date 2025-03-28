@@ -1,6 +1,6 @@
 ﻿namespace Inbentarioa
 {
-    partial class Form2
+    partial class Aukerak
     {
         /// <summary>
         /// Required designer variable.
@@ -28,108 +28,124 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
-            label4 = new Label();
-            pictureBox1 = new PictureBox();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
-            button4 = new Button();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Aukerak));
+            PB1JB = new PictureBox();
+            LbIzarraitz = new Label();
+            BtGailuakKudeatu = new Button();
+            BtEzabatutakoakIkusi = new Button();
+            BtMintegiakKudeatu = new Button();
+            BtErabiltzaileakKudeatu = new Button();
+            ((System.ComponentModel.ISupportInitialize)PB1JB).BeginInit();
             SuspendLayout();
             // 
-            // label4
+            // PB1JB
             // 
-            label4.AutoSize = true;
-            label4.BackColor = Color.Transparent;
-            label4.Font = new Font("Papyrus", 48F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(197, 12);
-            label4.Name = "label4";
-            label4.Size = new Size(591, 126);
-            label4.TabIndex = 6;
-            label4.Text = "IZARRAITZ";
+            PB1JB.BackColor = Color.Transparent;
+            PB1JB.Image = (Image)resources.GetObject("PB1JB.Image");
+            PB1JB.Location = new Point(108, 2);
+            PB1JB.Name = "PB1JB";
+            PB1JB.Size = new Size(132, 126);
+            PB1JB.SizeMode = PictureBoxSizeMode.StretchImage;
+            PB1JB.TabIndex = 8;
+            PB1JB.TabStop = false;
             // 
-            // pictureBox1
+            // LbIzarraitz
             // 
-            pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(72, 12);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(132, 126);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 7;
-            pictureBox1.TabStop = false;
+            LbIzarraitz.AutoSize = true;
+            LbIzarraitz.BackColor = Color.Transparent;
+            LbIzarraitz.Font = new Font("Verdana", 40.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            LbIzarraitz.ForeColor = SystemColors.ControlLightLight;
+            LbIzarraitz.Location = new Point(246, 26);
+            LbIzarraitz.Name = "LbIzarraitz";
+            LbIzarraitz.Size = new Size(454, 80);
+            LbIzarraitz.TabIndex = 7;
+            LbIzarraitz.Text = "IZARRAITZ";
             // 
-            // button1
+            // BtGailuakKudeatu
             // 
-            button1.Font = new Font("Times New Roman", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button1.Location = new Point(215, 128);
-            button1.Name = "button1";
-            button1.Size = new Size(410, 58);
-            button1.TabIndex = 8;
-            button1.Text = "GAILUAK KUDEATU";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            BtGailuakKudeatu.Anchor = AnchorStyles.None;
+            BtGailuakKudeatu.BackColor = Color.Transparent;
+            BtGailuakKudeatu.BackgroundImage = (Image)resources.GetObject("BtGailuakKudeatu.BackgroundImage");
+            BtGailuakKudeatu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtGailuakKudeatu.ForeColor = Color.Transparent;
+            BtGailuakKudeatu.Location = new Point(211, 134);
+            BtGailuakKudeatu.Name = "BtGailuakKudeatu";
+            BtGailuakKudeatu.Size = new Size(382, 74);
+            BtGailuakKudeatu.TabIndex = 9;
+            BtGailuakKudeatu.UseVisualStyleBackColor = false;
+            BtGailuakKudeatu.Click += BtGailuakKudeatu_Click;
             // 
-            // button2
+            // BtEzabatutakoakIkusi
             // 
-            button2.Font = new Font("Times New Roman", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button2.Location = new Point(167, 202);
-            button2.Name = "button2";
-            button2.Size = new Size(507, 58);
-            button2.TabIndex = 9;
-            button2.Text = "EZABATUTAKOAK IKUSI";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            BtEzabatutakoakIkusi.Anchor = AnchorStyles.None;
+            BtEzabatutakoakIkusi.BackColor = Color.Transparent;
+            BtEzabatutakoakIkusi.BackgroundImage = (Image)resources.GetObject("BtEzabatutakoakIkusi.BackgroundImage");
+            BtEzabatutakoakIkusi.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtEzabatutakoakIkusi.ForeColor = Color.Transparent;
+            BtEzabatutakoakIkusi.Location = new Point(169, 227);
+            BtEzabatutakoakIkusi.Name = "BtEzabatutakoakIkusi";
+            BtEzabatutakoakIkusi.Size = new Size(466, 70);
+            BtEzabatutakoakIkusi.TabIndex = 10;
+            BtEzabatutakoakIkusi.UseVisualStyleBackColor = false;
+            BtEzabatutakoakIkusi.Click += BtEzabatutakoakIkusi_Click;
             // 
-            // button3
+            // BtMintegiakKudeatu
             // 
-            button3.Font = new Font("Times New Roman", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button3.Location = new Point(215, 278);
-            button3.Name = "button3";
-            button3.Size = new Size(410, 58);
-            button3.TabIndex = 10;
-            button3.Text = "MINTEGIAK KUDEATU";
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
+            BtMintegiakKudeatu.Anchor = AnchorStyles.None;
+            BtMintegiakKudeatu.BackColor = Color.Transparent;
+            BtMintegiakKudeatu.BackgroundImage = (Image)resources.GetObject("BtMintegiakKudeatu.BackgroundImage");
+            BtMintegiakKudeatu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtMintegiakKudeatu.ForeColor = Color.Transparent;
+            BtMintegiakKudeatu.Location = new Point(187, 312);
+            BtMintegiakKudeatu.Name = "BtMintegiakKudeatu";
+            BtMintegiakKudeatu.Size = new Size(430, 70);
+            BtMintegiakKudeatu.TabIndex = 11;
+            BtMintegiakKudeatu.UseVisualStyleBackColor = false;
+            BtMintegiakKudeatu.Click += BtMintegiakKudeatu_Click;
             // 
-            // button4
+            // BtErabiltzaileakKudeatu
             // 
-            button4.Font = new Font("Times New Roman", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button4.Location = new Point(176, 354);
-            button4.Name = "button4";
-            button4.Size = new Size(498, 58);
-            button4.TabIndex = 11;
-            button4.Text = "ERABILTZAILEAK KUDEATU";
-            button4.UseVisualStyleBackColor = true;
-            button4.Click += button4_Click;
+            BtErabiltzaileakKudeatu.Anchor = AnchorStyles.None;
+            BtErabiltzaileakKudeatu.BackColor = Color.Transparent;
+            BtErabiltzaileakKudeatu.BackgroundImage = (Image)resources.GetObject("BtErabiltzaileakKudeatu.BackgroundImage");
+            BtErabiltzaileakKudeatu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtErabiltzaileakKudeatu.ForeColor = Color.Transparent;
+            BtErabiltzaileakKudeatu.Location = new Point(141, 404);
+            BtErabiltzaileakKudeatu.Name = "BtErabiltzaileakKudeatu";
+            BtErabiltzaileakKudeatu.Size = new Size(523, 70);
+            BtErabiltzaileakKudeatu.TabIndex = 12;
+            BtErabiltzaileakKudeatu.UseVisualStyleBackColor = false;
+            BtErabiltzaileakKudeatu.Click += BtErabiltzaileakKudeatu_Click;
             // 
-            // Form2
+            // Aukerak
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(pictureBox1);
-            Controls.Add(label4);
-            Name = "Form2";
-            Text = "Form2";
-            Load += Form2_Load;
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ClientSize = new Size(793, 486);
+            Controls.Add(BtErabiltzaileakKudeatu);
+            Controls.Add(BtMintegiakKudeatu);
+            Controls.Add(BtEzabatutakoakIkusi);
+            Controls.Add(BtGailuakKudeatu);
+            Controls.Add(PB1JB);
+            Controls.Add(LbIzarraitz);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "Aukerak";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Izarraitz";
+            ((System.ComponentModel.ISupportInitialize)PB1JB).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Label label4;
-        private PictureBox pictureBox1;
-        private Button button1;
-        private Button button2;
-        private Button button3;
-        private Button button4;
+        private PictureBox PB1JB;
+        private Label LbIzarraitz;
+        private Button BtGailuakKudeatu;
+        private Button BtEzabatutakoakIkusi;
+        private Button BtMintegiakKudeatu;
+        private Button BtErabiltzaileakKudeatu;
     }
 }

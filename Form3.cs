@@ -1,87 +1,125 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient; // Importar librería de MySQL
 
 namespace Inbentarioa
 {
-    public partial class Form3 : Form
+    public partial class GailuakGehitu : Form
     {
-        // Cadena de conexión a la base de datos
-        private string konexioa = "server=localhost;database=Inbentarioa;user=root;password=;";  
 
-        public Form3()
+        public GailuakGehitu()
         {
             InitializeComponent();
         }
-
-        // Método para conectar a MySQL
-        private MySqlConnection Konektatu()
-        {
-            MySqlConnection kon = new MySqlConnection(konexioa);
-            kon.Open();
-            return kon;
-        }
-
-        // Método para cargar datos en el DataGridView
-        private void CargarDatos()
-        {
-            try
-            {
-                using (MySqlConnection connection = new MySqlConnection(konexioa))
-                {
-                    connection.Open();
-                    string query = "SELECT * FROM ID_Gailuak"; // Consulta SQL correcta
-
-                    MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
-                    DataTable dataTable = new DataTable();
-                    dataAdapter.Fill(dataTable);
-
-                    // Asignar los datos al DataGridView
-                    dataGridView1.DataSource = dataTable;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al cargar los datos: " + ex.Message);
-            }
-        }
-
-        // PANTALLA KOLOREZTATZEKO
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
 
-            Color colorInicio = ColorTranslator.FromHtml("#5de0e6");
-            Color colorFin = ColorTranslator.FromHtml("#004aad");
+            // Definir los colores del degradado usando códigos hexadecimales
+            Color colorInicio = ColorTranslator.FromHtml("#5de0e6"); // Azul claro
+            Color colorFin = ColorTranslator.FromHtml("#004aad");    // Azul oscuro
 
+            // Crear un pincel con degradado lineal
             using (LinearGradientBrush brush = new LinearGradientBrush(
-                this.ClientRectangle, colorInicio, colorFin, LinearGradientMode.Horizontal))
+                this.ClientRectangle, // Área donde se aplicará el degradado
+                colorInicio,         // Color inicial
+                colorFin,            // Color final
+                LinearGradientMode.Horizontal)) // Dirección del degradado (horizontal)
             {
+                // Rellenar el fondo del formulario con el degradado
                 e.Graphics.FillRectangle(brush, this.ClientRectangle);
             }
         }
 
-        private void Form3_Load(object sender, EventArgs e)
+        private void GailuakGehitu_Load(object sender, EventArgs e)
         {
-            CargarDatos(); // Cargar datos al iniciar el formulario
+            DBLana dblana = new DBLana();  // Crear una instancia de DBLana
+            dblana.CargarDatos(dataGridViewGailuakGehitu);
+
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void label1_Click(object sender, EventArgs e)
         {
-            CargarDatos(); // Cargar datos al hacer clic en el botón
+
+        }
+
+        private void btAtzera_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Aukerak f2 = new Aukerak();
+            f2.ShowDialog();
+        }
+
+        private void BtGehitu_Click(object sender, EventArgs e)
+        {
             this.Hide();
             Form7 f7 = new Form7();
-            f7.Show();
+            f7.ShowDialog();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            this.Hide();
-            Form2 f2 = new Form2();
-            f2.Show();
+
         }
+
+        private void btAldatu_Click(object sender, EventArgs e)
+        {
+            MySqlConnection connection = null; // Hasieratu konexioa
+
+            try
+            {
+                connection = DBKonexioa.Konektatu(); // Lortu konexioa
+                connection.Open(); // Konexioa ireki
+
+                foreach (DataGridViewRow row in dataGridViewGailuakGehitu.Rows)
+                {
+                    if (row.Cells["ID"].Value != null) // Saihestu lerro hutsak
+                    {
+                        int id = Convert.ToInt32(row.Cells["ID"].Value);
+                        int idMintegia = Convert.ToInt32(row.Cells["ID_Mintegia"].Value);
+                        string marka = row.Cells["Marka"].Value.ToString();
+                        string izena = row.Cells["Izena"].Value.ToString();
+                        DateTime erosketadata = Convert.ToDateTime(row.Cells["ErosketaData"].Value);
+                        bool egoera = Convert.ToBoolean(row.Cells["Egoera"].Value);
+
+                        string query = "UPDATE gailuak SET ID_Mintegia = @ID_Mintegia, Marka = @Marka, Izena = @Izena, ErosketaData = @ErosketaData, Egoera = @Egoera WHERE ID = @ID";
+
+                        using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                        {
+                            cmd.Parameters.AddWithValue("@ID", id);
+                            cmd.Parameters.AddWithValue("@ID_Mintegia", idMintegia);
+                            cmd.Parameters.AddWithValue("@Marka", marka);
+                            cmd.Parameters.AddWithValue("@Izena", izena);
+                            cmd.Parameters.AddWithValue("@ErosketaData", erosketadata);
+                            cmd.Parameters.AddWithValue("@Egoera", egoera);
+
+                            cmd.ExecuteNonQuery(); // SQL exekutatu
+                        }
+                    }
+                }
+
+                MessageBox.Show("Cambios guardados correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al actualizar los datos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open)
+                {
+                    connection.Close(); // Konexioa itxi
+                }
+            }
+        }
+
     }
 }
