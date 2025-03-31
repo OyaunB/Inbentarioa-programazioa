@@ -50,5 +50,10 @@ namespace Inbentarioa
             Aukerak f2 = new Aukerak();
             f2.ShowDialog();
         }
+
+        private void TbGailuakGehitu_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

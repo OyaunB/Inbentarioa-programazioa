@@ -58,93 +58,93 @@
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Verdana", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.ControlLightLight;
-            label1.Location = new Point(310, 41);
+            label1.Location = new Point(441, 9);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(266, 34);
+            label1.Size = new Size(354, 41);
             label1.TabIndex = 17;
             label1.Text = "GAILUAK GEHITU";
             label1.Click += label1_Click;
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(278, 103);
+            textBox1.Location = new Point(301, 102);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(129, 27);
+            textBox1.Size = new Size(260, 27);
             textBox1.TabIndex = 19;
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(278, 203);
+            textBox2.Location = new Point(301, 203);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(129, 27);
+            textBox2.Size = new Size(260, 27);
             textBox2.TabIndex = 21;
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(278, 152);
+            textBox3.Location = new Point(301, 152);
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(129, 27);
+            textBox3.Size = new Size(260, 27);
             textBox3.TabIndex = 23;
             // 
             // textBox4
             // 
-            textBox4.Location = new Point(278, 262);
+            textBox4.Location = new Point(301, 262);
             textBox4.Name = "textBox4";
-            textBox4.Size = new Size(129, 27);
+            textBox4.Size = new Size(260, 27);
             textBox4.TabIndex = 25;
             // 
             // textBox5
             // 
-            textBox5.Location = new Point(659, 95);
+            textBox5.Location = new Point(861, 102);
             textBox5.Name = "textBox5";
-            textBox5.Size = new Size(129, 27);
+            textBox5.Size = new Size(260, 27);
             textBox5.TabIndex = 27;
             // 
             // textBox6
             // 
-            textBox6.Location = new Point(659, 151);
+            textBox6.Location = new Point(861, 152);
             textBox6.Name = "textBox6";
-            textBox6.Size = new Size(129, 27);
+            textBox6.Size = new Size(260, 27);
             textBox6.TabIndex = 29;
             // 
             // textBox7
             // 
-            textBox7.Location = new Point(659, 203);
+            textBox7.Location = new Point(861, 207);
             textBox7.Name = "textBox7";
-            textBox7.Size = new Size(129, 27);
+            textBox7.Size = new Size(260, 27);
             textBox7.TabIndex = 31;
             // 
             // textBox8
             // 
-            textBox8.Location = new Point(659, 261);
+            textBox8.Location = new Point(861, 261);
             textBox8.Name = "textBox8";
-            textBox8.Size = new Size(129, 27);
+            textBox8.Size = new Size(260, 27);
             textBox8.TabIndex = 33;
             // 
             // textBox9
             // 
-            textBox9.Location = new Point(278, 313);
+            textBox9.Location = new Point(301, 313);
             textBox9.Name = "textBox9";
-            textBox9.Size = new Size(129, 27);
+            textBox9.Size = new Size(260, 27);
             textBox9.TabIndex = 35;
             // 
             // textBox10
             // 
-            textBox10.Location = new Point(659, 313);
+            textBox10.Location = new Point(861, 313);
             textBox10.Name = "textBox10";
-            textBox10.Size = new Size(129, 27);
+            textBox10.Size = new Size(260, 27);
             textBox10.TabIndex = 37;
             // 
             // button11
             // 
             button11.BackgroundImage = (Image)resources.GetObject("button11.BackgroundImage");
             button11.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button11.Location = new Point(278, 398);
+            button11.Location = new Point(418, 411);
             button11.Name = "button11";
-            button11.Size = new Size(166, 82);
+            button11.Size = new Size(173, 80);
             button11.TabIndex = 38;
             button11.UseVisualStyleBackColor = true;
             button11.Click += button11_Click;
@@ -153,9 +153,9 @@
             // 
             button12.BackgroundImage = (Image)resources.GetObject("button12.BackgroundImage");
             button12.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button12.Location = new Point(469, 398);
+            button12.Location = new Point(637, 411);
             button12.Name = "button12";
-            button12.Size = new Size(176, 82);
+            button12.Size = new Size(179, 80);
             button12.TabIndex = 39;
             button12.UseVisualStyleBackColor = true;
             button12.Click += button12_Click;
@@ -164,127 +164,127 @@
             // 
             lbkodea.AutoSize = true;
             lbkodea.BackColor = Color.Transparent;
-            lbkodea.Font = new Font("Verdana", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbkodea.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbkodea.ForeColor = SystemColors.ControlLightLight;
-            lbkodea.Location = new Point(182, 102);
+            lbkodea.Location = new Point(39, 99);
             lbkodea.Name = "lbkodea";
-            lbkodea.Size = new Size(83, 28);
+            lbkodea.Size = new Size(101, 28);
             lbkodea.TabIndex = 40;
-            lbkodea.Text = "Kodea";
+            lbkodea.Text = "Kodea:";
             // 
             // lbmintkodea
             // 
             lbmintkodea.AutoSize = true;
             lbmintkodea.BackColor = Color.Transparent;
-            lbmintkodea.Font = new Font("Verdana", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbmintkodea.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbmintkodea.ForeColor = SystemColors.ControlLightLight;
             lbmintkodea.Location = new Point(39, 152);
             lbmintkodea.Name = "lbmintkodea";
-            lbmintkodea.Size = new Size(226, 28);
+            lbmintkodea.Size = new Size(261, 28);
             lbmintkodea.TabIndex = 41;
-            lbmintkodea.Text = "Mintegiaren kodea";
+            lbmintkodea.Text = "Mintegiaren Kodea:";
             // 
             // lbizena
             // 
             lbizena.AutoSize = true;
             lbizena.BackColor = Color.Transparent;
-            lbizena.Font = new Font("Verdana", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbizena.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbizena.ForeColor = SystemColors.ControlLightLight;
-            lbizena.Location = new Point(188, 203);
+            lbizena.Location = new Point(39, 203);
             lbizena.Name = "lbizena";
-            lbizena.Size = new Size(77, 28);
+            lbizena.Size = new Size(94, 28);
             lbizena.TabIndex = 42;
-            lbizena.Text = "Izena";
+            lbizena.Text = "Izena:";
             // 
             // lbmarka
             // 
             lbmarka.AutoSize = true;
             lbmarka.BackColor = Color.Transparent;
-            lbmarka.Font = new Font("Verdana", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbmarka.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbmarka.ForeColor = SystemColors.ControlLightLight;
-            lbmarka.Location = new Point(182, 258);
+            lbmarka.Location = new Point(39, 258);
             lbmarka.Name = "lbmarka";
-            lbmarka.Size = new Size(83, 28);
+            lbmarka.Size = new Size(99, 28);
             lbmarka.TabIndex = 43;
-            lbmarka.Text = "Marka";
+            lbmarka.Text = "Marka:";
             // 
             // lberosketaData
             // 
             lberosketaData.AutoSize = true;
             lberosketaData.BackColor = Color.Transparent;
-            lberosketaData.Font = new Font("Verdana", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lberosketaData.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lberosketaData.ForeColor = SystemColors.ControlLightLight;
-            lberosketaData.Location = new Point(90, 313);
+            lberosketaData.Location = new Point(39, 313);
             lberosketaData.Name = "lberosketaData";
-            lberosketaData.Size = new Size(175, 28);
+            lberosketaData.Size = new Size(203, 28);
             lberosketaData.TabIndex = 44;
-            lberosketaData.Text = "Erosketa-data";
+            lberosketaData.Text = "Erosketa-Data:";
             // 
             // lbTxartelGrafikoa
             // 
             lbTxartelGrafikoa.AutoSize = true;
             lbTxartelGrafikoa.BackColor = Color.Transparent;
-            lbTxartelGrafikoa.Font = new Font("Verdana", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbTxartelGrafikoa.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbTxartelGrafikoa.ForeColor = SystemColors.ControlLightLight;
-            lbTxartelGrafikoa.Location = new Point(441, 95);
+            lbTxartelGrafikoa.Location = new Point(600, 102);
             lbTxartelGrafikoa.Name = "lbTxartelGrafikoa";
-            lbTxartelGrafikoa.Size = new Size(195, 28);
+            lbTxartelGrafikoa.Size = new Size(228, 28);
             lbTxartelGrafikoa.TabIndex = 45;
-            lbTxartelGrafikoa.Text = "Txartel grafikoa";
+            lbTxartelGrafikoa.Text = "Txartel Grafikoa:";
             // 
             // lbRAMMemoria
             // 
             lbRAMMemoria.AutoSize = true;
             lbRAMMemoria.BackColor = Color.Transparent;
-            lbRAMMemoria.Font = new Font("Verdana", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbRAMMemoria.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbRAMMemoria.ForeColor = SystemColors.ControlLightLight;
-            lbRAMMemoria.Location = new Point(463, 152);
+            lbRAMMemoria.Location = new Point(600, 148);
             lbRAMMemoria.Name = "lbRAMMemoria";
-            lbRAMMemoria.Size = new Size(173, 28);
+            lbRAMMemoria.Size = new Size(198, 28);
             lbRAMMemoria.TabIndex = 46;
-            lbRAMMemoria.Text = "RAM memoria";
+            lbRAMMemoria.Text = "RAM Memoria:";
             // 
             // lbUSBPortuak
             // 
             lbUSBPortuak.AutoSize = true;
             lbUSBPortuak.BackColor = Color.Transparent;
-            lbUSBPortuak.Font = new Font("Verdana", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbUSBPortuak.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbUSBPortuak.ForeColor = SystemColors.ControlLightLight;
-            lbUSBPortuak.Location = new Point(477, 203);
+            lbUSBPortuak.Location = new Point(600, 203);
             lbUSBPortuak.Name = "lbUSBPortuak";
-            lbUSBPortuak.Size = new Size(159, 28);
+            lbUSBPortuak.Size = new Size(182, 28);
             lbUSBPortuak.TabIndex = 47;
-            lbUSBPortuak.Text = "USB portuak";
+            lbUSBPortuak.Text = "USB Portuak:";
             // 
             // lbkolorea
             // 
             lbkolorea.AutoSize = true;
             lbkolorea.BackColor = Color.Transparent;
-            lbkolorea.Font = new Font("Verdana", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbkolorea.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbkolorea.ForeColor = SystemColors.ControlLightLight;
-            lbkolorea.Location = new Point(537, 262);
+            lbkolorea.Location = new Point(600, 262);
             lbkolorea.Name = "lbkolorea";
-            lbkolorea.Size = new Size(99, 28);
+            lbkolorea.Size = new Size(120, 28);
             lbkolorea.TabIndex = 48;
-            lbkolorea.Text = "Kolorea";
+            lbkolorea.Text = "Kolorea:";
             // 
             // lbegoera
             // 
             lbegoera.AutoSize = true;
             lbegoera.BackColor = Color.Transparent;
-            lbegoera.Font = new Font("Verdana", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbegoera.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbegoera.ForeColor = SystemColors.ControlLightLight;
-            lbegoera.Location = new Point(543, 313);
+            lbegoera.Location = new Point(600, 313);
             lbegoera.Name = "lbegoera";
-            lbegoera.Size = new Size(93, 28);
+            lbegoera.Size = new Size(110, 28);
             lbegoera.TabIndex = 49;
-            lbegoera.Text = "Egoera";
+            lbegoera.Text = "Egoera:";
             // 
             // Form7
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(904, 492);
+            ClientSize = new Size(1182, 533);
             Controls.Add(lbegoera);
             Controls.Add(lbkolorea);
             Controls.Add(lbUSBPortuak);

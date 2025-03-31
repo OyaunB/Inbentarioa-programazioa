@@ -42,7 +42,7 @@
             // 
             PB1JB.BackColor = Color.Transparent;
             PB1JB.Image = (Image)resources.GetObject("PB1JB.Image");
-            PB1JB.Location = new Point(108, 2);
+            PB1JB.Location = new Point(268, 7);
             PB1JB.Name = "PB1JB";
             PB1JB.Size = new Size(132, 126);
             PB1JB.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -55,7 +55,7 @@
             LbIzarraitz.BackColor = Color.Transparent;
             LbIzarraitz.Font = new Font("Verdana", 40.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             LbIzarraitz.ForeColor = SystemColors.ControlLightLight;
-            LbIzarraitz.Location = new Point(246, 26);
+            LbIzarraitz.Location = new Point(406, 31);
             LbIzarraitz.Name = "LbIzarraitz";
             LbIzarraitz.Size = new Size(454, 80);
             LbIzarraitz.TabIndex = 7;
@@ -68,7 +68,7 @@
             BtGailuakKudeatu.BackgroundImage = (Image)resources.GetObject("BtGailuakKudeatu.BackgroundImage");
             BtGailuakKudeatu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtGailuakKudeatu.ForeColor = Color.Transparent;
-            BtGailuakKudeatu.Location = new Point(211, 134);
+            BtGailuakKudeatu.Location = new Point(406, 157);
             BtGailuakKudeatu.Name = "BtGailuakKudeatu";
             BtGailuakKudeatu.Size = new Size(382, 74);
             BtGailuakKudeatu.TabIndex = 9;
@@ -82,7 +82,7 @@
             BtEzabatutakoakIkusi.BackgroundImage = (Image)resources.GetObject("BtEzabatutakoakIkusi.BackgroundImage");
             BtEzabatutakoakIkusi.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtEzabatutakoakIkusi.ForeColor = Color.Transparent;
-            BtEzabatutakoakIkusi.Location = new Point(169, 227);
+            BtEzabatutakoakIkusi.Location = new Point(364, 250);
             BtEzabatutakoakIkusi.Name = "BtEzabatutakoakIkusi";
             BtEzabatutakoakIkusi.Size = new Size(466, 70);
             BtEzabatutakoakIkusi.TabIndex = 10;
@@ -96,7 +96,7 @@
             BtMintegiakKudeatu.BackgroundImage = (Image)resources.GetObject("BtMintegiakKudeatu.BackgroundImage");
             BtMintegiakKudeatu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtMintegiakKudeatu.ForeColor = Color.Transparent;
-            BtMintegiakKudeatu.Location = new Point(187, 312);
+            BtMintegiakKudeatu.Location = new Point(382, 335);
             BtMintegiakKudeatu.Name = "BtMintegiakKudeatu";
             BtMintegiakKudeatu.Size = new Size(430, 70);
             BtMintegiakKudeatu.TabIndex = 11;
@@ -110,7 +110,7 @@
             BtErabiltzaileakKudeatu.BackgroundImage = (Image)resources.GetObject("BtErabiltzaileakKudeatu.BackgroundImage");
             BtErabiltzaileakKudeatu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtErabiltzaileakKudeatu.ForeColor = Color.Transparent;
-            BtErabiltzaileakKudeatu.Location = new Point(141, 404);
+            BtErabiltzaileakKudeatu.Location = new Point(336, 427);
             BtErabiltzaileakKudeatu.Name = "BtErabiltzaileakKudeatu";
             BtErabiltzaileakKudeatu.Size = new Size(523, 70);
             BtErabiltzaileakKudeatu.TabIndex = 12;
@@ -121,7 +121,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(793, 486);
+            ClientSize = new Size(1182, 533);
             Controls.Add(BtErabiltzaileakKudeatu);
             Controls.Add(BtMintegiakKudeatu);
             Controls.Add(BtEzabatutakoakIkusi);

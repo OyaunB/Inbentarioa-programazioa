@@ -30,36 +30,22 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form6));
             dataGridView1 = new DataGridView();
-            pictureBox1 = new PictureBox();
             BtGehitu = new Button();
             btAldatu = new Button();
             btEzabatu = new Button();
             btAtzera = new Button();
             TbGailuakGehitu = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(-10, 88);
+            dataGridView1.Location = new Point(203, 80);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(820, 262);
+            dataGridView1.Size = new Size(780, 285);
             dataGridView1.TabIndex = 22;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(3, 32);
-            pictureBox1.Margin = new Padding(4, 3, 4, 3);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(70, 50);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 16;
-            pictureBox1.TabStop = false;
             // 
             // BtGehitu
             // 
@@ -68,9 +54,9 @@
             BtGehitu.BackgroundImage = (Image)resources.GetObject("BtGehitu.BackgroundImage");
             BtGehitu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtGehitu.ForeColor = Color.Transparent;
-            BtGehitu.Location = new Point(22, 356);
+            BtGehitu.Location = new Point(200, 400);
             BtGehitu.Name = "BtGehitu";
-            BtGehitu.Size = new Size(170, 74);
+            BtGehitu.Size = new Size(170, 80);
             BtGehitu.TabIndex = 23;
             BtGehitu.UseVisualStyleBackColor = false;
             // 
@@ -81,9 +67,9 @@
             btAldatu.BackgroundImage = (Image)resources.GetObject("btAldatu.BackgroundImage");
             btAldatu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btAldatu.ForeColor = Color.Transparent;
-            btAldatu.Location = new Point(198, 356);
+            btAldatu.Location = new Point(385, 400);
             btAldatu.Name = "btAldatu";
-            btAldatu.Size = new Size(185, 74);
+            btAldatu.Size = new Size(185, 80);
             btAldatu.TabIndex = 24;
             btAldatu.UseVisualStyleBackColor = false;
             // 
@@ -94,9 +80,9 @@
             btEzabatu.BackgroundImage = (Image)resources.GetObject("btEzabatu.BackgroundImage");
             btEzabatu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btEzabatu.ForeColor = Color.Transparent;
-            btEzabatu.Location = new Point(389, 356);
+            btEzabatu.Location = new Point(585, 400);
             btEzabatu.Name = "btEzabatu";
-            btEzabatu.Size = new Size(204, 74);
+            btEzabatu.Size = new Size(200, 80);
             btEzabatu.TabIndex = 25;
             btEzabatu.UseVisualStyleBackColor = false;
             // 
@@ -107,9 +93,9 @@
             btAtzera.BackgroundImage = (Image)resources.GetObject("btAtzera.BackgroundImage");
             btAtzera.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btAtzera.ForeColor = Color.Transparent;
-            btAtzera.Location = new Point(599, 355);
+            btAtzera.Location = new Point(800, 400);
             btAtzera.Name = "btAtzera";
-            btAtzera.Size = new Size(179, 77);
+            btAtzera.Size = new Size(180, 80);
             btAtzera.TabIndex = 26;
             btAtzera.UseVisualStyleBackColor = false;
             btAtzera.Click += btAtzera_Click;
@@ -120,7 +106,7 @@
             TbGailuakGehitu.BackColor = Color.Transparent;
             TbGailuakGehitu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             TbGailuakGehitu.ForeColor = SystemColors.ControlLightLight;
-            TbGailuakGehitu.Location = new Point(130, 41);
+            TbGailuakGehitu.Location = new Point(340, 9);
             TbGailuakGehitu.Name = "TbGailuakGehitu";
             TbGailuakGehitu.Size = new Size(544, 41);
             TbGailuakGehitu.TabIndex = 27;
@@ -130,19 +116,21 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1182, 533);
             Controls.Add(TbGailuakGehitu);
             Controls.Add(btAtzera);
             Controls.Add(btEzabatu);
             Controls.Add(btAldatu);
             Controls.Add(BtGehitu);
             Controls.Add(dataGridView1);
-            Controls.Add(pictureBox1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "Form6";
-            Text = "Form6";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Izarraitz";
             Load += Form6_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -150,7 +138,6 @@
         #endregion
 
         private DataGridView dataGridView1;
-        private PictureBox pictureBox1;
         private Button BtGehitu;
         private Button btAldatu;
         private Button btEzabatu;

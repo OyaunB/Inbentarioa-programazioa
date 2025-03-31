@@ -44,7 +44,7 @@
             TbGailuakGehitu.BackColor = Color.Transparent;
             TbGailuakGehitu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             TbGailuakGehitu.ForeColor = SystemColors.ControlLightLight;
-            TbGailuakGehitu.Location = new Point(361, 9);
+            TbGailuakGehitu.Location = new Point(440, 9);
             TbGailuakGehitu.Name = "TbGailuakGehitu";
             TbGailuakGehitu.Size = new Size(354, 41);
             TbGailuakGehitu.TabIndex = 11;
@@ -54,10 +54,10 @@
             // dataGridViewGailuakGehitu
             // 
             dataGridViewGailuakGehitu.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewGailuakGehitu.Location = new Point(12, 71);
+            dataGridViewGailuakGehitu.Location = new Point(203, 80);
             dataGridViewGailuakGehitu.Name = "dataGridViewGailuakGehitu";
             dataGridViewGailuakGehitu.RowHeadersWidth = 51;
-            dataGridViewGailuakGehitu.Size = new Size(776, 284);
+            dataGridViewGailuakGehitu.Size = new Size(780, 285);
             dataGridViewGailuakGehitu.TabIndex = 12;
             dataGridViewGailuakGehitu.CellContentClick += dataGridView1_CellContentClick;
             // 
@@ -68,9 +68,9 @@
             BtGehitu.BackgroundImage = (Image)resources.GetObject("BtGehitu.BackgroundImage");
             BtGehitu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtGehitu.ForeColor = Color.Transparent;
-            BtGehitu.Location = new Point(144, 405);
+            BtGehitu.Location = new Point(207, 400);
             BtGehitu.Name = "BtGehitu";
-            BtGehitu.Size = new Size(170, 74);
+            BtGehitu.Size = new Size(170, 80);
             BtGehitu.TabIndex = 13;
             BtGehitu.UseVisualStyleBackColor = false;
             BtGehitu.Click += BtGehitu_Click;
@@ -82,9 +82,9 @@
             btAldatu.BackgroundImage = (Image)resources.GetObject("btAldatu.BackgroundImage");
             btAldatu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btAldatu.ForeColor = Color.Transparent;
-            btAldatu.Location = new Point(320, 405);
+            btAldatu.Location = new Point(390, 400);
             btAldatu.Name = "btAldatu";
-            btAldatu.Size = new Size(185, 74);
+            btAldatu.Size = new Size(185, 80);
             btAldatu.TabIndex = 14;
             btAldatu.UseVisualStyleBackColor = false;
             btAldatu.Click += btAldatu_Click;
@@ -96,9 +96,9 @@
             btEzabatu.BackgroundImage = (Image)resources.GetObject("btEzabatu.BackgroundImage");
             btEzabatu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btEzabatu.ForeColor = Color.Transparent;
-            btEzabatu.Location = new Point(511, 403);
+            btEzabatu.Location = new Point(585, 400);
             btEzabatu.Name = "btEzabatu";
-            btEzabatu.Size = new Size(204, 74);
+            btEzabatu.Size = new Size(200, 80);
             btEzabatu.TabIndex = 15;
             btEzabatu.UseVisualStyleBackColor = false;
             // 
@@ -109,9 +109,9 @@
             btAtzera.BackgroundImage = (Image)resources.GetObject("btAtzera.BackgroundImage");
             btAtzera.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btAtzera.ForeColor = Color.Transparent;
-            btAtzera.Location = new Point(721, 400);
+            btAtzera.Location = new Point(800, 400);
             btAtzera.Name = "btAtzera";
-            btAtzera.Size = new Size(179, 77);
+            btAtzera.Size = new Size(179, 80);
             btAtzera.TabIndex = 16;
             btAtzera.UseVisualStyleBackColor = false;
             btAtzera.Click += btAtzera_Click;
@@ -120,7 +120,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1064, 521);
+            ClientSize = new Size(1182, 533);
             Controls.Add(btAtzera);
             Controls.Add(btEzabatu);
             Controls.Add(btAldatu);

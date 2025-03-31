@@ -44,11 +44,11 @@
             // 
             LbErabiltzailea.AutoSize = true;
             LbErabiltzailea.BackColor = Color.Transparent;
-            LbErabiltzailea.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LbErabiltzailea.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             LbErabiltzailea.ForeColor = SystemColors.ControlLightLight;
-            LbErabiltzailea.Location = new Point(231, 156);
+            LbErabiltzailea.Location = new Point(395, 208);
             LbErabiltzailea.Name = "LbErabiltzailea";
-            LbErabiltzailea.Size = new Size(146, 25);
+            LbErabiltzailea.Size = new Size(180, 28);
             LbErabiltzailea.TabIndex = 0;
             LbErabiltzailea.Text = "Erabiltzailea:";
             LbErabiltzailea.Click += label1_Click;
@@ -65,11 +65,11 @@
             // 
             LbPasahitza.AutoSize = true;
             LbPasahitza.BackColor = Color.Transparent;
-            LbPasahitza.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LbPasahitza.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             LbPasahitza.ForeColor = SystemColors.ControlLightLight;
-            LbPasahitza.Location = new Point(260, 216);
+            LbPasahitza.Location = new Point(395, 273);
             LbPasahitza.Name = "LbPasahitza";
-            LbPasahitza.Size = new Size(117, 25);
+            LbPasahitza.Size = new Size(145, 28);
             LbPasahitza.TabIndex = 2;
             LbPasahitza.Text = "Pasahitza:";
             LbPasahitza.Click += label3_Click;
@@ -77,19 +77,19 @@
             // TbErabiltzailea
             // 
             TbErabiltzailea.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            TbErabiltzailea.Location = new Point(383, 158);
+            TbErabiltzailea.Location = new Point(600, 208);
             TbErabiltzailea.Name = "TbErabiltzailea";
-            TbErabiltzailea.Size = new Size(164, 26);
+            TbErabiltzailea.Size = new Size(216, 26);
             TbErabiltzailea.TabIndex = 3;
             TbErabiltzailea.TextChanged += TbErabiltzailea_TextChanged;
             // 
             // TbPasahitza
             // 
             TbPasahitza.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            TbPasahitza.Location = new Point(383, 217);
+            TbPasahitza.Location = new Point(600, 276);
             TbPasahitza.Name = "TbPasahitza";
             TbPasahitza.PasswordChar = '*';
-            TbPasahitza.Size = new Size(164, 26);
+            TbPasahitza.Size = new Size(216, 26);
             TbPasahitza.TabIndex = 4;
             TbPasahitza.TextChanged += textBox2_TextChanged;
             // 
@@ -99,7 +99,7 @@
             LbIzarraitz.BackColor = Color.Transparent;
             LbIzarraitz.Font = new Font("Verdana", 40.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             LbIzarraitz.ForeColor = SystemColors.ControlLightLight;
-            LbIzarraitz.Location = new Point(245, 36);
+            LbIzarraitz.Location = new Point(458, 36);
             LbIzarraitz.Name = "LbIzarraitz";
             LbIzarraitz.Size = new Size(454, 80);
             LbIzarraitz.TabIndex = 5;
@@ -109,7 +109,7 @@
             // 
             PB1JB.BackColor = Color.Transparent;
             PB1JB.Image = (Image)resources.GetObject("PB1JB.Image");
-            PB1JB.Location = new Point(107, 12);
+            PB1JB.Location = new Point(320, 12);
             PB1JB.Name = "PB1JB";
             PB1JB.Size = new Size(132, 126);
             PB1JB.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -123,7 +123,7 @@
             BtBidali.BackgroundImage = (Image)resources.GetObject("BtBidali.BackgroundImage");
             BtBidali.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtBidali.ForeColor = Color.Transparent;
-            BtBidali.Location = new Point(330, 300);
+            BtBidali.Location = new Point(516, 390);
             BtBidali.Name = "BtBidali";
             BtBidali.Size = new Size(163, 81);
             BtBidali.TabIndex = 7;
@@ -134,7 +134,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1182, 533);
             Controls.Add(BtBidali);
             Controls.Add(PB1JB);
             Controls.Add(LbIzarraitz);
