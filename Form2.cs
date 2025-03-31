@@ -80,7 +80,7 @@ namespace Inbentarioa
             this.Hide();
             GailuakGehitu f3 = new GailuakGehitu();
             f3.ShowDialog();
-
+            
             
 
         }

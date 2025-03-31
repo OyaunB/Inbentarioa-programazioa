@@ -29,23 +29,23 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form6));
-            dataGridView1 = new DataGridView();
+            dataGridViewErabiltzailea = new DataGridView();
             BtGehitu = new Button();
             btAldatu = new Button();
             btEzabatu = new Button();
             btAtzera = new Button();
             TbGailuakGehitu = new Label();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewErabiltzailea).BeginInit();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dataGridViewErabiltzailea
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(203, 80);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(780, 285);
-            dataGridView1.TabIndex = 22;
+            dataGridViewErabiltzailea.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewErabiltzailea.Location = new Point(203, 80);
+            dataGridViewErabiltzailea.Name = "dataGridViewErabiltzailea";
+            dataGridViewErabiltzailea.RowHeadersWidth = 51;
+            dataGridViewErabiltzailea.Size = new Size(780, 285);
+            dataGridViewErabiltzailea.TabIndex = 22;
             // 
             // BtGehitu
             // 
@@ -122,7 +122,7 @@
             Controls.Add(btEzabatu);
             Controls.Add(btAldatu);
             Controls.Add(BtGehitu);
-            Controls.Add(dataGridView1);
+            Controls.Add(dataGridViewErabiltzailea);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
@@ -130,14 +130,14 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Izarraitz";
             Load += Form6_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewErabiltzailea).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
+        private DataGridView dataGridViewErabiltzailea;
         private Button BtGehitu;
         private Button btAldatu;
         private Button btEzabatu;

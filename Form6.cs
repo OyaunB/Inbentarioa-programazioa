@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Inbentarioa
@@ -17,6 +13,7 @@ namespace Inbentarioa
         {
             InitializeComponent();
         }
+
         // PANTALLA KOLOREZTATZEKO
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -31,11 +28,38 @@ namespace Inbentarioa
                 e.Graphics.FillRectangle(brush, this.ClientRectangle);
             }
         }
-        private void button4_Click(object sender, EventArgs e)
+
+        private void Form6_Load(object sender, EventArgs e)
         {
-            // this.Hide();
-            //Tabla f2 = new Izarraitz();
-            //f2.Show();
+            CargarDatos(); // 🔹 Carga los datos al abrir el formulario
+        }
+
+        private void CargarDatos()
+        {
+            try
+            {
+                string konekzioString = "server=127.0.0.1;database=inbentarioa;uid=root;pwd=root;";
+
+                using (MySqlConnection connection = new MySqlConnection(konekzioString))
+                {
+                    connection.Open(); // 🔹 Abrir conexión aquí, no en DBKonexioa.Konektatu()
+
+                    string query = "SELECT * FROM Erabiltzaileak"; // Consulta SQL
+
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+
+                        dataGridViewErabiltzailea.DataSource = null;
+                        dataGridViewErabiltzailea.DataSource = dt; // Mostrar datos en DataGridView
+                    }
+                } // 🔹 Konexioa automatikoki ixten da hemen
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los datos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btAtzera_Click(object sender, EventArgs e)
@@ -45,9 +69,9 @@ namespace Inbentarioa
             f2.ShowDialog();
         }
 
-        private void Form6_Load(object sender, EventArgs e)
+        private void btnActualizar_Click(object sender, EventArgs e)
         {
-
+            CargarDatos(); // 🔹 Botón para actualizar los datos sin cerrar la ventana
         }
     }
 }

@@ -27,26 +27,43 @@ namespace Inbentarioa
         {
             try
             {
+                if (nirekonexioa == null)
+                {
+                    string zerbitzaria = "127.0.0.1";
+                    string DB = "inbentarioa";
+                    string erabiltzailea = "root";
+                    string pasahitza = "root";
+                    string portua = "3306";
+
+                    string KONEXIOA = $"Database={DB}; Data Source={zerbitzaria}; Port={portua}; User Id={erabiltzailea}; Password={pasahitza};";
+                    nirekonexioa = new MySqlConnection(KONEXIOA);
+                }
+
+                Console.WriteLine("Konexio egoera: " + nirekonexioa.State); // Egiaztatu egoera
+
                 if (nirekonexioa.State == System.Data.ConnectionState.Closed)
                 {
                     nirekonexioa.Open();
-                    Console.WriteLine("Konexioa eginda");
+                    Console.WriteLine("✅ Konexioa ireki da");
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Ondorengo arazoa egon da: " + e.Message);
+                Console.WriteLine("⚠️ Konexio errorea: " + e.Message);
             }
+
             return nirekonexioa;
         }
 
+
         public static void ItxiKonexioa()
         {
-            if (nirekonexioa.State == System.Data.ConnectionState.Open)
+            if (nirekonexioa != null && nirekonexioa.State == System.Data.ConnectionState.Open)
             {
-                nirekonexioa.Close();
+                nirekonexioa.Close();  // 🔹 Ahora sí cierra la conexión correctamente
                 Console.WriteLine("Konexioa itxita");
             }
         }
+
     }
 }
