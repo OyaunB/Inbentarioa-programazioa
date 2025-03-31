@@ -61,12 +61,56 @@ namespace Inbentarioa
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Aukerak f2 = new Aukerak();
-            f2.ShowDialog();
+            // Erabiltzaile eta pasahitza irakurri
+            string erabiltzailea = TbErabiltzailea.Text;
+            string pasahitza = TbPasahitza.Text;
 
-
+            // Erabiltzaile mota egiaztatu
+            //ZUZENDARIA
+            if (erabiltzailea == "admin" && pasahitza == "admin")
+            {
+                this.Hide();
+                Aukerak f2 = new Aukerak("zuzendaria"); // Zuzendaria bidali
+                f2.ShowDialog();
+                this.Show();
+            }
+            //IKT IRAKASLEA
+            else if (erabiltzailea == "aitzi2025" && pasahitza == "aitzi2025")
+            {
+                this.Hide();
+                Aukerak f2 = new Aukerak("IKT Irakaslea"); // IKT irakaslea bidali
+                f2.ShowDialog();
+                this.Show();
+            }
+            //IRAKASLEA
+            else if (erabiltzailea == "iker2025" && pasahitza == "iker2025")
+            {
+                this.Hide();
+                Aukerak f2 = new Aukerak("Irakaslea"); // Irakaslea bidali
+                f2.ShowDialog();
+                this.Show();
+            }
+            else if (erabiltzailea == "gorka2025" && pasahitza == "gorka2025")
+            {
+                this.Hide();
+                Aukerak f2 = new Aukerak("Irakaslea"); // Irakaslea bidali
+                f2.ShowDialog();
+                this.Show();
+            }
+            else if (erabiltzailea == "aingeru2025" && pasahitza == "aingeru2025")
+            {
+                this.Hide();
+                Aukerak f2 = new Aukerak("Ordezkaria"); // Ordezkaria bidali
+                f2.ShowDialog();
+                this.Show();
+            }
+            else
+            {
+                MessageBox.Show("Erabiltzaile edo pasahitza okerra!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
+
 
         private void TbErabiltzailea_TextChanged(object sender, EventArgs e)
         {

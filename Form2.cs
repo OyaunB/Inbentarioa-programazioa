@@ -36,7 +36,45 @@ namespace Inbentarioa
                 e.Graphics.FillRectangle(brush, this.ClientRectangle);
             }
         }
+        private string erabiltzaileRola;
 
+        public Aukerak(string rola)
+        {
+            InitializeComponent();
+            erabiltzaileRola = rola;
+            KudeatuBaimenak();
+        }
+
+        private void KudeatuBaimenak()
+        {
+            if (erabiltzaileRola == "zuzendaria" || erabiltzaileRola == "IKT Irakaslea")
+            {
+                // Guztia eskuragarri
+                foreach (Control ctrl in this.Controls)
+                {
+                    if (ctrl is Button) ctrl.Enabled = true;
+                }
+            }
+            else if (erabiltzaileRola == "Irakaslea")
+            {
+                // "Aldatu" botoia bakarrik aktibo
+                foreach (Control ctrl in this.Controls)   
+                {
+                    if (ctrl is Button btn)
+                    {
+                        btn.Enabled = btn.Text == "ALDATU";
+                    }
+                }
+            }
+            else if (erabiltzaileRola == "Ordezkaria")
+            {
+                // Botoi guztiak desgaituta
+                foreach (Control ctrl in this.Controls)
+                {
+                    if (ctrl is Button) ctrl.Enabled = false;
+                }
+            }
+        }
         private void BtGailuakKudeatu_Click(object sender, EventArgs e)
         {
             this.Hide();
