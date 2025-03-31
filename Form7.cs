@@ -55,7 +55,7 @@ namespace Inbentarioa
         {
             this.Hide();
             GailuakGehitu f3 = new GailuakGehitu();
-            f3.Show();
+            f3.ShowDialog();
         }
 
         private void Form7_Load(object sender, EventArgs e)

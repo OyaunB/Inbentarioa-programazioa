@@ -40,8 +40,20 @@ namespace Inbentarioa
         private void button4_Click(object sender, EventArgs e)
         {
             //this.Hide();
-           // Tabla f2 = new Izarraitz();
+            // Tabla f2 = new Izarraitz();
             //f2.Show();
+        }
+
+        private void TbGailuakGehitu_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btAtzera_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Aukerak f2 = new Aukerak();
+            f2.ShowDialog();
         }
     }
 }

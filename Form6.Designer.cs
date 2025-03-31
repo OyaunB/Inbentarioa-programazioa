@@ -140,6 +140,7 @@
             Controls.Add(pictureBox1);
             Name = "Form6";
             Text = "Form6";
+            Load += Form6_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

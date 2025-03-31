@@ -32,8 +32,8 @@
             pictureBox1 = new PictureBox();
             label4 = new Label();
             dataGridView1 = new DataGridView();
-            button2 = new Button();
             TbGailuakGehitu = new Label();
+            btAtzera = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
@@ -70,17 +70,6 @@
             dataGridView1.Size = new Size(683, 262);
             dataGridView1.TabIndex = 15;
             // 
-            // button2
-            // 
-            button2.Font = new Font("Stencil", 19.8000011F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            button2.Location = new Point(342, 374);
-            button2.Name = "button2";
-            button2.Size = new Size(153, 51);
-            button2.TabIndex = 17;
-            button2.Text = "ATZERA";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
-            // 
             // TbGailuakGehitu
             // 
             TbGailuakGehitu.AutoSize = true;
@@ -93,13 +82,27 @@
             TbGailuakGehitu.TabIndex = 18;
             TbGailuakGehitu.Text = "EZABATUTAKOAK IKUSI";
             // 
+            // btAtzera
+            // 
+            btAtzera.Anchor = AnchorStyles.None;
+            btAtzera.BackColor = Color.Transparent;
+            btAtzera.BackgroundImage = (Image)resources.GetObject("btAtzera.BackgroundImage");
+            btAtzera.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btAtzera.ForeColor = Color.Transparent;
+            btAtzera.Location = new Point(296, 364);
+            btAtzera.Name = "btAtzera";
+            btAtzera.Size = new Size(179, 77);
+            btAtzera.TabIndex = 28;
+            btAtzera.UseVisualStyleBackColor = false;
+            btAtzera.Click += btAtzera_Click;
+            // 
             // Form4
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btAtzera);
             Controls.Add(TbGailuakGehitu);
-            Controls.Add(button2);
             Controls.Add(dataGridView1);
             Controls.Add(pictureBox1);
             Controls.Add(label4);
@@ -117,7 +120,7 @@
         private PictureBox pictureBox1;
         private Label label4;
         private DataGridView dataGridView1;
-        private Button button2;
         private Label TbGailuakGehitu;
+        private Button btAtzera;
     }
 }

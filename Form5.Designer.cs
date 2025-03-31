@@ -30,13 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form5));
             dataGridView1 = new DataGridView();
-            button4 = new Button();
-            button3 = new Button();
-            button2 = new Button();
-            button1 = new Button();
-            label1 = new Label();
             pictureBox1 = new PictureBox();
-            label4 = new Label();
+            TbGailuakGehitu = new Label();
+            BtGehitu = new Button();
+            btAldatu = new Button();
+            btEzabatu = new Button();
+            btAtzera = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -50,58 +49,6 @@
             dataGridView1.Size = new Size(676, 270);
             dataGridView1.TabIndex = 22;
             // 
-            // button4
-            // 
-            button4.Font = new Font("Stencil", 19.8000011F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            button4.Location = new Point(628, 367);
-            button4.Name = "button4";
-            button4.Size = new Size(160, 51);
-            button4.TabIndex = 21;
-            button4.Text = "ATZERA";
-            button4.UseVisualStyleBackColor = true;
-            button4.Click += button4_Click;
-            // 
-            // button3
-            // 
-            button3.Font = new Font("Stencil", 19.8000011F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            button3.Location = new Point(376, 367);
-            button3.Name = "button3";
-            button3.Size = new Size(225, 51);
-            button3.TabIndex = 20;
-            button3.Text = "EZABATU";
-            button3.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            button2.Font = new Font("Stencil", 19.8000011F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            button2.Location = new Point(204, 367);
-            button2.Name = "button2";
-            button2.Size = new Size(153, 51);
-            button2.TabIndex = 19;
-            button2.Text = "ALDATU";
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            button1.Font = new Font("Stencil", 19.8000011F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            button1.Location = new Point(26, 367);
-            button1.Name = "button1";
-            button1.Size = new Size(155, 51);
-            button1.TabIndex = 18;
-            button1.Text = "GEHITU";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Showcard Gothic", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(310, 27);
-            label1.Margin = new Padding(4, 0, 4, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(305, 35);
-            label1.TabIndex = 17;
-            label1.Text = "MINTEGIAK KUDEATU";
-            // 
             // pictureBox1
             // 
             pictureBox1.BackColor = Color.Transparent;
@@ -114,31 +61,84 @@
             pictureBox1.TabIndex = 16;
             pictureBox1.TabStop = false;
             // 
-            // label4
+            // TbGailuakGehitu
             // 
-            label4.AutoSize = true;
-            label4.BackColor = Color.Transparent;
-            label4.Font = new Font("Papyrus", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(78, 18);
-            label4.Margin = new Padding(4, 0, 4, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(205, 44);
-            label4.TabIndex = 15;
-            label4.Text = "IZARRAITZ";
+            TbGailuakGehitu.AutoSize = true;
+            TbGailuakGehitu.BackColor = Color.Transparent;
+            TbGailuakGehitu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            TbGailuakGehitu.ForeColor = SystemColors.ControlLightLight;
+            TbGailuakGehitu.Location = new Point(187, 21);
+            TbGailuakGehitu.Name = "TbGailuakGehitu";
+            TbGailuakGehitu.Size = new Size(437, 41);
+            TbGailuakGehitu.TabIndex = 23;
+            TbGailuakGehitu.Text = "MINTEGIAK KUDEATU";
+            TbGailuakGehitu.Click += TbGailuakGehitu_Click;
+            // 
+            // BtGehitu
+            // 
+            BtGehitu.Anchor = AnchorStyles.None;
+            BtGehitu.BackColor = Color.Transparent;
+            BtGehitu.BackgroundImage = (Image)resources.GetObject("BtGehitu.BackgroundImage");
+            BtGehitu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtGehitu.ForeColor = Color.Transparent;
+            BtGehitu.Location = new Point(12, 359);
+            BtGehitu.Name = "BtGehitu";
+            BtGehitu.Size = new Size(170, 74);
+            BtGehitu.TabIndex = 24;
+            BtGehitu.UseVisualStyleBackColor = false;
+            // 
+            // btAldatu
+            // 
+            btAldatu.Anchor = AnchorStyles.None;
+            btAldatu.BackColor = Color.Transparent;
+            btAldatu.BackgroundImage = (Image)resources.GetObject("btAldatu.BackgroundImage");
+            btAldatu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btAldatu.ForeColor = Color.Transparent;
+            btAldatu.Location = new Point(192, 359);
+            btAldatu.Name = "btAldatu";
+            btAldatu.Size = new Size(185, 74);
+            btAldatu.TabIndex = 25;
+            btAldatu.UseVisualStyleBackColor = false;
+            // 
+            // btEzabatu
+            // 
+            btEzabatu.Anchor = AnchorStyles.None;
+            btEzabatu.BackColor = Color.Transparent;
+            btEzabatu.BackgroundImage = (Image)resources.GetObject("btEzabatu.BackgroundImage");
+            btEzabatu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btEzabatu.ForeColor = Color.Transparent;
+            btEzabatu.Location = new Point(392, 359);
+            btEzabatu.Name = "btEzabatu";
+            btEzabatu.Size = new Size(204, 74);
+            btEzabatu.TabIndex = 26;
+            btEzabatu.UseVisualStyleBackColor = false;
+            // 
+            // btAtzera
+            // 
+            btAtzera.Anchor = AnchorStyles.None;
+            btAtzera.BackColor = Color.Transparent;
+            btAtzera.BackgroundImage = (Image)resources.GetObject("btAtzera.BackgroundImage");
+            btAtzera.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btAtzera.ForeColor = Color.Transparent;
+            btAtzera.Location = new Point(609, 356);
+            btAtzera.Name = "btAtzera";
+            btAtzera.Size = new Size(179, 77);
+            btAtzera.TabIndex = 27;
+            btAtzera.UseVisualStyleBackColor = false;
+            btAtzera.Click += btAtzera_Click;
             // 
             // Form5
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btAtzera);
+            Controls.Add(btEzabatu);
+            Controls.Add(btAldatu);
+            Controls.Add(BtGehitu);
+            Controls.Add(TbGailuakGehitu);
             Controls.Add(dataGridView1);
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(label1);
             Controls.Add(pictureBox1);
-            Controls.Add(label4);
             Name = "Form5";
             Text = "Form5";
             Load += Form5_Load;
@@ -151,12 +151,11 @@
         #endregion
 
         private DataGridView dataGridView1;
-        private Button button4;
-        private Button button3;
-        private Button button2;
-        private Button button1;
-        private Label label1;
         private PictureBox pictureBox1;
-        private Label label4;
+        private Label TbGailuakGehitu;
+        private Button BtGehitu;
+        private Button btAldatu;
+        private Button btEzabatu;
+        private Button btAtzera;
     }
 }
