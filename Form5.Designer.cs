@@ -58,7 +58,6 @@
             TbGailuakGehitu.Size = new Size(437, 41);
             TbGailuakGehitu.TabIndex = 23;
             TbGailuakGehitu.Text = "MINTEGIAK KUDEATU";
-            TbGailuakGehitu.Click += TbGailuakGehitu_Click;
             // 
             // BtGehitu
             // 
@@ -85,6 +84,7 @@
             btAldatu.Size = new Size(185, 80);
             btAldatu.TabIndex = 25;
             btAldatu.UseVisualStyleBackColor = false;
+            btAldatu.Click += btAldatu_Click;
             // 
             // btEzabatu
             // 

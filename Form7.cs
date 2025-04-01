@@ -46,7 +46,7 @@ namespace Inbentarioa
 
         }
 
-        private void button11_Click(object sender, EventArgs e)
+        private void bidaliBotoia_Click(object sender, EventArgs e)
         {
 
         }

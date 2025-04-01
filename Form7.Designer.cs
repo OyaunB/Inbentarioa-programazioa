@@ -40,7 +40,7 @@
             textBox8 = new TextBox();
             textBox9 = new TextBox();
             textBox10 = new TextBox();
-            button11 = new Button();
+            bidaliBotoia = new Button();
             button12 = new Button();
             lbkodea = new Label();
             lbmintkodea = new Label();
@@ -138,16 +138,15 @@
             textBox10.Size = new Size(260, 27);
             textBox10.TabIndex = 37;
             // 
-            // button11
+            // bidaliBotoia
             // 
-            button11.BackgroundImage = (Image)resources.GetObject("button11.BackgroundImage");
-            button11.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button11.Location = new Point(418, 411);
-            button11.Name = "button11";
-            button11.Size = new Size(173, 80);
-            button11.TabIndex = 38;
-            button11.UseVisualStyleBackColor = true;
-            button11.Click += button11_Click;
+            bidaliBotoia.BackgroundImage = (Image)resources.GetObject("bidaliBotoia.BackgroundImage");
+            bidaliBotoia.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bidaliBotoia.Location = new Point(418, 411);
+            bidaliBotoia.Name = "bidaliBotoia";
+            bidaliBotoia.Size = new Size(173, 80);
+            bidaliBotoia.TabIndex = 38;
+            bidaliBotoia.UseVisualStyleBackColor = true;
             // 
             // button12
             // 
@@ -296,7 +295,7 @@
             Controls.Add(lbmintkodea);
             Controls.Add(lbkodea);
             Controls.Add(button12);
-            Controls.Add(button11);
+            Controls.Add(bidaliBotoia);
             Controls.Add(textBox10);
             Controls.Add(textBox9);
             Controls.Add(textBox8);
@@ -334,7 +333,7 @@
         private TextBox textBox8;
         private TextBox textBox9;
         private TextBox textBox10;
-        private Button button11;
+        private Button bidaliBotoia;
         private Button button12;
         private Label lbkodea;
         private Label lbmintkodea;

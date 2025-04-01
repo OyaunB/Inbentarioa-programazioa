@@ -134,6 +134,7 @@
             Name = "Aukerak";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Izarraitz";
+            Load += Aukerak_Load;
             ((System.ComponentModel.ISupportInitialize)PB1JB).EndInit();
             ResumeLayout(false);
             PerformLayout();

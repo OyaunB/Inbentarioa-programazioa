@@ -58,7 +58,7 @@ namespace Inbentarioa
             else if (erabiltzaileRola == "Irakaslea")
             {
                 // "Aldatu" botoia bakarrik aktibo
-                foreach (Control ctrl in this.Controls)   
+                foreach (Control ctrl in this.Controls)
                 {
                     if (ctrl is Button btn)
                     {
@@ -80,8 +80,8 @@ namespace Inbentarioa
             this.Hide();
             GailuakGehitu f3 = new GailuakGehitu();
             f3.ShowDialog();
-            
-            
+
+
 
         }
 
@@ -105,6 +105,11 @@ namespace Inbentarioa
             this.Hide();
             Form6 f6 = new Form6();
             f6.ShowDialog();
+        }
+
+        private void Aukerak_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
