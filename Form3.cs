@@ -59,6 +59,7 @@ namespace Inbentarioa
                         {
                             dt.Columns["Egoera"].DataType = typeof(bool);
                         }
+                        
                         dataGridViewGailuakGehitu.DataSource = null; // 🔹 Lehengo datuak garbitu
                         dataGridViewGailuakGehitu.DataSource = dt;   // 🔹 Taula berriro kargatu
                     }

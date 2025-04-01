@@ -59,6 +59,7 @@
             BtGehitu.Size = new Size(170, 80);
             BtGehitu.TabIndex = 23;
             BtGehitu.UseVisualStyleBackColor = false;
+            BtGehitu.Click += BtGehitu_Click;
             // 
             // btAldatu
             // 
@@ -72,6 +73,7 @@
             btAldatu.Size = new Size(185, 80);
             btAldatu.TabIndex = 24;
             btAldatu.UseVisualStyleBackColor = false;
+            btAldatu.Click += btAldatu_Click;
             // 
             // btEzabatu
             // 
@@ -85,6 +87,7 @@
             btEzabatu.Size = new Size(200, 80);
             btEzabatu.TabIndex = 25;
             btEzabatu.UseVisualStyleBackColor = false;
+            btEzabatu.Click += btEzabatu_Click_1;
             // 
             // btAtzera
             // 
