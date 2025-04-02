@@ -56,7 +56,7 @@ namespace Inbentarioa
                 return false;
             }
         }
-        public bool EguneratuErabiltzailea(int id, string izena, string errola)
+        public bool EguneratuErabiltzailea(int id, string izena, string errola, string erabiltzailea)
         {
             try
             {
@@ -80,6 +80,53 @@ namespace Inbentarioa
                 return false;
             }
         }
+
+        public bool GordeErabiltzaileaFitxategian(string erabiltzaileaAntzinakoa, string erabiltzaileaBerria, string pasahitza, string errola, bool gehitu)
+        {
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Erabiltzaileak.txt");
+            List<string> lines = new List<string>();
+
+            try
+            {
+                // Leer todas las líneas del archivo si existe
+                if (File.Exists(filePath))
+                {
+                    lines = File.ReadAllLines(filePath).ToList();
+                }
+
+                // Buscar si el usuario antiguo existe en el archivo
+                int index = lines.FindIndex(line => line.StartsWith(erabiltzaileaAntzinakoa + ";"));
+
+                if (gehitu)
+                {
+                    if (index == -1)
+                    {
+                        // Si no existe, añadir como nuevo usuario
+                        lines.Add($"{erabiltzaileaBerria};{pasahitza};{errola}");
+                    }
+                    else
+                    {
+                        // Si existe, actualizar la línea con el nuevo nombre
+                        lines[index] = $"{erabiltzaileaBerria};{pasahitza};{errola}";
+                    }
+                }
+                else if (index != -1)
+                {
+                    // Si estamos eliminando, quitar la línea
+                    lines.RemoveAt(index);
+                }
+
+                // Guardar cambios en el archivo
+                File.WriteAllLines(filePath, lines);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Errorea fitxategia eguneratzerakoan: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
 
         public bool EzabatuErabiltzailea(int id)
         {

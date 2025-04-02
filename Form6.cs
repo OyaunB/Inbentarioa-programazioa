@@ -125,7 +125,6 @@ namespace Inbentarioa
             }
         }
 
-
         private void btAldatu_Click(object sender, EventArgs e)
         {
             if (dataGridViewErabiltzailea.SelectedRows.Count == 0)
@@ -139,19 +138,54 @@ namespace Inbentarioa
             int id = Convert.ToInt32(row.Cells["ID_Erabiltzaileak"].Value);
             string izena = row.Cells["Izena"].Value.ToString();
             string errola = row.Cells["Errola"].Value.ToString();
+            string erabiltzailea = row.Cells["ErabiltzaileIzena"].Value?.ToString(); // Asegurar que no es nulo
 
-            bool eguneratuta = dbErabiltzaileak.EguneratuErabiltzailea(id, izena, errola);
+            bool eguneratuta = dbErabiltzaileak.EguneratuErabiltzailea(id, izena, errola, erabiltzailea);
 
             if (eguneratuta)
             {
-                MessageBox.Show("Erabiltzailea eguneratu da!", "Ongi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // También actualizar en el archivo, asegurando que se mantiene el password
+                string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Erabiltzaileak.txt");
+                string pasahitza = "";
+
+                // Leer el archivo para obtener la contraseña actual del usuario antes de sobreescribirlo
+                if (File.Exists(filePath))
+                {
+                    foreach (string line in File.ReadLines(filePath))
+                    {
+                        string[] parts = line.Split(';');
+                        if (parts.Length >= 2 && parts[0] == erabiltzailea)
+                        {
+                            pasahitza = parts[1]; // Guardamos la contraseña existente
+                            break;
+                        }
+                    }
+                }
+
+                //bool fitxategiaEguneratuta = dbErabiltzaileak.GordeErabiltzaileaFitxategian(erabiltzailea, pasahitza, errola, false);
+                // de prueba, para quitar el error
+                // bool fitxategiaEguneratuta = dbErabiltzaileak.GordeErabiltzaileaFitxategian(erabiltzailea, pasahitza, errola, false);
+                // copiloten erantzuna=
+                bool fitxategiaEguneratuta = dbErabiltzaileak.GordeErabiltzaileaFitxategian(erabiltzailea, erabiltzailea, pasahitza, errola, false);
+
+
+
+                if (fitxategiaEguneratuta)
+                {
+                    MessageBox.Show("Erabiltzailea eguneratu da datu-basean eta fitxategian!", "Ongi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Erabiltzailea eguneratu da datu-basean, baina errorea fitxategian!", "Abisua", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
                 CargarDatos();
             }
             else
-            {
+            {   
                 MessageBox.Show("Errorea erabiltzailea eguneratzerakoan!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void btEzabatu_Click_1(object sender, EventArgs e)
         {

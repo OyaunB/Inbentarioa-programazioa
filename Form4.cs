@@ -34,7 +34,9 @@ namespace Inbentarioa
 
         private void Form4_Load(object sender, EventArgs e)
         {
-           // DBEzabatutakoak.LortuEzabatutakoGailuak();
+            DBEzabatutakoak db = new DBEzabatutakoak();  // Crear instancia
+            DataTable dt = db.LortuEzabatutakoGailuak(); // Llamar al método desde la instancia
+            DataGridViewEzabatutakoak.DataSource = dt;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -52,6 +54,11 @@ namespace Inbentarioa
         }
 
         private void TbGailuakGehitu_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DataGridViewEzabatutakoak_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

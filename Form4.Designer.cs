@@ -55,6 +55,7 @@
             DataGridViewEzabatutakoak.RowHeadersWidth = 51;
             DataGridViewEzabatutakoak.Size = new Size(780, 285);
             DataGridViewEzabatutakoak.TabIndex = 15;
+            DataGridViewEzabatutakoak.CellContentClick += DataGridViewEzabatutakoak_CellContentClick;
             // 
             // TbGailuakGehitu
             // 
