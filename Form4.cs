@@ -34,7 +34,7 @@ namespace Inbentarioa
 
         private void Form4_Load(object sender, EventArgs e)
         {
-
+           // DBEzabatutakoak.LortuEzabatutakoGailuak();
         }
 
         private void button2_Click(object sender, EventArgs e)

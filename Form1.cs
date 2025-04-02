@@ -97,7 +97,7 @@ namespace Inbentarioa
                 }
             }
 
-            // Ez bada aurkitu, errorea erakutsi
+            // Ez bada aurkitzen, errorea erakutsiko digu
             MessageBox.Show("Erabiltzaile edo pasahitza okerra!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 

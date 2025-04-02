@@ -80,8 +80,15 @@ namespace Inbentarioa
             // Erabiltzailearen errola eskatu
             string errola = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen errola:", "Gehitu Erabiltzailea", "");
 
+            // Erabiltzailearen kontua (username) eskatu
+            string erabiltzailea = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen username-a:", "Gehitu Erabiltzailea", "");
+
+            // Erabiltzailearen pasahitza eskatu
+            string pasahitza = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen pasahitza:", "Gehitu Erabiltzailea", "");
+
             // Balidazioa: eremu guztiak bete behar dira
-            if (string.IsNullOrWhiteSpace(izena) || string.IsNullOrWhiteSpace(errola))
+            if (string.IsNullOrWhiteSpace(izena) || string.IsNullOrWhiteSpace(errola) ||
+                string.IsNullOrWhiteSpace(erabiltzailea) || string.IsNullOrWhiteSpace(pasahitza))
             {
                 MessageBox.Show("Bete datu guztiak!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -89,12 +96,28 @@ namespace Inbentarioa
 
             // Datu basean gehitu
             DBErabiltzaileak db = new DBErabiltzaileak();
-            bool gehituta = db.GehituErabiltzailea(id, izena, errola);
+            bool gehituta = db.GehituErabiltzailea(id, izena, errola, erabiltzailea);
 
             if (gehituta)
             {
-                MessageBox.Show("Erabiltzailea gehitu da!", "Ongi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                CargarDatos(); // Datuak eguneratu
+                // Erabiltzaileak.txt fitxategian gordetzeko ruta
+                string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Erabiltzaileak.txt");
+
+                try
+                {
+                    // Fitxategian erabiltzaile berria gehitu (formatua: Erabiltzailea;Pasahitza,Errola)
+                    using (StreamWriter writer = new StreamWriter(filePath, true))
+                    {
+                        writer.WriteLine($"{erabiltzailea};{pasahitza};{errola}");
+                    }
+
+                    MessageBox.Show("Erabiltzailea gehitu da eta fitxategian gorde da!", "Ongi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    CargarDatos(); // Datuak eguneratu
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Errorea erabiltzailea fitxategian gordetzean: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {

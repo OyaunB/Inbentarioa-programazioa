@@ -30,20 +30,21 @@ namespace Inbentarioa
             }
             return dt;
         }
-
-        public bool GehituErabiltzailea(int id, string izena, string errola)
+        public bool GehituErabiltzailea(int id, string izena, string errola, string erabiltzailea)
         {
             try
             {
                 using (MySqlConnection connection = new MySqlConnection(konekzioString))
                 {
                     connection.Open();
-                    string query = "INSERT INTO Erabiltzaileak (ID_Erabiltzaileak, Izena, Errola) VALUES (@id, @izena, @errola)";
+                    // Asegúrate de que el nombre de la columna coincida con tu tabla (ej: ErabiltzaileIzena)
+                    string query = "INSERT INTO Erabiltzaileak (ID_Erabiltzaileak, Izena, Errola, ErabiltzaileIzena) VALUES (@id, @izena, @errola, @erabiltzailea)";
                     using (MySqlCommand cmd = new MySqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@id", id);
                         cmd.Parameters.AddWithValue("@izena", izena);
                         cmd.Parameters.AddWithValue("@errola", errola);
+                        cmd.Parameters.AddWithValue("@erabiltzailea", erabiltzailea);
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -102,5 +103,6 @@ namespace Inbentarioa
                 return false;
             }
         }
+
     }
 }

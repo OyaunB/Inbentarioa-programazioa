@@ -30,10 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form4));
             label4 = new Label();
-            dataGridView1 = new DataGridView();
+            DataGridViewEzabatutakoak = new DataGridView();
             TbGailuakGehitu = new Label();
             btAtzera = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)DataGridViewEzabatutakoak).BeginInit();
             SuspendLayout();
             // 
             // label4
@@ -47,14 +47,14 @@
             label4.Size = new Size(0, 32);
             label4.TabIndex = 9;
             // 
-            // dataGridView1
+            // DataGridViewEzabatutakoak
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(203, 80);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(780, 285);
-            dataGridView1.TabIndex = 15;
+            DataGridViewEzabatutakoak.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DataGridViewEzabatutakoak.Location = new Point(203, 80);
+            DataGridViewEzabatutakoak.Name = "DataGridViewEzabatutakoak";
+            DataGridViewEzabatutakoak.RowHeadersWidth = 51;
+            DataGridViewEzabatutakoak.Size = new Size(780, 285);
+            DataGridViewEzabatutakoak.TabIndex = 15;
             // 
             // TbGailuakGehitu
             // 
@@ -90,7 +90,7 @@
             ClientSize = new Size(1182, 533);
             Controls.Add(btAtzera);
             Controls.Add(TbGailuakGehitu);
-            Controls.Add(dataGridView1);
+            Controls.Add(DataGridViewEzabatutakoak);
             Controls.Add(label4);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
@@ -99,14 +99,14 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Izarraitz";
             Load += Form4_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)DataGridViewEzabatutakoak).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
         private Label label4;
-        private DataGridView dataGridView1;
+        private DataGridView DataGridViewEzabatutakoak;
         private Label TbGailuakGehitu;
         private Button btAtzera;
     }
