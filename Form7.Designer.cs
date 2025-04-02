@@ -60,12 +60,12 @@
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.ControlLightLight;
-            label1.Location = new Point(441, 9);
+            label1.Location = new Point(349, 9);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(354, 41);
+            label1.Size = new Size(490, 41);
             label1.TabIndex = 17;
-            label1.Text = "GAILUAK GEHITU";
+            label1.Text = "ORDENAGAILUA GEHITU";
             label1.Click += label1_Click;
             // 
             // textBox1

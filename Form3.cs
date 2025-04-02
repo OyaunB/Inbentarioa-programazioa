@@ -92,7 +92,7 @@ namespace Inbentarioa
         private void BtGehitu_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form7 f7 = new Form7();
+            aukeraAutatzeko f7 = new aukeraAutatzeko();
             f7.ShowDialog();
         }
 
