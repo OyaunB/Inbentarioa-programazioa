@@ -33,7 +33,8 @@ namespace Inbentarioa
 
         private void Form6_Load(object sender, EventArgs e)
         {
-            CargarDatos(); // 🔹 Carga los datos al abrir el formulario
+            CargarDatos(); //    Carga los datos al abrir el formulario
+
         }
 
         private void CargarDatos()
@@ -70,49 +71,37 @@ namespace Inbentarioa
 
         private void BtGehitu_Click(object sender, EventArgs e)
         {
-            // Ilara bat hautatuta dagoen egiaztatu
-            if (dataGridViewErabiltzailea.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Hautatu edo gehitu erabiltzaile bat!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            // IDa automatikoki kalkulatu
+            int id = dataGridViewErabiltzailea.Rows.Count + 1;
 
-            //Aukeratutako ilarako datuak lortu
-            DataGridViewRow row = dataGridViewErabiltzailea.SelectedRows[0];
+            // Erabiltzailearen izena eskatu
+            string izena = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen izena:", "Gehitu Erabiltzailea", "");
 
-            if (row.Cells["ID_Erabiltzaileak"].Value == null ||
-                row.Cells["Izena"].Value == null ||
-                row.Cells["Errola"].Value == null)
+            // Erabiltzailearen errola eskatu
+            string errola = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen errola:", "Gehitu Erabiltzailea", "");
+
+            // Balidazioa: eremu guztiak bete behar dira
+            if (string.IsNullOrWhiteSpace(izena) || string.IsNullOrWhiteSpace(errola))
             {
                 MessageBox.Show("Bete datu guztiak!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Sartutako datuak aldagaietan gorde
-            int id;
-            if (!int.TryParse(row.Cells["ID_Erabiltzaileak"].Value.ToString(), out id))
-            {
-                MessageBox.Show("ID zenbakia izan behar da!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            string izena = row.Cells["Izena"].Value.ToString();
-            string errola = row.Cells["Errola"].Value.ToString();
-
-            // Datu basean datuak gorde
+            // Datu basean gehitu
             DBErabiltzaileak db = new DBErabiltzaileak();
             bool gehituta = db.GehituErabiltzailea(id, izena, errola);
 
             if (gehituta)
             {
                 MessageBox.Show("Erabiltzailea gehitu da!", "Ongi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                CargarDatos(); //Datuak kargatu sartutako erabiltaile berria ikusteko
+                CargarDatos(); // Datuak eguneratu
             }
             else
             {
                 MessageBox.Show("Errorea erabiltzailea gehitzean!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void btAldatu_Click(object sender, EventArgs e)
         {

@@ -13,6 +13,8 @@ namespace Inbentarioa
         public DataTable LortuMintegiak()
         {
             DataTable dt = new DataTable();
+           
+
             try
             {
                 using (MySqlConnection connection = new MySqlConnection(konekzioString))
@@ -33,17 +35,17 @@ namespace Inbentarioa
         }
 
         // 🔹 Añadir nuevo almacén
-        public bool GehituMintegia(int id, string izena, string kokapena)
+        // 🔹 Añadir nuevo almacén sin especificar ID
+        public bool GehituMintegia(string izena, string kokapena)
         {
             try
             {
                 using (MySqlConnection connection = new MySqlConnection(konekzioString))
                 {
                     connection.Open();
-                    string query = "INSERT INTO Mintegiak (ID_Mintegia, Izena, Kokapena) VALUES (@id, @izena, @kokapena)";
+                    string query = "INSERT INTO Mintegiak (Izena, Kokapena) VALUES (@izena, @kokapena)";
                     using (MySqlCommand cmd = new MySqlCommand(query, connection))
                     {
-                        cmd.Parameters.AddWithValue("@id", id);
                         cmd.Parameters.AddWithValue("@izena", izena);
                         cmd.Parameters.AddWithValue("@kokapena", kokapena);
                         cmd.ExecuteNonQuery();
@@ -57,6 +59,7 @@ namespace Inbentarioa
                 return false;
             }
         }
+
 
         // 🔹 Actualizar almacén existente
         public bool EguneratuMintegia(int id, string izena, string kokapena)
@@ -97,6 +100,8 @@ namespace Inbentarioa
                     {
                         cmd.Parameters.AddWithValue("@id", id);
                         int affectedRows = cmd.ExecuteNonQuery();
+
+                        
                         return affectedRows > 0;
                     }
                 }
@@ -107,5 +112,36 @@ namespace Inbentarioa
                 return false;
             }
         }
+
+
+        // 🔹 Obtener el último ID y sumarle 1
+        public int LortuHurrengoID()
+        {
+            int nextId = 1; // Si no hay registros, empezamos en 1
+
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(konekzioString))
+                {
+                    connection.Open();
+                    string query = "SELECT MAX(ID_Mintegia) FROM Mintegiak";
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                    {
+                        object result = cmd.ExecuteScalar();
+                        if (result != DBNull.Value)
+                        {
+                            nextId = Convert.ToInt32(result) + 1;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Errorea hurrengo ID-a lortzerakoan: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return nextId;
+        }
+
     }
 }

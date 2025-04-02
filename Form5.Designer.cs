@@ -29,23 +29,23 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form5));
-            dataGridView1 = new DataGridView();
+            DataGridViewMintegiak = new DataGridView();
             TbGailuakGehitu = new Label();
             BtGehitu = new Button();
             btAldatu = new Button();
             btEzabatu = new Button();
             btAtzera = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)DataGridViewMintegiak).BeginInit();
             SuspendLayout();
             // 
-            // dataGridView1
+            // DataGridViewMintegiak
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(203, 80);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(780, 285);
-            dataGridView1.TabIndex = 22;
+            DataGridViewMintegiak.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DataGridViewMintegiak.Location = new Point(203, 80);
+            DataGridViewMintegiak.Name = "DataGridViewMintegiak";
+            DataGridViewMintegiak.RowHeadersWidth = 51;
+            DataGridViewMintegiak.Size = new Size(780, 285);
+            DataGridViewMintegiak.TabIndex = 22;
             // 
             // TbGailuakGehitu
             // 
@@ -71,6 +71,7 @@
             BtGehitu.Size = new Size(174, 80);
             BtGehitu.TabIndex = 24;
             BtGehitu.UseVisualStyleBackColor = false;
+            BtGehitu.Click += BtGehitu_Click_2;
             // 
             // btAldatu
             // 
@@ -98,6 +99,7 @@
             btEzabatu.Size = new Size(200, 80);
             btEzabatu.TabIndex = 26;
             btEzabatu.UseVisualStyleBackColor = false;
+            btEzabatu.Click += btEzabatu_Click;
             // 
             // btAtzera
             // 
@@ -123,7 +125,7 @@
             Controls.Add(btAldatu);
             Controls.Add(BtGehitu);
             Controls.Add(TbGailuakGehitu);
-            Controls.Add(dataGridView1);
+            Controls.Add(DataGridViewMintegiak);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
@@ -131,14 +133,14 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Izarraitz";
             Load += Form5_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)DataGridViewMintegiak).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
+        private DataGridView DataGridViewMintegiak;
         private Label TbGailuakGehitu;
         private Button BtGehitu;
         private Button btAldatu;
