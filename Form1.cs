@@ -61,53 +61,44 @@ namespace Inbentarioa
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Erabiltzaile eta pasahitza irakurri
-            string erabiltzailea = TbErabiltzailea.Text;
-            string pasahitza = TbPasahitza.Text;
+            string erabiltzailea = TbErabiltzailea.Text.Trim();
+            string pasahitza = TbPasahitza.Text.Trim();
 
-            // Erabiltzaile mota egiaztatu
-            //ZUZENDARIA
-            if (erabiltzailea == "admin" && pasahitza == "admin")
+            // Fitxategitik erabiltzaileak irakurri
+            string[] lerroak;
+            try
             {
-                this.Hide();
-                Aukerak f2 = new Aukerak("zuzendaria"); // Zuzendaria bidali
-                f2.ShowDialog();
-                this.Show();
+                lerroak = File.ReadAllLines("Erabiltzaileak.txt"); // Fitxategia irakurri
             }
-            //IKT IRAKASLEA
-            else if (erabiltzailea == "aitzi2025" && pasahitza == "aitzi2025")
+            catch (Exception ex)
             {
-                this.Hide();
-                Aukerak f2 = new Aukerak("IKT Irakaslea"); // IKT irakaslea bidali
-                f2.ShowDialog();
-                this.Show();
+                MessageBox.Show("Errorea erabiltzaile fitxategia irakurtzerakoan: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            //IRAKASLEA
-            else if (erabiltzailea == "iker2025" && pasahitza == "iker2025")
+
+            // Erabiltzailea bilatu
+            foreach (string lerroa in lerroak)
             {
-                this.Hide();
-                Aukerak f2 = new Aukerak("Irakaslea"); // Irakaslea bidali
-                f2.ShowDialog();
-                this.Show();
+                string[] zatiak = lerroa.Split(';');
+                if (zatiak.Length == 3)
+                {
+                    string fitxErabiltzailea = zatiak[0];
+                    string fitxPasahitza = zatiak[1];
+                    string rola = zatiak[2];
+
+                    if (erabiltzailea == fitxErabiltzailea && pasahitza == fitxPasahitza)
+                    {
+                        this.Hide();
+                        Aukerak f2 = new Aukerak(rola); // Rola bidali
+                        f2.ShowDialog();
+                        this.Show();
+                        return;
+                    }
+                }
             }
-            else if (erabiltzailea == "gorka2025" && pasahitza == "gorka2025")
-            {
-                this.Hide();
-                Aukerak f2 = new Aukerak("Irakaslea"); // Irakaslea bidali
-                f2.ShowDialog();
-                this.Show();
-            }
-            else if (erabiltzailea == "aingeru2025" && pasahitza == "aingeru2025")
-            {
-                this.Hide();
-                Aukerak f2 = new Aukerak("Ordezkaria"); // Ordezkaria bidali
-                f2.ShowDialog();
-                this.Show();
-            }
-            else
-            {
-                MessageBox.Show("Erabiltzaile edo pasahitza okerra!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+
+            // Ez bada aurkitu, errorea erakutsi
+            MessageBox.Show("Erabiltzaile edo pasahitza okerra!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
 
