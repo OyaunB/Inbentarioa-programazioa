@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace Inbentarioa
 {
-    public partial class Form7 : Form
+    public partial class Ordenagailuagehitu : Form
     {
-        public Form7()
+        public Ordenagailuagehitu()
         {
             InitializeComponent();
         }
@@ -54,8 +54,8 @@ namespace Inbentarioa
         private void button12_Click(object sender, EventArgs e)
         {
             this.Hide();
-            GailuakGehitu f3 = new GailuakGehitu();
-            f3.ShowDialog();
+            aukeraAutatzeko form8 = new aukeraAutatzeko();
+            form8.ShowDialog();
         }
 
         private void Form7_Load(object sender, EventArgs e)

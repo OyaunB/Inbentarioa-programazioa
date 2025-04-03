@@ -11,13 +11,17 @@ using System.Windows.Forms;
 
 namespace Inbentarioa
 {
-    public partial class Form4 : Form
+    public partial class BesteGailuBatGehitu : Form
     {
-        public Form4()
+        public BesteGailuBatGehitu()
         {
             InitializeComponent();
         }
-        // PANTALLA KOLOREZTATZEKO
+
+        private void Form9_Load(object sender, EventArgs e)
+        {
+
+        }
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -32,35 +36,11 @@ namespace Inbentarioa
             }
         }
 
-        private void Form4_Load(object sender, EventArgs e)
-        {
-            DBEzabatutakoak db = new DBEzabatutakoak();  // Crear instancia
-            DataTable dt = db.LortuEzabatutakoGailuak(); // Llamar al método desde la instancia
-            DataGridViewEzabatutakoak.DataSource = dt;
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            //this.Hide();
-            //Tabla f2 = new Izarraitz();
-            //f2.Show();
-        }
-
         private void btAtzera_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Aukerak f2 = new Aukerak();
-            f2.ShowDialog();
-        }
-
-        private void TbGailuakGehitu_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void DataGridViewEzabatutakoak_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
+            aukeraAutatzeko form8 = new aukeraAutatzeko();
+            form8.ShowDialog();
         }
     }
 }

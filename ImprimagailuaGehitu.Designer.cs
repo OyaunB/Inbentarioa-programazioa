@@ -150,7 +150,7 @@
             Controls.Add(textBox1);
             Controls.Add(BtAukeraAutatu);
             Name = "IMPRIMAGAILUAK";
-            Text = "Form8";
+            Text = "Izarraitz";
             Load += IMPRIMAGAILUAK_Load;
             ResumeLayout(false);
             PerformLayout();

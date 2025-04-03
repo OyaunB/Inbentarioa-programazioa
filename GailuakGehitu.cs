@@ -1,24 +1,23 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Inbentarioa
 {
     public partial class GailuakGehitu : Form
     {
+        private readonly string connectionString = "server=127.0.0.1;database=inbentarioa;uid=root;pwd=root;";
+        private readonly GailuakDAL gailuakDAL;
 
         public GailuakGehitu()
         {
             InitializeComponent();
+            gailuakDAL = new GailuakDAL(connectionString);
         }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -38,33 +37,14 @@ namespace Inbentarioa
                 e.Graphics.FillRectangle(brush, this.ClientRectangle);
             }
         }
+
         private void CargarDatos()
         {
             try
             {
-                string konekzioString = "server=127.0.0.1;database=inbentarioa;uid=root;pwd=root;";
-
-                using (MySqlConnection connection = new MySqlConnection(konekzioString))
-                {
-                    connection.Open();
-
-                    string query = "SELECT * FROM gailuak"; // 🔹 Gailuak taulako datuak lortu
-
-                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection))
-                    {
-                        DataTable dt = new DataTable();
-                        adapter.Fill(dt);
-                        // **🔹 "Egoera" zutabearen datu mota egokitu**
-                        if (dt.Columns.Contains("Egoera"))
-                        {
-                            dt.Columns["Egoera"].DataType = typeof(bool);
-                        }
-                        
-                        dataGridViewGailuakGehitu.DataSource = null; // 🔹 Lehengo datuak garbitu
-                        dataGridViewGailuakGehitu.DataSource = dt;   // 🔹 Taula berriro kargatu
-                    }
-
-                }
+                DataTable table = gailuakDAL.ObtenerTodosGailuak();
+                dataGridViewGailuakGehitu.DataSource = table;
+                dataGridViewGailuakGehitu.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
             catch (Exception ex)
             {
@@ -74,12 +54,12 @@ namespace Inbentarioa
 
         private void GailuakGehitu_Load(object sender, EventArgs e)
         {
-            CargarDatos(); // 🚀 Zure metodoa deitu lehen aldiz
+            CargarDatos();
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
-
+            // Manejo del evento click del label si es necesario
         }
 
         private void btAtzera_Click(object sender, EventArgs e)
@@ -98,17 +78,16 @@ namespace Inbentarioa
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            // Manejo del evento click de la celda si es necesario
         }
+
         private void btAldatu_Click(object sender, EventArgs e)
         {
             try
             {
-                string konekzioString = "server=127.0.0.1;database=inbentarioa;uid=root;pwd=root;";
-
-                using (MySqlConnection connection = new MySqlConnection(konekzioString))
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    connection.Open(); // 🔹 Konexioa ireki
+                    connection.Open();
 
                     foreach (DataGridViewRow row in dataGridViewGailuakGehitu.Rows)
                     {
@@ -132,17 +111,14 @@ namespace Inbentarioa
                                 cmd.Parameters.AddWithValue("@ErosketaData", erosketadata);
                                 cmd.Parameters.AddWithValue("@Egoera", egoera);
 
-                                cmd.ExecuteNonQuery(); // 🔹 Datuak eguneratu
+                                cmd.ExecuteNonQuery();
                             }
                         }
                     }
-                } // 🔹 Konexioa hemen automatikoki ixten da
+                }
 
                 MessageBox.Show("Cambios guardados correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // 🚀 **DBLana klasearen funtzioa erabili**
-                DBLana dblana = new DBLana();
-                dblana.CargarDatos(dataGridViewGailuakGehitu);
+                CargarDatos(); // Recargar los datos después de la actualización
 
             }
             catch (Exception ex)
@@ -150,9 +126,78 @@ namespace Inbentarioa
                 MessageBox.Show("Error al actualizar los datos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+    }
+    public class GailuakDAL
+    {
+        private readonly string connectionString;
 
+        public GailuakDAL(string connectionString)
+        {
+            this.connectionString = connectionString;
+        }
 
+        public DataTable ObtenerTodosGailuak()
+        {
+            DataTable table = new DataTable();
 
+            string query = @"
+    SELECT 
+        g.ID_Gailuak,
+        g.Gailu_Mota,
+        g.ID_Mintegia,
+        g.Marka,
+        g.Izena,
+        g.Erosketa_data,
+        g.Egoera AS Gailu_Egoera,  -- Alias para evitar confusión
+        o.Memoria_RAM,
+        o.TxartelGrafikoa,
+        o.USB_Portuak,
+        o.Kolorea AS Ordenagailu_Kolorea,
+        i.Kolorea AS Imprimagailu_Kolorea,
+        b.Egoera AS BesteGailu_Egoera
+    FROM Gailuak g
+    LEFT JOIN Ordenagailuak o ON g.ID_Gailuak = o.ID_Gailuak AND g.Gailu_Mota = 'Ordenagailuak'
+    LEFT JOIN Imprimagailuak i ON g.ID_Gailuak = i.ID_Gailuak AND g.Gailu_Mota = 'Inprimagailuak'
+    LEFT JOIN BesteGailuak b ON g.ID_Gailuak = b.ID_Gailuak AND g.Gailu_Mota = 'BesteGailuak'";
 
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
+                    adapter.Fill(table);
+
+                    // Agregar columna combinada para características específicas
+                    table.Columns.Add("Ezaugarriak", typeof(string));
+                    foreach (DataRow row in table.Rows)
+                    {
+                        switch (row["Gailu_Mota"].ToString())
+                        {
+                            case "Ordenagailuak":
+                                row["Ezaugarriak"] = $"RAM: {row["Memoria_RAM"]}GB, GPU: {row["TxartelGrafikoa"]}, USB: {row["USB_Portuak"]}, Kolorea: {row["Ordenagailu_Kolorea"]}";
+                                break;
+                            case "Inprimagailuak":
+                                row["Ezaugarriak"] = $"Kolorea: {row["Imprimagailu_Kolorea"]}";
+                                break;
+                            case "BesteGailuak":
+                                // Verificación segura del valor booleano
+                                bool egoera = false;
+                                if (row["BesteGailu_Egoera"] != DBNull.Value)
+                                {
+                                    egoera = Convert.ToBoolean(row["BesteGailu_Egoera"]);
+                                }
+                                row["Ezaugarriak"] = $"Egoera: {(egoera ? "Ongi" : "Apurtuta")}";
+                                break;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener los gailuak: " + ex.Message);
+            }
+
+            return table;
+        }
     }
 }

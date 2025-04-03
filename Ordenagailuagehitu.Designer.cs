@@ -1,6 +1,6 @@
 ﻿namespace Inbentarioa
 {
-    partial class Form7
+    partial class Ordenagailuagehitu
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form7));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ordenagailuagehitu));
             label1 = new Label();
             textBox1 = new TextBox();
             textBox2 = new TextBox();
@@ -156,6 +156,7 @@
             button12.Name = "button12";
             button12.Size = new Size(179, 80);
             button12.TabIndex = 39;
+            button12.Text = "Izarraitz";
             button12.UseVisualStyleBackColor = true;
             button12.Click += button12_Click;
             // 
@@ -279,7 +280,7 @@
             lbegoera.TabIndex = 49;
             lbegoera.Text = "Egoera:";
             // 
-            // Form7
+            // Ordenagailuagehitu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -311,7 +312,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "Form7";
+            Name = "Ordenagailuagehitu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Izarraitz";
             Load += Form7_Load;

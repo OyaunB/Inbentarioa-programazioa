@@ -1,6 +1,6 @@
 ﻿namespace Inbentarioa
 {
-    partial class Form6
+    partial class MintegienKudeaketa
     {
         /// <summary>
         /// Required designer variable.
@@ -28,24 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form6));
-            dataGridViewErabiltzailea = new DataGridView();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MintegienKudeaketa));
+            DataGridViewMintegiak = new DataGridView();
+            TbGailuakGehitu = new Label();
             BtGehitu = new Button();
             btAldatu = new Button();
             btEzabatu = new Button();
             btAtzera = new Button();
-            TbGailuakGehitu = new Label();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewErabiltzailea).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)DataGridViewMintegiak).BeginInit();
             SuspendLayout();
             // 
-            // dataGridViewErabiltzailea
+            // DataGridViewMintegiak
             // 
-            dataGridViewErabiltzailea.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewErabiltzailea.Location = new Point(203, 80);
-            dataGridViewErabiltzailea.Name = "dataGridViewErabiltzailea";
-            dataGridViewErabiltzailea.RowHeadersWidth = 51;
-            dataGridViewErabiltzailea.Size = new Size(780, 285);
-            dataGridViewErabiltzailea.TabIndex = 22;
+            DataGridViewMintegiak.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DataGridViewMintegiak.Location = new Point(203, 80);
+            DataGridViewMintegiak.Name = "DataGridViewMintegiak";
+            DataGridViewMintegiak.RowHeadersWidth = 51;
+            DataGridViewMintegiak.Size = new Size(780, 285);
+            DataGridViewMintegiak.TabIndex = 22;
+            // 
+            // TbGailuakGehitu
+            // 
+            TbGailuakGehitu.AutoSize = true;
+            TbGailuakGehitu.BackColor = Color.Transparent;
+            TbGailuakGehitu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            TbGailuakGehitu.ForeColor = SystemColors.ControlLightLight;
+            TbGailuakGehitu.Location = new Point(400, 9);
+            TbGailuakGehitu.Name = "TbGailuakGehitu";
+            TbGailuakGehitu.Size = new Size(437, 41);
+            TbGailuakGehitu.TabIndex = 23;
+            TbGailuakGehitu.Text = "MINTEGIAK KUDEATU";
             // 
             // BtGehitu
             // 
@@ -54,12 +66,12 @@
             BtGehitu.BackgroundImage = (Image)resources.GetObject("BtGehitu.BackgroundImage");
             BtGehitu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtGehitu.ForeColor = Color.Transparent;
-            BtGehitu.Location = new Point(200, 400);
+            BtGehitu.Location = new Point(203, 400);
             BtGehitu.Name = "BtGehitu";
-            BtGehitu.Size = new Size(170, 80);
-            BtGehitu.TabIndex = 23;
+            BtGehitu.Size = new Size(174, 80);
+            BtGehitu.TabIndex = 24;
             BtGehitu.UseVisualStyleBackColor = false;
-            BtGehitu.Click += BtGehitu_Click;
+            BtGehitu.Click += BtGehitu_Click_2;
             // 
             // btAldatu
             // 
@@ -68,10 +80,10 @@
             btAldatu.BackgroundImage = (Image)resources.GetObject("btAldatu.BackgroundImage");
             btAldatu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btAldatu.ForeColor = Color.Transparent;
-            btAldatu.Location = new Point(385, 400);
+            btAldatu.Location = new Point(383, 400);
             btAldatu.Name = "btAldatu";
             btAldatu.Size = new Size(185, 80);
-            btAldatu.TabIndex = 24;
+            btAldatu.TabIndex = 25;
             btAldatu.UseVisualStyleBackColor = false;
             btAldatu.Click += btAldatu_Click;
             // 
@@ -82,12 +94,12 @@
             btEzabatu.BackgroundImage = (Image)resources.GetObject("btEzabatu.BackgroundImage");
             btEzabatu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btEzabatu.ForeColor = Color.Transparent;
-            btEzabatu.Location = new Point(585, 400);
+            btEzabatu.Location = new Point(583, 400);
             btEzabatu.Name = "btEzabatu";
             btEzabatu.Size = new Size(200, 80);
-            btEzabatu.TabIndex = 25;
+            btEzabatu.TabIndex = 26;
             btEzabatu.UseVisualStyleBackColor = false;
-            btEzabatu.Click += btEzabatu_Click_1;
+            btEzabatu.Click += btEzabatu_Click;
             // 
             // btAtzera
             // 
@@ -98,53 +110,41 @@
             btAtzera.ForeColor = Color.Transparent;
             btAtzera.Location = new Point(800, 400);
             btAtzera.Name = "btAtzera";
-            btAtzera.Size = new Size(180, 80);
-            btAtzera.TabIndex = 26;
+            btAtzera.Size = new Size(183, 80);
+            btAtzera.TabIndex = 27;
             btAtzera.UseVisualStyleBackColor = false;
             btAtzera.Click += btAtzera_Click;
             // 
-            // TbGailuakGehitu
-            // 
-            TbGailuakGehitu.AutoSize = true;
-            TbGailuakGehitu.BackColor = Color.Transparent;
-            TbGailuakGehitu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            TbGailuakGehitu.ForeColor = SystemColors.ControlLightLight;
-            TbGailuakGehitu.Location = new Point(340, 9);
-            TbGailuakGehitu.Name = "TbGailuakGehitu";
-            TbGailuakGehitu.Size = new Size(544, 41);
-            TbGailuakGehitu.TabIndex = 27;
-            TbGailuakGehitu.Text = "ERABILTZAILEAK KUDEATU";
-            // 
-            // Form6
+            // Form5
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1182, 533);
-            Controls.Add(TbGailuakGehitu);
             Controls.Add(btAtzera);
             Controls.Add(btEzabatu);
             Controls.Add(btAldatu);
             Controls.Add(BtGehitu);
-            Controls.Add(dataGridViewErabiltzailea);
+            Controls.Add(TbGailuakGehitu);
+            Controls.Add(DataGridViewMintegiak);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "Form6";
+            Name = "Form5";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Izarraitz";
-            Load += Form6_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridViewErabiltzailea).EndInit();
+            Load += Form5_Load;
+            ((System.ComponentModel.ISupportInitialize)DataGridViewMintegiak).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private DataGridView dataGridViewErabiltzailea;
+        private DataGridView DataGridViewMintegiak;
+        private Label TbGailuakGehitu;
         private Button BtGehitu;
         private Button btAldatu;
         private Button btEzabatu;
         private Button btAtzera;
-        private Label TbGailuakGehitu;
     }
 }

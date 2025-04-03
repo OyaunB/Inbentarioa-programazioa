@@ -7,11 +7,11 @@ using System.Windows.Forms;
 
 namespace Inbentarioa
 {
-    public partial class Form6 : Form
+    public partial class ErabiltzaileakKudeatu : Form
     {
         private DBErabiltzaileak dbErabiltzaileak = new DBErabiltzaileak(); // 🔹 Instancia de DBErabiltzaileak
 
-        public Form6()
+        public ErabiltzaileakKudeatu()
         {
             InitializeComponent();
         }

@@ -5,11 +5,11 @@ using System.Windows.Forms;
 
 namespace Inbentarioa
 {
-    public partial class Form5 : Form
+    public partial class MintegienKudeaketa : Form
     {
         private DBMintegiak dbMintegiak = new DBMintegiak();
 
-        public Form5()
+        public MintegienKudeaketa()
         {
             InitializeComponent();
             // Configurar DataGridView al iniciar

@@ -46,7 +46,7 @@ namespace Inbentarioa
         private void BtGehitu_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form7 form7 = new Form7();
+            Ordenagailuagehitu form7 = new Ordenagailuagehitu();
             form7.ShowDialog();
         }
 
@@ -60,7 +60,7 @@ namespace Inbentarioa
         private void button1_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form9 form9 = new Form9();
+            BesteGailuBatGehitu form9 = new BesteGailuBatGehitu();
             form9.ShowDialog();
         }
     }

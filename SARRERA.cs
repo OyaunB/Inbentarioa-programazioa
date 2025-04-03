@@ -56,8 +56,30 @@ namespace Inbentarioa
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            TbErabiltzailea.KeyDown += TbErabiltzailea_KeyDown;
+            TbPasahitza.KeyDown += TbPasahitza_KeyDown;
+
 
         }
+        private void TbErabiltzailea_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true; // Evita que el enter haga un sonido o recargue
+                TbPasahitza.Focus(); // Mueve el foco al campo de la contraseña
+            }
+        }
+        private void TbPasahitza_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true; // Evita que Windows haga un sonido de alerta
+                e.Handled = true; // Evita que Windows procese la tecla
+                button1_Click(this, EventArgs.Empty); // Llama manualmente al evento del botón
+            }
+        }
+      
+
 
         private void button1_Click(object sender, EventArgs e)
         {

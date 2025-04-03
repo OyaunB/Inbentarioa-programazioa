@@ -1,6 +1,6 @@
 ﻿namespace Inbentarioa
 {
-    partial class Form4
+    partial class EzabatutakoakIkusi
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form4));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EzabatutakoakIkusi));
             label4 = new Label();
             DataGridViewEzabatutakoak = new DataGridView();
             TbGailuakGehitu = new Label();
