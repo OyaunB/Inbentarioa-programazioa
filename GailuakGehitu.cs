@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿//GailuakGehitu.cs
+using MySql.Data.MySqlClient;
 using System;
 using System.Data;
 using System.Drawing;
@@ -21,29 +22,59 @@ namespace Inbentarioa
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+            Color colorInicio = ColorTranslator.FromHtml("#5de0e6");
+            Color colorFin = ColorTranslator.FromHtml("#004aad");
 
-            // Definir los colores del degradado usando códigos hexadecimales
-            Color colorInicio = ColorTranslator.FromHtml("#5de0e6"); // Azul claro
-            Color colorFin = ColorTranslator.FromHtml("#004aad");    // Azul oscuro
-
-            // Crear un pincel con degradado lineal
             using (LinearGradientBrush brush = new LinearGradientBrush(
-                this.ClientRectangle, // Área donde se aplicará el degradado
-                colorInicio,         // Color inicial
-                colorFin,            // Color final
-                LinearGradientMode.Horizontal)) // Dirección del degradado (horizontal)
+                this.ClientRectangle,
+                colorInicio,
+                colorFin,
+                LinearGradientMode.Horizontal))
             {
-                // Rellenar el fondo del formulario con el degradado
                 e.Graphics.FillRectangle(brush, this.ClientRectangle);
             }
         }
-
         private void CargarDatos()
         {
             try
             {
                 DataTable table = gailuakDAL.ObtenerTodosGailuak();
+
+                // Creamos manualmente la columna CheckBox
+                var checkBoxColumn = new DataGridViewCheckBoxColumn
+                {
+                    Name = "EzabatzekoMarka",
+                    HeaderText = "Ezabatuta",
+                    TrueValue = true,
+                    FalseValue = false,
+                    ReadOnly = true // Hacemos la columna de solo lectura
+                };
+
+                // Añadimos la columna si no existe
+                if (!dataGridViewGailuakGehitu.Columns.Contains("EzabatzekoMarka"))
+                {
+                    dataGridViewGailuakGehitu.Columns.Add(checkBoxColumn);
+                }
+
+                // Asignamos los datos
                 dataGridViewGailuakGehitu.DataSource = table;
+
+                // Ocultamos la columna "EstaEliminado" que viene de la BD
+                if (dataGridViewGailuakGehitu.Columns.Contains("EstaEliminado"))
+                {
+                    dataGridViewGailuakGehitu.Columns["EstaEliminado"].Visible = false;
+                }
+
+                // Configuramos los valores del checkbox basados en "EstaEliminado"
+                foreach (DataGridViewRow row in dataGridViewGailuakGehitu.Rows)
+                {
+                    if (row.Cells["EstaEliminado"].Value != null)
+                    {
+                        bool estaEliminado = Convert.ToInt32(row.Cells["EstaEliminado"].Value) == 1;
+                        row.Cells["EzabatzekoMarka"].Value = estaEliminado;
+                    }
+                }
+
                 dataGridViewGailuakGehitu.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
             catch (Exception ex)
@@ -80,7 +111,6 @@ namespace Inbentarioa
         {
             // Manejo del evento click de la celda si es necesario
         }
-
         private void btAldatu_Click(object sender, EventArgs e)
         {
             try
@@ -88,116 +118,73 @@ namespace Inbentarioa
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-
-                    foreach (DataGridViewRow row in dataGridViewGailuakGehitu.Rows)
+                    using (MySqlTransaction transaction = connection.BeginTransaction())
                     {
-                        if (row.Cells["ID"].Value != null) // Saihestu lerro hutsak
+                        try
                         {
-                            int id = Convert.ToInt32(row.Cells["ID"].Value);
-                            int idMintegia = Convert.ToInt32(row.Cells["ID_Mintegia"].Value);
-                            string marka = row.Cells["Marka"].Value.ToString();
-                            string izena = row.Cells["Izena"].Value.ToString();
-                            DateTime erosketadata = Convert.ToDateTime(row.Cells["ErosketaData"].Value);
-                            bool egoera = Convert.ToBoolean(row.Cells["Egoera"].Value);
-
-                            string query = "UPDATE gailuak SET ID_Mintegia = @ID_Mintegia, Marka = @Marka, Izena = @Izena, ErosketaData = @ErosketaData, Egoera = @Egoera WHERE ID = @ID";
-
-                            using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                            foreach (DataGridViewRow row in dataGridViewGailuakGehitu.Rows)
                             {
-                                cmd.Parameters.AddWithValue("@ID", id);
-                                cmd.Parameters.AddWithValue("@ID_Mintegia", idMintegia);
-                                cmd.Parameters.AddWithValue("@Marka", marka);
-                                cmd.Parameters.AddWithValue("@Izena", izena);
-                                cmd.Parameters.AddWithValue("@ErosketaData", erosketadata);
-                                cmd.Parameters.AddWithValue("@Egoera", egoera);
-
-                                cmd.ExecuteNonQuery();
-                            }
-                        }
-                    }
-                }
-
-                MessageBox.Show("Cambios guardados correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                CargarDatos(); // Recargar los datos después de la actualización
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al actualizar los datos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-    }
-    public class GailuakDAL
-    {
-        private readonly string connectionString;
-
-        public GailuakDAL(string connectionString)
-        {
-            this.connectionString = connectionString;
-        }
-
-        public DataTable ObtenerTodosGailuak()
-        {
-            DataTable table = new DataTable();
-
-            string query = @"
-    SELECT 
-        g.ID_Gailuak,
-        g.Gailu_Mota,
-        g.ID_Mintegia,
-        g.Marka,
-        g.Izena,
-        g.Erosketa_data,
-        g.Egoera AS Gailu_Egoera,  -- Alias para evitar confusión
-        o.Memoria_RAM,
-        o.TxartelGrafikoa,
-        o.USB_Portuak,
-        o.Kolorea AS Ordenagailu_Kolorea,
-        i.Kolorea AS Imprimagailu_Kolorea,
-        b.Egoera AS BesteGailu_Egoera
-    FROM Gailuak g
-    LEFT JOIN Ordenagailuak o ON g.ID_Gailuak = o.ID_Gailuak AND g.Gailu_Mota = 'Ordenagailuak'
-    LEFT JOIN Imprimagailuak i ON g.ID_Gailuak = i.ID_Gailuak AND g.Gailu_Mota = 'Inprimagailuak'
-    LEFT JOIN BesteGailuak b ON g.ID_Gailuak = b.ID_Gailuak AND g.Gailu_Mota = 'BesteGailuak'";
-
-            try
-            {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
-                    adapter.Fill(table);
-
-                    // Agregar columna combinada para características específicas
-                    table.Columns.Add("Ezaugarriak", typeof(string));
-                    foreach (DataRow row in table.Rows)
-                    {
-                        switch (row["Gailu_Mota"].ToString())
-                        {
-                            case "Ordenagailuak":
-                                row["Ezaugarriak"] = $"RAM: {row["Memoria_RAM"]}GB, GPU: {row["TxartelGrafikoa"]}, USB: {row["USB_Portuak"]}, Kolorea: {row["Ordenagailu_Kolorea"]}";
-                                break;
-                            case "Inprimagailuak":
-                                row["Ezaugarriak"] = $"Kolorea: {row["Imprimagailu_Kolorea"]}";
-                                break;
-                            case "BesteGailuak":
-                                // Verificación segura del valor booleano
-                                bool egoera = false;
-                                if (row["BesteGailu_Egoera"] != DBNull.Value)
+                                if (row.Cells["ID"].Value != null)
                                 {
-                                    egoera = Convert.ToBoolean(row["BesteGailu_Egoera"]);
+                                    int id = Convert.ToInt32(row.Cells["ID"].Value);
+                                    bool estaEliminado = Convert.ToInt32(row.Cells["EstaEliminado"].Value) == 1;
+                                    bool marcadoParaEliminar = Convert.ToBoolean(row.Cells["EzabatzekoMarka"].Value);
+
+                                    // --- Actualizar TODOS los campos editables en Gailuak ---
+                                    gailuakDAL.ActualizarGailua(
+                                        id,
+                                        Convert.ToInt32(row.Cells["ID_Mintegia"].Value),
+                                        row.Cells["Marka"].Value?.ToString() ?? "",
+                                        row.Cells["Izena"].Value?.ToString() ?? "",
+                                        Convert.ToDateTime(row.Cells["ErosketaData"].Value),
+                                        marcadoParaEliminar,
+                                        NormalizarEgoeraGailua(row.Cells["EgoeraGailua"].Value?.ToString())
+                                    );
+
+                                    // --- Mover a EzabatutakoGailuak si está marcado y no estaba eliminado ---
+                                    if (!estaEliminado && marcadoParaEliminar)
+                                    {
+                                        string datosGailua = gailuakDAL.ObtenerDatosGailua(id);
+                                        if (datosGailua != null)
+                                        {
+                                            string[] partes = datosGailua.Split('|');
+                                            gailuakDAL.MoverAEzabatutakoGailuak(id, partes[0], partes[1]);
+                                        }
+                                    }
                                 }
-                                row["Ezaugarriak"] = $"Egoera: {(egoera ? "Ongi" : "Apurtuta")}";
-                                break;
+                            }
+
+                            transaction.Commit();
+                            MessageBox.Show("Cambios guardados correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            CargarDatos(); // Recargar para reflejar cambios
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            MessageBox.Show("Error al guardar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al obtener los gailuak: " + ex.Message);
+                MessageBox.Show("Error de conexión: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
 
-            return table;
+        private string NormalizarEgoeraGailua(string egoeraGailua)
+        {
+            var estadosValidos = new[] { "Ongi", "Apurtuta", "Kompontzen" };
+            if (!estadosValidos.Any(e => e.Equals(egoeraGailua, StringComparison.OrdinalIgnoreCase)))
+            {
+                return "Ongi"; // Valor por defecto
+                               // Formatea con primera letra en mayúscula
+                return char.ToUpper(egoeraGailua[0]) + egoeraGailua.Substring(1).ToLower();
+
+            }
+            
+
+            return char.ToUpper(egoeraGailua[0]) + egoeraGailua.Substring(1).ToLower();
         }
     }
 }

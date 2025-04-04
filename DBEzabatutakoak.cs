@@ -14,7 +14,7 @@ public class DBEzabatutakoak
             using (MySqlConnection konekzioa = new MySqlConnection(konekzioString))
             {
                 konekzioa.Open();
-                string query = "SELECT ID_Gailuak, Data_Ezabatu, Izena FROM EzabatutakoGailuak"; // Especifica las columnas en lugar de usar *
+                string query = "SELECT ID_Gailuak, Data_Ezabatu, Marka, Modeloa FROM EzabatutakoGailuak"; // Especifica las columnas en lugar de usar *
                 using (MySqlCommand cmd = new MySqlCommand(query, konekzioa))
                 {
                     using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))

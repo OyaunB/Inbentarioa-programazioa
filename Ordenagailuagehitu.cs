@@ -62,5 +62,10 @@ namespace Inbentarioa
         {
 
         }
+
+        private void lbizena_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -156,7 +156,6 @@
             button12.Name = "button12";
             button12.Size = new Size(179, 80);
             button12.TabIndex = 39;
-            button12.Text = "Izarraitz";
             button12.UseVisualStyleBackColor = true;
             button12.Click += button12_Click;
             // 
@@ -190,11 +189,12 @@
             lbizena.BackColor = Color.Transparent;
             lbizena.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbizena.ForeColor = SystemColors.ControlLightLight;
-            lbizena.Location = new Point(39, 203);
+            lbizena.Location = new Point(41, 262);
             lbizena.Name = "lbizena";
-            lbizena.Size = new Size(94, 28);
+            lbizena.Size = new Size(129, 28);
             lbizena.TabIndex = 42;
-            lbizena.Text = "Izena:";
+            lbizena.Text = "Modeloa:";
+            lbizena.Click += lbizena_Click;
             // 
             // lbmarka
             // 
@@ -202,7 +202,7 @@
             lbmarka.BackColor = Color.Transparent;
             lbmarka.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbmarka.ForeColor = SystemColors.ControlLightLight;
-            lbmarka.Location = new Point(39, 258);
+            lbmarka.Location = new Point(41, 202);
             lbmarka.Name = "lbmarka";
             lbmarka.Size = new Size(99, 28);
             lbmarka.TabIndex = 43;
