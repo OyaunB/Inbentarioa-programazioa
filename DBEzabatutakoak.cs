@@ -14,7 +14,7 @@ public class DBEzabatutakoak
             using (MySqlConnection konekzioa = new MySqlConnection(konekzioString))
             {
                 konekzioa.Open();
-                string query = "SELECT ID_Gailuak, Data_Ezabatu, Marka, Modeloa FROM EzabatutakoGailuak"; // Especifica las columnas en lugar de usar *
+                string query = "SELECT ID_Ezabatua, ID_Gailuak, Data_Ezabatu, Marka, Modeloa FROM EzabatutakoGailuak";
                 using (MySqlCommand cmd = new MySqlCommand(query, konekzioa))
                 {
                     using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
@@ -26,14 +26,13 @@ public class DBEzabatutakoak
         }
         catch (MySqlException ex)
         {
-            // Específico para errores de MySQL
             Console.WriteLine("MySQL errorea datuak lortzerakoan: " + ex.Message);
-            throw; // Re-lanzar la excepción para manejarla en el formulario
+            throw;
         }
         catch (Exception ex)
         {
             Console.WriteLine("Errorea datuak lortzerakoan: " + ex.Message);
-            throw; // Re-lanzar la excepción para manejarla en el formulario
+            throw;
         }
         return dt;
     }

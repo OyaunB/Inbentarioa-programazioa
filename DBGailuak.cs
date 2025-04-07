@@ -120,6 +120,27 @@ namespace Inbentarioa
                 cmd.ExecuteNonQuery();
             }
         }
+        public void EliminarGailua(int idGailuak)
+        {
+            try
+            {
+                string deleteQuery = @"DELETE FROM Gailuak WHERE ID_Gailuak = @ID_Gailuak";
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                using (MySqlCommand cmd = new MySqlCommand(deleteQuery, connection))
+                {
+                    cmd.Parameters.AddWithValue("@ID_Gailuak", idGailuak);
+
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al eliminar el dispositivo: " + ex.Message);
+            }
+        }
+
 
         public string ObtenerDatosGailua(int idGailuak)
         {

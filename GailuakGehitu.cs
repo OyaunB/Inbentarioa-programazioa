@@ -192,7 +192,6 @@ namespace Inbentarioa
 
             return char.ToUpper(egoeraGailua[0]) + egoeraGailua.Substring(1).ToLower();
         }
-
         private void btEzabatu_Click(object sender, EventArgs e)
         {
             // Verificar que se ha seleccionado un registro
@@ -201,44 +200,76 @@ namespace Inbentarioa
                 // Obtener el ID del registro seleccionado
                 var idGailua = dataGridViewGailuakGehitu.SelectedRows[0].Cells["Id"].Value.ToString();
 
-                // Iniciar la conexión a la base de datos
                 using (var connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
 
-                    // Transacción para asegurar que se eliminen todos los registros
                     using (var transaction = connection.BeginTransaction())
                     {
                         try
                         {
-                            // Eliminar en la tabla de herencia 'BesteGailuak' (ahora la tabla correcta)
-                            var deleteBesteGailuak = new MySqlCommand("DELETE FROM BesteGailuak WHERE ID_Gailuak = @ID_Gailuak", connection, transaction);
-                            deleteBesteGailuak.Parameters.AddWithValue("@ID_Gailuak", idGailua);
-                            deleteBesteGailuak.ExecuteNonQuery();
+                            // 1. Gailua historialera mugitu
+                            var moveToDeletedQuery = new MySqlCommand(@"
+                        INSERT INTO EzabatutakoGailuak (ID_Gailuak, Data_Ezabatu, Marka, Modeloa)
+                        SELECT ID_Gailuak, NOW(), Marka, Modeloa
+                        FROM Gailuak WHERE ID_Gailuak = @ID_Gailuak", connection, transaction);
+                            moveToDeletedQuery.Parameters.AddWithValue("@ID_Gailuak", idGailua);
+                            moveToDeletedQuery.ExecuteNonQuery();
 
-                            // Eliminar en la tabla principal 'Gailuak'
-                            var deleteGailuak = new MySqlCommand("DELETE FROM Gailuak WHERE Id = @Id", connection, transaction);
-                            deleteGailuak.Parameters.AddWithValue("@Id", idGailua);
+                            // 2. Ezabatu erlazio taula guztietatik
+                            string[] erlazioTaulak = { "Imprimagailuak", "Ordenagailuak", "BesteGailuak" };
+
+                            foreach (string taula in erlazioTaulak)
+                            {
+                                var deleteQuery = new MySqlCommand(
+                                    $"DELETE FROM {taula} WHERE ID_Gailuak = @ID_Gailuak",
+                                    connection, transaction);
+                                deleteQuery.Parameters.AddWithValue("@ID_Gailuak", idGailua);
+                                deleteQuery.ExecuteNonQuery();
+                            }
+
+                            // 3. Azkenik, Gailuak-etik ezabatu
+                            var deleteGailuak = new MySqlCommand("DELETE FROM Gailuak WHERE ID_Gailuak = @ID_Gailuak", connection, transaction);
+                            deleteGailuak.Parameters.AddWithValue("@ID_Gailuak", idGailua);
                             deleteGailuak.ExecuteNonQuery();
 
-                            // Commit de la transacción si todo ha ido bien
                             transaction.Commit();
-                            MessageBox.Show("Gailua y su herencia en BesteGailuak han sido eliminados correctamente.");
+                            MessageBox.Show("Gailua ezabatu da eta EzabatutakoGailuak taulan gorde da.");
                         }
                         catch (Exception ex)
                         {
-                            // Si algo sale mal, hacer rollback
                             transaction.Rollback();
-                            MessageBox.Show($"Error al eliminar: {ex.Message}");
+                            MessageBox.Show($"Errorea ezabatzerakoan: {ex.Message}");
                         }
                     }
                 }
+
+                RecargarTablaGailuak();
             }
             else
             {
-                MessageBox.Show("Por favor, selecciona un Gailua para eliminar.");
+                MessageBox.Show("Mesedez, hautatu gailu bat ezabatzeko.");
             }
         }
+
+
+        // Método para recargar la tabla de Gailuak (puedes adaptar esto según cómo estés cargando los datos en la tabla)
+        private void RecargarTablaGailuak()
+        {
+            // Aquí puedes agregar el código para volver a cargar los datos en tu DataGridView.
+            // Ejemplo:
+            string selectQuery = "SELECT * FROM Gailuak"; // Cambia la consulta según tus necesidades
+
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                var dataAdapter = new MySqlDataAdapter(selectQuery, connection);
+                var dataTable = new DataTable();
+                dataAdapter.Fill(dataTable);
+                dataGridViewGailuakGehitu.DataSource = dataTable;
+            }
+        }
+
+
 
 
     }
