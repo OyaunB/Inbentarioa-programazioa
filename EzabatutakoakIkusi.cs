@@ -34,9 +34,30 @@ namespace Inbentarioa
 
         private void Form4_Load(object sender, EventArgs e)
         {
-            DBEzabatutakoak db = new DBEzabatutakoak();  // Crear instancia
-            DataTable dt = db.LortuEzabatutakoGailuak(); // Llamar al método desde la instancia
+            // Configurar el DataGridView antes de cargar los datos
+            DataGridViewEzabatutakoak.ReadOnly = true;
+            DataGridViewEzabatutakoak.AllowUserToAddRows = false;
+            DataGridViewEzabatutakoak.AllowUserToDeleteRows = false;
+            DataGridViewEzabatutakoak.AllowUserToResizeRows = false;
+            DataGridViewEzabatutakoak.MultiSelect = false;
+            DataGridViewEzabatutakoak.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            DataGridViewEzabatutakoak.EditMode = DataGridViewEditMode.EditProgrammatically;
+            DataGridViewEzabatutakoak.RowHeadersVisible = false;
+
+            // Estilo visual para la selección
+            DataGridViewEzabatutakoak.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
+            DataGridViewEzabatutakoak.DefaultCellStyle.SelectionForeColor = Color.Black;
+
+            // Cargar los datos
+            DBEzabatutakoak db = new DBEzabatutakoak();
+            DataTable dt = db.LortuEzabatutakoGailuak();
             DataGridViewEzabatutakoak.DataSource = dt;
+
+            // Opcional: Configurar el ancho de las columnas
+            if (DataGridViewEzabatutakoak.Columns.Count > 0)
+            {
+                DataGridViewEzabatutakoak.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)

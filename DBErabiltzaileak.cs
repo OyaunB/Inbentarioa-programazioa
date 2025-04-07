@@ -63,12 +63,13 @@ namespace Inbentarioa
                 using (MySqlConnection connection = new MySqlConnection(konekzioString))
                 {
                     connection.Open();
-                    string query = "UPDATE Erabiltzaileak SET Izena = @izena, Errola = @errola WHERE ID_Erabiltzaileak = @id";
+                    string query = "UPDATE Erabiltzaileak SET Izena = @izena, Errola = @errola, ErabiltzaileIzena = @erabiltzailea WHERE ID_Erabiltzaileak = @id";
                     using (MySqlCommand cmd = new MySqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@id", id);
                         cmd.Parameters.AddWithValue("@izena", izena);
                         cmd.Parameters.AddWithValue("@errola", errola);
+                        cmd.Parameters.AddWithValue("@erabiltzailea", erabiltzailea);
                         int affectedRows = cmd.ExecuteNonQuery();
                         return affectedRows > 0;
                     }
@@ -76,57 +77,68 @@ namespace Inbentarioa
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Errorea erabiltzailea eguneratzerakoan: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Errorea erabiltzailea eguneratzerakoan: " + ex.Message,
+                               "Errorea",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
-
         public bool GordeErabiltzaileaFitxategian(string erabiltzaileaAntzinakoa, string erabiltzaileaBerria, string pasahitza, string errola, bool gehitu)
         {
             string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Erabiltzaileak.txt");
-            List<string> lines = new List<string>();
 
             try
             {
-                // Leer todas las líneas del archivo si existe
-                if (File.Exists(filePath))
-                {
-                    lines = File.ReadAllLines(filePath).ToList();
-                }
+                List<string> lines = File.Exists(filePath) ? File.ReadAllLines(filePath).ToList() : new List<string>();
 
-                // Buscar si el usuario antiguo existe en el archivo
                 int index = lines.FindIndex(line => line.StartsWith(erabiltzaileaAntzinakoa + ";"));
 
-                if (gehitu)
+                string nuevaLinea = $"{erabiltzaileaBerria};{pasahitza};{errola}";
+
+                if (gehitu) // Actualizar o añadir
                 {
-                    if (index == -1)
-                    {
-                        // Si no existe, añadir como nuevo usuario
-                        lines.Add($"{erabiltzaileaBerria};{pasahitza};{errola}");
-                    }
+                    if (index != -1)
+                        lines[index] = nuevaLinea;
                     else
-                    {
-                        // Si existe, actualizar la línea con el nuevo nombre
-                        lines[index] = $"{erabiltzaileaBerria};{pasahitza};{errola}";
-                    }
+                        lines.Add(nuevaLinea);
                 }
-                else if (index != -1)
+                else // Eliminar
                 {
-                    // Si estamos eliminando, quitar la línea
-                    lines.RemoveAt(index);
+                    if (index != -1)
+                        lines.RemoveAt(index);
                 }
 
-                // Guardar cambios en el archivo
                 File.WriteAllLines(filePath, lines);
                 return true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Errorea fitxategia eguneratzerakoan: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Errorea fitxategia eguneratzerakoan: " + ex.Message,
+                               "Errorea",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
-
+        public int LortuHurrengoId()
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(konekzioString))
+                {
+                    connection.Open();
+                    string query = "SELECT IFNULL(MAX(ID_Erabiltzaileak), 0) + 1 FROM Erabiltzaileak";
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                    {
+                        return Convert.ToInt32(cmd.ExecuteScalar());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Errorea ID hurrengoa lortzerakoan: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return -1; // O maneja el error de otra forma
+            }
+        }
 
         public bool EzabatuErabiltzailea(int id)
         {

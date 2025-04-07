@@ -33,8 +33,22 @@ namespace Inbentarioa
 
         private void Form6_Load(object sender, EventArgs e)
         {
-            CargarDatos(); //    Carga los datos al abrir el formulario
+            // Configurar el DataGridView para solo lectura y selección de filas completas
+            dataGridViewErabiltzailea.ReadOnly = true;
+            dataGridViewErabiltzailea.AllowUserToAddRows = false;
+            dataGridViewErabiltzailea.AllowUserToDeleteRows = false;
+            dataGridViewErabiltzailea.AllowUserToResizeRows = false;
+            dataGridViewErabiltzailea.MultiSelect = false; // Solo permitir selección de una fila a la vez
+            dataGridViewErabiltzailea.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewErabiltzailea.EditMode = DataGridViewEditMode.EditProgrammatically;
 
+            // Ocultar el indicador de edición (el lápiz)
+            dataGridViewErabiltzailea.RowHeadersVisible = false;
+            //Cambiar colores
+            dataGridViewErabiltzailea.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
+            dataGridViewErabiltzailea.DefaultCellStyle.SelectionForeColor = Color.Black;
+
+            CargarDatos();
         }
 
         private void CargarDatos()
@@ -71,22 +85,21 @@ namespace Inbentarioa
 
         private void BtGehitu_Click(object sender, EventArgs e)
         {
-            // IDa automatikoki kalkulatu
-            int id = dataGridViewErabiltzailea.Rows.Count + 1;
+            // Obtener el siguiente ID disponible de la base de datos
+            int id = dbErabiltzaileak.LortuHurrengoId();
 
-            // Erabiltzailearen izena eskatu
+            if (id == -1)
+            {
+                MessageBox.Show("Ezin da hurrengo IDa lortu!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Resto del código permanece igual...
             string izena = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen izena:", "Gehitu Erabiltzailea", "");
-
-            // Erabiltzailearen errola eskatu
             string errola = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen errola:", "Gehitu Erabiltzailea", "");
-
-            // Erabiltzailearen kontua (username) eskatu
             string erabiltzailea = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen username-a:", "Gehitu Erabiltzailea", "");
-
-            // Erabiltzailearen pasahitza eskatu
             string pasahitza = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen pasahitza:", "Gehitu Erabiltzailea", "");
 
-            // Balidazioa: eremu guztiak bete behar dira
             if (string.IsNullOrWhiteSpace(izena) || string.IsNullOrWhiteSpace(errola) ||
                 string.IsNullOrWhiteSpace(erabiltzailea) || string.IsNullOrWhiteSpace(pasahitza))
             {
@@ -94,29 +107,20 @@ namespace Inbentarioa
                 return;
             }
 
-            // Datu basean gehitu
-            DBErabiltzaileak db = new DBErabiltzaileak();
-            bool gehituta = db.GehituErabiltzailea(id, izena, errola, erabiltzailea);
+            bool gehituta = dbErabiltzaileak.GehituErabiltzailea(id, izena, errola, erabiltzailea);
 
             if (gehituta)
             {
-                // Erabiltzaileak.txt fitxategian gordetzeko ruta
-                string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Erabiltzaileak.txt");
+                bool fitxategianGordeta = dbErabiltzaileak.GordeErabiltzaileaFitxategian(erabiltzailea, erabiltzailea, pasahitza, errola, true);
 
-                try
+                if (fitxategianGordeta)
                 {
-                    // Fitxategian erabiltzaile berria gehitu (formatua: Erabiltzailea;Pasahitza,Errola)
-                    using (StreamWriter writer = new StreamWriter(filePath, true))
-                    {
-                        writer.WriteLine($"{erabiltzailea};{pasahitza};{errola}");
-                    }
-
                     MessageBox.Show("Erabiltzailea gehitu da eta fitxategian gorde da!", "Ongi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    CargarDatos(); // Datuak eguneratu
+                    CargarDatos();
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show("Errorea erabiltzailea fitxategian gordetzean: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Erabiltzailea datu-basean gehitu da, baina errorea fitxategian gordetzean!", "Abisua", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             else
@@ -124,69 +128,94 @@ namespace Inbentarioa
                 MessageBox.Show("Errorea erabiltzailea gehitzean!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void btAldatu_Click(object sender, EventArgs e)
         {
             if (dataGridViewErabiltzailea.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Hautatu erabiltzaile bat eguneratzeko!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Hautatu erabiltzaile bat eguneratzeko!", "Errorea",
+                               MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             DataGridViewRow row = dataGridViewErabiltzailea.SelectedRows[0];
-
             int id = Convert.ToInt32(row.Cells["ID_Erabiltzaileak"].Value);
-            string izena = row.Cells["Izena"].Value.ToString();
-            string errola = row.Cells["Errola"].Value.ToString();
-            string erabiltzailea = row.Cells["ErabiltzaileIzena"].Value?.ToString(); // Asegurar que no es nulo
+            string izenaActual = row.Cells["Izena"].Value.ToString();
+            string errolaActual = row.Cells["Errola"].Value.ToString();
+            string erabiltzaileaIzanaActual = row.Cells["ErabiltzaileIzena"].Value?.ToString();
 
-            bool eguneratuta = dbErabiltzaileak.EguneratuErabiltzailea(id, izena, errola, erabiltzailea);
+            // Pedir nuevos valores al usuario
+            string izenaBerria = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen izen berria:",
+                                                                          "Eguneratu Erabiltzailea",
+                                                                          izenaActual);
+
+            string errolaBerria = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen errol berria:",
+                                                                            "Eguneratu Erabiltzailea",
+                                                                            errolaActual);
+
+            string erabiltzaileaIzenaBerria = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen username berria:",
+                                                                                      "Eguneratu Erabiltzailea",
+                                                                                      erabiltzaileaIzanaActual);
+
+            string pasahitzBerria = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen pasahitz berria (utzi hutsik ez aldatzeko):",
+                                                                             "Eguneratu Erabiltzailea",
+                                                                             "");
+
+            // Validar datos obligatorios
+            if (string.IsNullOrWhiteSpace(izenaBerria) ||
+                string.IsNullOrWhiteSpace(errolaBerria) ||
+                string.IsNullOrWhiteSpace(erabiltzaileaIzenaBerria))
+            {
+                MessageBox.Show("Izena, errola eta erabiltzaile izena bete behar dira!",
+                                "Errorea",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Actualizar en la base de datos
+            bool eguneratuta = dbErabiltzaileak.EguneratuErabiltzailea(id, izenaBerria, errolaBerria, erabiltzaileaIzenaBerria);
 
             if (eguneratuta)
             {
-                // También actualizar en el archivo, asegurando que se mantiene el password
-                string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Erabiltzaileak.txt");
-                string pasahitza = "";
-
-                // Leer el archivo para obtener la contraseña actual del usuario antes de sobreescribirlo
-                if (File.Exists(filePath))
+                // Si se proporcionó nueva contraseña o cambió el nombre de usuario, actualizar el archivo
+                if (!string.IsNullOrWhiteSpace(pasahitzBerria) ||
+                    erabiltzaileaIzanaActual != erabiltzaileaIzenaBerria)
                 {
-                    foreach (string line in File.ReadLines(filePath))
+                    bool fitxategiaEguneratuta = dbErabiltzaileak.GordeErabiltzaileaFitxategian(
+                        erabiltzaileaIzanaActual,
+                        erabiltzaileaIzenaBerria,
+                        string.IsNullOrWhiteSpace(pasahitzBerria) ? "" : pasahitzBerria,
+                        errolaBerria,
+                        true);
+
+                    if (fitxategiaEguneratuta)
                     {
-                        string[] parts = line.Split(';');
-                        if (parts.Length >= 2 && parts[0] == erabiltzailea)
-                        {
-                            pasahitza = parts[1]; // Guardamos la contraseña existente
-                            break;
-                        }
+                        MessageBox.Show("Erabiltzailea eguneratu da datu-basean eta fitxategian!",
+                                       "Ongi",
+                                       MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                }
-
-                //bool fitxategiaEguneratuta = dbErabiltzaileak.GordeErabiltzaileaFitxategian(erabiltzailea, pasahitza, errola, false);
-                // de prueba, para quitar el error
-                // bool fitxategiaEguneratuta = dbErabiltzaileak.GordeErabiltzaileaFitxategian(erabiltzailea, pasahitza, errola, false);
-                // copiloten erantzuna=
-                bool fitxategiaEguneratuta = dbErabiltzaileak.GordeErabiltzaileaFitxategian(erabiltzailea, erabiltzailea, pasahitza, errola, false);
-
-
-
-                if (fitxategiaEguneratuta)
-                {
-                    MessageBox.Show("Erabiltzailea eguneratu da datu-basean eta fitxategian!", "Ongi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                    {
+                        MessageBox.Show("Erabiltzailea datu-basean eguneratu da, baina errorea fitxategian!",
+                                      "Abisua",
+                                      MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Erabiltzailea eguneratu da datu-basean, baina errorea fitxategian!", "Abisua", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Erabiltzailea eguneratu da datu-basean!",
+                                   "Ongi",
+                                   MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                CargarDatos();
+
+                CargarDatos(); // Actualizar la vista
             }
             else
-            {   
-                MessageBox.Show("Errorea erabiltzailea eguneratzerakoan!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            {
+                MessageBox.Show("Errorea erabiltzailea eguneratzerakoan!",
+                               "Errorea",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
         private void btEzabatu_Click_1(object sender, EventArgs e)
         {
             if (dataGridViewErabiltzailea.SelectedRows.Count == 0)
@@ -197,6 +226,7 @@ namespace Inbentarioa
 
             DataGridViewRow row = dataGridViewErabiltzailea.SelectedRows[0];
             int id = Convert.ToInt32(row.Cells["ID_Erabiltzaileak"].Value);
+            string erabiltzailea = row.Cells["ErabiltzaileIzena"].Value?.ToString();
 
             DialogResult result = MessageBox.Show("Ziur zaude erabiltzaile hau ezabatu nahi duzula?", "Kontuz", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
@@ -206,6 +236,17 @@ namespace Inbentarioa
 
                 if (ezabatuta)
                 {
+                    // También borrar del archivo
+                    if (!string.IsNullOrEmpty(erabiltzailea))
+                    {
+                        bool fitxategitikEzabatuta = dbErabiltzaileak.GordeErabiltzaileaFitxategian(erabiltzailea, erabiltzailea, "", "", false);
+
+                        if (!fitxategitikEzabatuta)
+                        {
+                            MessageBox.Show("Erabiltzailea datu-basean ezabatu da, baina errorea fitxategitik ezabatzean!", "Abisua", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+
                     MessageBox.Show("Erabiltzailea ezabatu da!", "Ongi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     CargarDatos();
                 }

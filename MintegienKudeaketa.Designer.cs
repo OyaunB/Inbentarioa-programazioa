@@ -71,7 +71,7 @@
             BtGehitu.Size = new Size(174, 80);
             BtGehitu.TabIndex = 24;
             BtGehitu.UseVisualStyleBackColor = false;
-            BtGehitu.Click += BtGehitu_Click_2;
+            BtGehitu.Click += BtGehitu_Click;
             // 
             // btAldatu
             // 

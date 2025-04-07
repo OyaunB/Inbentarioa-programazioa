@@ -31,13 +31,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IMPRIMAGAILUAK));
             BtAukeraAutatu = new Label();
             textBox1 = new TextBox();
-            textBox2 = new TextBox();
             textBox3 = new TextBox();
             lbmintkodea = new Label();
             label1 = new Label();
             label2 = new Label();
             btAtzera = new Button();
             bidaliBotoia = new Button();
+            comboBox1 = new ComboBox();
             SuspendLayout();
             // 
             // BtAukeraAutatu
@@ -59,13 +59,6 @@
             textBox1.Size = new Size(260, 27);
             textBox1.TabIndex = 30;
             // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(364, 274);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(260, 27);
-            textBox2.TabIndex = 31;
-            // 
             // textBox3
             // 
             textBox3.Location = new Point(364, 151);
@@ -79,11 +72,11 @@
             lbmintkodea.BackColor = Color.Transparent;
             lbmintkodea.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbmintkodea.ForeColor = SystemColors.ControlLightLight;
-            lbmintkodea.Location = new Point(152, 150);
+            lbmintkodea.Location = new Point(188, 147);
             lbmintkodea.Name = "lbmintkodea";
-            lbmintkodea.Size = new Size(157, 28);
+            lbmintkodea.Size = new Size(115, 28);
             lbmintkodea.TabIndex = 42;
-            lbmintkodea.Text = "ID Gailuak:";
+            lbmintkodea.Text = "MARKA:";
             lbmintkodea.Click += lbmintkodea_Click;
             // 
             // label1
@@ -92,11 +85,11 @@
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.ControlLightLight;
-            label1.Location = new Point(189, 208);
+            label1.Location = new Point(152, 208);
             label1.Name = "label1";
-            label1.Size = new Size(120, 28);
+            label1.Size = new Size(151, 28);
             label1.TabIndex = 43;
-            label1.Text = "Kolorea:";
+            label1.Text = "MODELOA:";
             // 
             // label2
             // 
@@ -104,11 +97,11 @@
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(199, 274);
+            label2.Location = new Point(175, 270);
             label2.Name = "label2";
-            label2.Size = new Size(110, 28);
+            label2.Size = new Size(128, 28);
             label2.TabIndex = 44;
-            label2.Text = "Egoera:";
+            label2.Text = "EGOERA:";
             // 
             // btAtzera
             // 
@@ -134,19 +127,28 @@
             bidaliBotoia.TabIndex = 46;
             bidaliBotoia.UseVisualStyleBackColor = true;
             // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Ongi", "Apurtuta", "Kompontzen" });
+            comboBox1.Location = new Point(364, 270);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(260, 28);
+            comboBox1.TabIndex = 56;
+            // 
             // IMPRIMAGAILUAK
             // 
             AccessibleName = "IMPRIMAGAILUAK";
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(comboBox1);
             Controls.Add(bidaliBotoia);
             Controls.Add(btAtzera);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(lbmintkodea);
             Controls.Add(textBox3);
-            Controls.Add(textBox2);
             Controls.Add(textBox1);
             Controls.Add(BtAukeraAutatu);
             Name = "IMPRIMAGAILUAK";
@@ -160,12 +162,12 @@
 
         private Label BtAukeraAutatu;
         private TextBox textBox1;
-        private TextBox textBox2;
         private TextBox textBox3;
         private Label lbmintkodea;
         private Label label1;
         private Label label2;
         private Button btAtzera;
         private Button bidaliBotoia;
+        private ComboBox comboBox1;
     }
 }

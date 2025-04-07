@@ -35,9 +35,9 @@
             label2 = new Label();
             textBox3 = new TextBox();
             textBox1 = new TextBox();
-            textBox2 = new TextBox();
             bidaliBotoia = new Button();
             btAtzera = new Button();
+            comboBox1 = new ComboBox();
             SuspendLayout();
             // 
             // BtAukeraAutatu
@@ -46,11 +46,12 @@
             BtAukeraAutatu.BackColor = Color.Transparent;
             BtAukeraAutatu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtAukeraAutatu.ForeColor = SystemColors.ControlLightLight;
-            BtAukeraAutatu.Location = new Point(118, 73);
+            BtAukeraAutatu.Location = new Point(118, 31);
             BtAukeraAutatu.Name = "BtAukeraAutatu";
             BtAukeraAutatu.Size = new Size(520, 41);
             BtAukeraAutatu.TabIndex = 30;
             BtAukeraAutatu.Text = "BESTE GAILU BAT GEHITU";
+            BtAukeraAutatu.Click += BtAukeraAutatu_Click;
             // 
             // lbmintkodea
             // 
@@ -58,11 +59,11 @@
             lbmintkodea.BackColor = Color.Transparent;
             lbmintkodea.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbmintkodea.ForeColor = SystemColors.ControlLightLight;
-            lbmintkodea.Location = new Point(148, 176);
+            lbmintkodea.Location = new Point(154, 176);
             lbmintkodea.Name = "lbmintkodea";
-            lbmintkodea.Size = new Size(157, 28);
+            lbmintkodea.Size = new Size(115, 28);
             lbmintkodea.TabIndex = 43;
-            lbmintkodea.Text = "ID Gailuak:";
+            lbmintkodea.Text = "MARKA:";
             // 
             // label1
             // 
@@ -70,11 +71,11 @@
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.ControlLightLight;
-            label1.Location = new Point(202, 233);
+            label1.Location = new Point(118, 229);
             label1.Name = "label1";
-            label1.Size = new Size(103, 28);
+            label1.Size = new Size(151, 28);
             label1.TabIndex = 44;
-            label1.Text = "IZENA:";
+            label1.Text = "MODELOA:";
             // 
             // label2
             // 
@@ -82,7 +83,7 @@
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(186, 292);
+            label2.Location = new Point(159, 289);
             label2.Name = "label2";
             label2.Size = new Size(110, 28);
             label2.TabIndex = 45;
@@ -101,13 +102,6 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(260, 27);
             textBox1.TabIndex = 47;
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(345, 293);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(260, 27);
-            textBox2.TabIndex = 48;
             // 
             // bidaliBotoia
             // 
@@ -133,21 +127,31 @@
             btAtzera.UseVisualStyleBackColor = false;
             btAtzera.Click += btAtzera_Click;
             // 
-            // Form9
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Ongi", "Apurtuta", "Kompontzen" });
+            comboBox1.Location = new Point(345, 289);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(260, 28);
+            comboBox1.TabIndex = 55;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            // 
+            // BesteGailuBatGehitu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(comboBox1);
             Controls.Add(btAtzera);
             Controls.Add(bidaliBotoia);
-            Controls.Add(textBox2);
             Controls.Add(textBox1);
             Controls.Add(textBox3);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(lbmintkodea);
             Controls.Add(BtAukeraAutatu);
-            Name = "Form9";
+            Name = "BesteGailuBatGehitu";
             Text = "Form9";
             Load += Form9_Load;
             ResumeLayout(false);
@@ -162,8 +166,8 @@
         private Label label2;
         private TextBox textBox3;
         private TextBox textBox1;
-        private TextBox textBox2;
         private Button bidaliBotoia;
         private Button btAtzera;
+        private ComboBox comboBox1;
     }
 }

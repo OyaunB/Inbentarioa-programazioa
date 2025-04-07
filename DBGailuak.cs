@@ -13,28 +13,29 @@ namespace Inbentarioa
         {
             this.connectionString = connectionString;
         }
+
         public DataTable ObtenerTodosGailuak()
         {
             DataTable table = new DataTable();
 
             string query = @"
-    SELECT 
-        g.ID_Gailuak AS ID,
-        g.Gailu_Mota AS Gailu_Mota,
-        g.ID_Mintegia,
-        g.Marka,
-        g.Modeloa AS Modeloa,
-        g.Erosketa_data AS Erosketa_Data,
-        CASE WHEN e.ID_Gailuak IS NOT NULL THEN 1 ELSE 0 END AS Ezabatuta,
-        g.EgoeraGailua AS EgoeraGailua,
-        o.Memoria_RAM,
-        o.TxartelGrafikoa,
-        o.USB_Portuak
-    FROM Gailuak g
-    LEFT JOIN Ordenagailuak o ON g.ID_Gailuak = o.ID_Gailuak AND g.Gailu_Mota = 'Ordenagailuak'
-    LEFT JOIN Imprimagailuak i ON g.ID_Gailuak = i.ID_Gailuak AND g.Gailu_Mota = 'Inprimagailuak'
-    LEFT JOIN BesteGailuak b ON g.ID_Gailuak = b.ID_Gailuak AND g.Gailu_Mota = 'BesteGailuak'
-    LEFT JOIN EzabatutakoGailuak e ON g.ID_Gailuak = e.ID_Gailuak";
+                SELECT 
+                    g.ID_Gailuak AS ID,
+                    g.Gailu_Mota AS Gailu_Mota,
+                    g.ID_Mintegia,
+                    g.Marka,
+                    g.Modeloa AS Modeloa,
+                    g.Erosketa_data AS Erosketa_Data,
+                    CASE WHEN e.ID_Gailuak IS NOT NULL THEN 1 ELSE 0 END AS Ezabatuta,
+                    g.EgoeraGailua AS EgoeraGailua,
+                    o.Memoria_RAM,
+                    o.TxartelGrafikoa,
+                    o.USB_Portuak
+                FROM Gailuak g
+                LEFT JOIN Ordenagailuak o ON g.ID_Gailuak = o.ID_Gailuak AND g.Gailu_Mota = 'Ordenagailuak'
+                LEFT JOIN Imprimagailuak i ON g.ID_Gailuak = i.ID_Gailuak AND g.Gailu_Mota = 'Inprimagailuak'
+                LEFT JOIN BesteGailuak b ON g.ID_Gailuak = b.ID_Gailuak AND g.Gailu_Mota = 'BesteGailuak'
+                LEFT JOIN EzabatutakoGailuak e ON g.ID_Gailuak = e.ID_Gailuak";
 
             try
             {
@@ -42,49 +43,30 @@ namespace Inbentarioa
                 {
                     MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
                     adapter.Fill(table);
-
-                    // Agregar columna combinada para características específicas
-                   // table.Columns.Add("Ezaugarriak", typeof(string));
-
-                   // foreach (DataRow row in table.Rows)
-                  //  {
-                     //   switch (row["Gailu_Mota"].ToString())
-                      //  {
-                      //      case "Ordenagailuak":
-                       //         row["Ezaugarriak"] = $"RAM: {row["Memoria_RAM"]}GB, GPU: {row["TxartelGrafikoa"]}, USB: {row["USB_Portuak"]}, Kolorea: {row["Ordenagailu_Kolorea"]}";
-                       //         break;
-                        //    case "Inprimagailuak":
-                       //         row["Ezaugarriak"] = $"Kolorea: {row["Imprimagailu_Kolorea"]}";
-                        //        break;
-                       //     case "BesteGailuak":
-                        //        string egoera = row["EgoeraGailua"].ToString();
-                        //        row["Ezaugarriak"] = $"Egoera: {egoera}";
-                        //        break;
-                       // }
-                    //}
                 }
             }
             catch (Exception ex)
             {
-                // Devolvemos una tabla vacía en caso de error
-                // Podrías también lanzar la excepción si prefieres manejar el error fuera
-                Console.WriteLine("Error al obtener los gailuak: " + ex.Message);
+                throw new Exception("Error al obtener los gailuak: " + ex.Message);
             }
 
-            return table; // Esta línea asegura que siempre se devuelve un valor
+            return table;
         }
-        public void ActualizarGailua(int id, int idMintegia, string marka, string modeloa,
-                              DateTime erosketaData, bool ezabatzekoMarka, string egoeraGailua)
 
+        public void ActualizarGailua(int id, int idMintegia, string marka, string modeloa,
+                       DateTime erosketaData, bool ezabatzekoMarka, string egoeraGailua)
         {
+            // Normalizar el valor del estado
+            egoeraGailua = NormalizarEgoeraGailua(egoeraGailua);
+
             string updateQuery = @"UPDATE gailuak 
-                           SET ID_Mintegia = @ID_Mintegia, 
-                            Marka = @Marka, 
-                            Modeloa = @Modeloa, 
-                            Erosketa_data = @Erosketa_data, 
-                            EgoeraGailua = @EgoeraGailua,
-                            EzabatzekoMarka = @EzabatzekoMarka
-                            WHERE ID_Gailuak = @ID_Gailuak";
+                       SET ID_Mintegia = @ID_Mintegia, 
+                           Marka = @Marka, 
+                           Modeloa = @Modeloa, 
+                           Erosketa_data = @Erosketa_data, 
+                           EgoeraGailua = @EgoeraGailua,
+                           EzabatzekoMarka = @EzabatzekoMarka
+                       WHERE ID_Gailuak = @ID_Gailuak";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             using (MySqlCommand cmd = new MySqlCommand(updateQuery, connection))
@@ -112,7 +94,7 @@ namespace Inbentarioa
             using (MySqlCommand cmd = new MySqlCommand(insertQuery, connection))
             {
                 cmd.Parameters.AddWithValue("@ID_Gailuak", idGailuak);
-                cmd.Parameters.AddWithValue("@Data_Ezabatu", DateTime.Now.ToString("yyyy-MM-dd"));
+                cmd.Parameters.AddWithValue("@Data_Ezabatu", DateTime.Now);
                 cmd.Parameters.AddWithValue("@Marka", marka);
                 cmd.Parameters.AddWithValue("@Modeloa", modeloa);
 
@@ -120,33 +102,55 @@ namespace Inbentarioa
                 cmd.ExecuteNonQuery();
             }
         }
-        public void EliminarGailua(int idGailuak)
+
+        public void EliminarGailuaCompleto(int idGailuak)
         {
-            try
+            using (var connection = new MySqlConnection(connectionString))
             {
-                string deleteQuery = @"DELETE FROM Gailuak WHERE ID_Gailuak = @ID_Gailuak";
-
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                using (MySqlCommand cmd = new MySqlCommand(deleteQuery, connection))
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
                 {
-                    cmd.Parameters.AddWithValue("@ID_Gailuak", idGailuak);
+                    try
+                    {
+                        // 1. Mover a EzabatutakoGailuak
+                        var datos = ObtenerDatosGailua(idGailuak);
+                        if (datos != null)
+                        {
+                            MoverAEzabatutakoGailuak(idGailuak, datos.Split('|')[0], datos.Split('|')[1]);
+                        }
 
-                    connection.Open();
-                    cmd.ExecuteNonQuery();
+                        // 2. Eliminar de tablas específicas
+                        string[] erlazioTaulak = { "Imprimagailuak", "Ordenagailuak", "BesteGailuak" };
+                        foreach (string taula in erlazioTaulak)
+                        {
+                            var deleteQuery = new MySqlCommand(
+                                $"DELETE FROM {taula} WHERE ID_Gailuak = @ID_Gailuak",
+                                connection, transaction);
+                            deleteQuery.Parameters.AddWithValue("@ID_Gailuak", idGailuak);
+                            deleteQuery.ExecuteNonQuery();
+                        }
+
+                        // 3. Eliminar de Gailuak
+                        var deleteGailuak = new MySqlCommand(
+                            "DELETE FROM Gailuak WHERE ID_Gailuak = @ID_Gailuak",
+                            connection, transaction);
+                        deleteGailuak.Parameters.AddWithValue("@ID_Gailuak", idGailuak);
+                        deleteGailuak.ExecuteNonQuery();
+
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        throw new Exception("Error al eliminar el gailua: " + ex.Message);
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error al eliminar el dispositivo: " + ex.Message);
             }
         }
 
-
         public string ObtenerDatosGailua(int idGailuak)
         {
-            string selectQuery = @"SELECT Marka, Modeloa 
-                          FROM gailuak 
-                          WHERE ID_Gailuak = @ID_Gailuak";
+            string selectQuery = @"SELECT Marka, Modeloa FROM gailuak WHERE ID_Gailuak = @ID_Gailuak";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             using (MySqlCommand cmd = new MySqlCommand(selectQuery, connection))
@@ -164,18 +168,14 @@ namespace Inbentarioa
             }
             return null;
         }
-        public bool ExisteEnEzabatutakoGailuak(int idGailuak)
-        {
-            string query = "SELECT COUNT(*) FROM EzabatutakoGailuak WHERE ID_Gailuak = @ID_Gailuak";
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            using (MySqlCommand cmd = new MySqlCommand(query, connection))
-            {
-                cmd.Parameters.AddWithValue("@ID_Gailuak", idGailuak);
-                connection.Open();
-                int count = Convert.ToInt32(cmd.ExecuteScalar());
-                return count > 0;
-            }
+        public string NormalizarEgoeraGailua(string egoeraGailua)
+        {
+            if (string.IsNullOrWhiteSpace(egoeraGailua))
+                return "Ongi";
+
+            // Asegurar formato correcto (primera letra mayúscula, resto minúsculas)
+            return char.ToUpper(egoeraGailua[0]) + egoeraGailua.Substring(1).ToLower();
         }
     }
 }

@@ -18,9 +18,21 @@ namespace Inbentarioa
         }
         private void Form5_Load(object sender, EventArgs e)
         {
-            CargarMintegiak();
+            // Configurar DataGridView antes de cargar datos
+            DataGridViewMintegiak.ReadOnly = true;
+            DataGridViewMintegiak.AllowUserToAddRows = false;
+            DataGridViewMintegiak.AllowUserToDeleteRows = false;
+            DataGridViewMintegiak.MultiSelect = false;
+            DataGridViewMintegiak.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            DataGridViewMintegiak.RowHeadersVisible = false;
 
+            // Estilo visual para la selección
+            DataGridViewMintegiak.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
+            DataGridViewMintegiak.DefaultCellStyle.SelectionForeColor = Color.Black;
+
+            CargarMintegiak();
         }
+
         // PANTALLA KOLOREZTATZEKO
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -59,136 +71,115 @@ namespace Inbentarioa
             }
         }
 
-        private void BtGehitu_Click(object sender, EventArgs e)
-        {
-            // Verificar si los controles existen
-            if (Controls.Find("textBoxIzena", true).Length == 0 ||
-                Controls.Find("textBoxKokapena", true).Length == 0)
-            {
-                MessageBox.Show("Faltan controles en el formulario!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            var txtIzena = Controls.Find("textBoxIzena", true)[0] as TextBox;
-            var txtKokapena = Controls.Find("textBoxKokapena", true)[0] as TextBox;
-
-            if (string.IsNullOrEmpty(txtIzena.Text) || string.IsNullOrEmpty(txtKokapena.Text))
-            {
-                MessageBox.Show("Bete izena eta kokapena!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            try
-            {
-                // 🔹 No se pasa el ID, MySQL lo genera automáticamente
-                if (dbMintegiak.GehituMintegia(txtIzena.Text, txtKokapena.Text))
-                {
-                    MessageBox.Show("Mintegia gehitu da!", "Ongi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    CargarMintegiak();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Errorea: {ex.Message}", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-
-
-
-
-
-
-        private void BtGehitu_Click_1(object sender, EventArgs e)
-        {
-            if (DataGridViewMintegiak.SelectedRows.Count > 0)
-            {
-                try
-                {
-                    DataGridViewRow row = DataGridViewMintegiak.SelectedRows[0];
-
-                    var txtID = Controls.Find("textBoxID", true)[0] as TextBox;
-                    var txtIzena = Controls.Find("textBoxIzena", true)[0] as TextBox;
-                    var txtKokapena = Controls.Find("textBoxKokapena", true)[0] as TextBox;
-
-                    txtID.Text = row.Cells["ID_Mintegia"].Value.ToString();
-                    txtIzena.Text = row.Cells["Izena"].Value.ToString();
-                    txtKokapena.Text = row.Cells["Kokapena"].Value.ToString();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Errorea datuak kargatzerakoan: {ex.Message}", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
         private void btAtzera_Click(object sender, EventArgs e)
         {
             this.Hide();
             Aukerak f2 = new Aukerak();
             f2.ShowDialog();
         }
-
         private void btAldatu_Click(object sender, EventArgs e)
         {
-            if (DataGridViewMintegiak.SelectedRows.Count > 0)
+            if (DataGridViewMintegiak.SelectedRows.Count == 0)
             {
-                int id = Convert.ToInt32(DataGridViewMintegiak.SelectedRows[0].Cells["ID_Mintegia"].Value);
-                string izena = Microsoft.VisualBasic.Interaction.InputBox("Sartu izen berria:", "Aldatu Mintegia", DataGridViewMintegiak.SelectedRows[0].Cells["Izena"].Value.ToString());
-                string kokapena = Microsoft.VisualBasic.Interaction.InputBox("Sartu kokapen berria:", "Aldatu Mintegia", DataGridViewMintegiak.SelectedRows[0].Cells["Kokapena"].Value.ToString());
+                MessageBox.Show("Hautatu mintegi bat eguneratzeko!", "Errorea",
+                               MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-                if (!string.IsNullOrWhiteSpace(izena) && !string.IsNullOrWhiteSpace(kokapena))
-                {
-                    if (dbMintegiak.EguneratuMintegia(id, izena, kokapena))
-                    {
-                        MessageBox.Show("Mintegia eguneratu da!", "Oharra", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        CargarMintegiak();
-                    }
-                }
+            DataGridViewRow row = DataGridViewMintegiak.SelectedRows[0];
+            int id = Convert.ToInt32(row.Cells["ID_Mintegia"].Value);
+            string izenaActual = row.Cells["Izena"].Value.ToString();
+            string kokapenaActual = row.Cells["Kokapena"].Value.ToString();
+
+            // Pedir nuevos valores
+            string izenaBerria = Microsoft.VisualBasic.Interaction.InputBox("Sartu izen berria:",
+                                                                          "Aldatu Mintegia",
+                                                                          izenaActual);
+            string kokapenaBerria = Microsoft.VisualBasic.Interaction.InputBox("Sartu kokapen berria:",
+                                                                             "Aldatu Mintegia",
+                                                                             kokapenaActual);
+
+            if (string.IsNullOrWhiteSpace(izenaBerria) || string.IsNullOrWhiteSpace(kokapenaBerria))
+            {
+                MessageBox.Show("Izena eta kokapena bete behar dira!", "Errorea",
+                               MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (dbMintegiak.EguneratuMintegia(id, izenaBerria, kokapenaBerria))
+            {
+                MessageBox.Show("Mintegia eguneratu da!", "Ongi",
+                               MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CargarMintegiak();
             }
             else
             {
-                MessageBox.Show("Aldatzeko mintegi bat aukeratu!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Errorea mintegia eguneratzerakoan!", "Errorea",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-       
-
-        private void BtGehitu_Click_2(object sender, EventArgs e)
+        //Gehitu botoiaren funtzioa
+        private void BtGehitu_Click(object sender, EventArgs e)
         {
             string izena = Microsoft.VisualBasic.Interaction.InputBox("Sartu mintegiaren izena:", "Gehitu Mintegia", "");
-            string kokapena = Microsoft.VisualBasic.Interaction.InputBox("Sartu kokapena:", "Gehitu Mintegia", "");
-
-            if (!string.IsNullOrWhiteSpace(izena) && !string.IsNullOrWhiteSpace(kokapena))
+            if (string.IsNullOrWhiteSpace(izena))
             {
-                // 🔹 Llamamos a GehituMintegia() sin pasar un ID
-                if (dbMintegiak.GehituMintegia(izena, kokapena))
-                {
-                    MessageBox.Show("Mintegia gehitu da!", "Oharra", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    CargarMintegiak(); // Refrescar la tabla
-                }
+                MessageBox.Show("Mintegiaren izena beharrezkoa da!", "Errorea",
+                               MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-        }
 
-        private void btEzabatu_Click(object sender, EventArgs e)
-        {
-            if (DataGridViewMintegiak.SelectedRows.Count > 0)
+            string kokapena = Microsoft.VisualBasic.Interaction.InputBox("Sartu kokapena:", "Gehitu Mintegia", "");
+            if (string.IsNullOrWhiteSpace(kokapena))
             {
-                int id = Convert.ToInt32(DataGridViewMintegiak.SelectedRows[0].Cells["ID_Mintegia"].Value);
-                DialogResult result = MessageBox.Show("Ziur zaude mintegia ezabatu nahi duzula?", "Ezabatu Mintegia", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                MessageBox.Show("Kokapena beharrezkoa da!", "Errorea",
+                               MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-                if (result == DialogResult.Yes)
-                {
-                    if (dbMintegiak.EzabatuMintegia(id))
-                    {
-                        MessageBox.Show("Mintegia ezabatu da!", "Oharra", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        CargarMintegiak();
-                    }
-                }
+            if (dbMintegiak.GehituMintegia(izena, kokapena))
+            {
+                MessageBox.Show("Mintegia gehitu da!", "Ongi",
+                               MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CargarMintegiak();
             }
             else
             {
-                MessageBox.Show("Ezabatzeko mintegi bat aukeratu!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Errorea mintegia gehitzean!", "Errorea",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void btEzabatu_Click(object sender, EventArgs e)
+        {
+            if (DataGridViewMintegiak.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Hautatu mintegi bat ezabatzeko!", "Errorea",
+                               MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            DataGridViewRow row = DataGridViewMintegiak.SelectedRows[0];
+            int id = Convert.ToInt32(row.Cells["ID_Mintegia"].Value);
+            string izena = row.Cells["Izena"].Value.ToString();
+
+            DialogResult result = MessageBox.Show($"Ziur zaude '{izena}' mintegia ezabatu nahi duzula?",
+                                                "Kontuz",
+                                                MessageBoxButtons.YesNo,
+                                                MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                if (dbMintegiak.EzabatuMintegia(id))
+                {
+                    MessageBox.Show("Mintegia ezabatu da!", "Ongi",
+                                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    CargarMintegiak();
+                }
+                else
+                {
+                    MessageBox.Show("Errorea mintegia ezabatzerakoan!", "Errorea",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

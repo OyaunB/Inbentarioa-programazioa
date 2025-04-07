@@ -42,5 +42,20 @@ namespace Inbentarioa
             aukeraAutatzeko form8 = new aukeraAutatzeko();
             form8.ShowDialog();
         }
+
+        private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        {
+
+        }
+
+        private void BtAukeraAutatu_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
