@@ -53,6 +53,7 @@
             // 
             // dataGridViewGailuakGehitu
             // 
+            dataGridViewGailuakGehitu.AllowUserToOrderColumns = true;
             dataGridViewGailuakGehitu.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewGailuakGehitu.Location = new Point(12, 80);
             dataGridViewGailuakGehitu.Name = "dataGridViewGailuakGehitu";

@@ -1,5 +1,6 @@
 ﻿//GailuakGehitu.cs
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Relational;
 using System;
 using System.Data;
 using System.Drawing;
@@ -38,39 +39,42 @@ namespace Inbentarioa
         {
             try
             {
+                // Obtener los datos de la base de datos
                 DataTable table = gailuakDAL.ObtenerTodosGailuak();
 
-                // Creamos manualmente la columna CheckBox
-                var checkBoxColumn = new DataGridViewCheckBoxColumn
-                {
-                    Name = "EzabatzekoMarka",
-                    HeaderText = "Ezabatuta",
-                    TrueValue = true,
-                    FalseValue = false,
-                    ReadOnly = true // Hacemos la columna de solo lectura
-                };
+                // Asegurar que las columnas se generen automáticamente
+                dataGridViewGailuakGehitu.AutoGenerateColumns = true;
 
-                // Añadimos la columna si no existe
+                // Asignar los datos al DataGridView primero
+                dataGridViewGailuakGehitu.DataSource = table;
+
+                // Ocultar la columna original "Ezabatuta" (la que viene de la DB)
+                if (dataGridViewGailuakGehitu.Columns.Contains("Ezabatuta"))
+                {
+                    dataGridViewGailuakGehitu.Columns["Ezabatuta"].Visible = false;
+                }
+
+                // Verificar si ya existe la columna de checkbox antes de agregarla
                 if (!dataGridViewGailuakGehitu.Columns.Contains("EzabatzekoMarka"))
                 {
+                    var checkBoxColumn = new DataGridViewCheckBoxColumn
+                    {
+                        Name = "EzabatzekoMarka",
+                        HeaderText = "Ezabatuta",
+                        ReadOnly = true,
+                        FalseValue = false,
+                        TrueValue = true
+                    };
+
                     dataGridViewGailuakGehitu.Columns.Add(checkBoxColumn);
                 }
 
-                // Asignamos los datos
-                dataGridViewGailuakGehitu.DataSource = table;
-
-                // Ocultamos la columna "EstaEliminado" que viene de la BD
-                if (dataGridViewGailuakGehitu.Columns.Contains("EstaEliminado"))
-                {
-                    dataGridViewGailuakGehitu.Columns["EstaEliminado"].Visible = false;
-                }
-
-                // Configuramos los valores del checkbox basados en "EstaEliminado"
+                // Rellenar la columna checkbox en base a "Ezabatuta"
                 foreach (DataGridViewRow row in dataGridViewGailuakGehitu.Rows)
                 {
-                    if (row.Cells["EstaEliminado"].Value != null)
+                    if (row.Cells["Ezabatuta"].Value != DBNull.Value)
                     {
-                        bool estaEliminado = Convert.ToInt32(row.Cells["EstaEliminado"].Value) == 1;
+                        bool estaEliminado = Convert.ToInt32(row.Cells["Ezabatuta"].Value) == 1;
                         row.Cells["EzabatzekoMarka"].Value = estaEliminado;
                     }
                 }
@@ -79,8 +83,10 @@ namespace Inbentarioa
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar los datos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Errorea datuak kargatzean: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+
         }
 
         private void GailuakGehitu_Load(object sender, EventArgs e)

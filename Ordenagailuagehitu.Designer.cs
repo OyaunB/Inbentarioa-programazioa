@@ -30,16 +30,16 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ordenagailuagehitu));
             label1 = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
-            textBox4 = new TextBox();
-            textBox5 = new TextBox();
-            textBox6 = new TextBox();
-            textBox7 = new TextBox();
-            textBox8 = new TextBox();
-            textBox9 = new TextBox();
-            textBox10 = new TextBox();
+            btKodea = new TextBox();
+            btMarka = new TextBox();
+            btMintegiarenKodea = new TextBox();
+            btModeloa = new TextBox();
+            btTxartelGrafikoa = new TextBox();
+            btRamMemoria = new TextBox();
+            btUSBPortuak = new TextBox();
+            btKolorea = new TextBox();
+            btErosketaData = new TextBox();
+            btEgoera = new TextBox();
             bidaliBotoia = new Button();
             button12 = new Button();
             lbkodea = new Label();
@@ -68,75 +68,75 @@
             label1.Text = "ORDENAGAILUA GEHITU";
             label1.Click += label1_Click;
             // 
-            // textBox1
+            // btKodea
             // 
-            textBox1.Location = new Point(301, 102);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(260, 27);
-            textBox1.TabIndex = 19;
+            btKodea.Location = new Point(301, 102);
+            btKodea.Name = "btKodea";
+            btKodea.Size = new Size(260, 27);
+            btKodea.TabIndex = 19;
             // 
-            // textBox2
+            // btMarka
             // 
-            textBox2.Location = new Point(301, 203);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(260, 27);
-            textBox2.TabIndex = 21;
+            btMarka.Location = new Point(301, 203);
+            btMarka.Name = "btMarka";
+            btMarka.Size = new Size(260, 27);
+            btMarka.TabIndex = 21;
             // 
-            // textBox3
+            // btMintegiarenKodea
             // 
-            textBox3.Location = new Point(301, 152);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(260, 27);
-            textBox3.TabIndex = 23;
+            btMintegiarenKodea.Location = new Point(301, 152);
+            btMintegiarenKodea.Name = "btMintegiarenKodea";
+            btMintegiarenKodea.Size = new Size(260, 27);
+            btMintegiarenKodea.TabIndex = 23;
             // 
-            // textBox4
+            // btModeloa
             // 
-            textBox4.Location = new Point(301, 262);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(260, 27);
-            textBox4.TabIndex = 25;
+            btModeloa.Location = new Point(301, 262);
+            btModeloa.Name = "btModeloa";
+            btModeloa.Size = new Size(260, 27);
+            btModeloa.TabIndex = 25;
             // 
-            // textBox5
+            // btTxartelGrafikoa
             // 
-            textBox5.Location = new Point(861, 102);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(260, 27);
-            textBox5.TabIndex = 27;
+            btTxartelGrafikoa.Location = new Point(861, 102);
+            btTxartelGrafikoa.Name = "btTxartelGrafikoa";
+            btTxartelGrafikoa.Size = new Size(260, 27);
+            btTxartelGrafikoa.TabIndex = 27;
             // 
-            // textBox6
+            // btRamMemoria
             // 
-            textBox6.Location = new Point(861, 152);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(260, 27);
-            textBox6.TabIndex = 29;
+            btRamMemoria.Location = new Point(861, 152);
+            btRamMemoria.Name = "btRamMemoria";
+            btRamMemoria.Size = new Size(260, 27);
+            btRamMemoria.TabIndex = 29;
             // 
-            // textBox7
+            // btUSBPortuak
             // 
-            textBox7.Location = new Point(861, 207);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(260, 27);
-            textBox7.TabIndex = 31;
+            btUSBPortuak.Location = new Point(861, 207);
+            btUSBPortuak.Name = "btUSBPortuak";
+            btUSBPortuak.Size = new Size(260, 27);
+            btUSBPortuak.TabIndex = 31;
             // 
-            // textBox8
+            // btKolorea
             // 
-            textBox8.Location = new Point(861, 261);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(260, 27);
-            textBox8.TabIndex = 33;
+            btKolorea.Location = new Point(861, 261);
+            btKolorea.Name = "btKolorea";
+            btKolorea.Size = new Size(260, 27);
+            btKolorea.TabIndex = 33;
             // 
-            // textBox9
+            // btErosketaData
             // 
-            textBox9.Location = new Point(301, 313);
-            textBox9.Name = "textBox9";
-            textBox9.Size = new Size(260, 27);
-            textBox9.TabIndex = 35;
+            btErosketaData.Location = new Point(301, 313);
+            btErosketaData.Name = "btErosketaData";
+            btErosketaData.Size = new Size(260, 27);
+            btErosketaData.TabIndex = 35;
             // 
-            // textBox10
+            // btEgoera
             // 
-            textBox10.Location = new Point(861, 313);
-            textBox10.Name = "textBox10";
-            textBox10.Size = new Size(260, 27);
-            textBox10.TabIndex = 37;
+            btEgoera.Location = new Point(861, 313);
+            btEgoera.Name = "btEgoera";
+            btEgoera.Size = new Size(260, 27);
+            btEgoera.TabIndex = 37;
             // 
             // bidaliBotoia
             // 
@@ -147,6 +147,7 @@
             bidaliBotoia.Size = new Size(173, 80);
             bidaliBotoia.TabIndex = 38;
             bidaliBotoia.UseVisualStyleBackColor = true;
+            bidaliBotoia.Click += bidaliBotoia_Click_1;
             // 
             // button12
             // 
@@ -297,16 +298,16 @@
             Controls.Add(lbkodea);
             Controls.Add(button12);
             Controls.Add(bidaliBotoia);
-            Controls.Add(textBox10);
-            Controls.Add(textBox9);
-            Controls.Add(textBox8);
-            Controls.Add(textBox7);
-            Controls.Add(textBox6);
-            Controls.Add(textBox5);
-            Controls.Add(textBox4);
-            Controls.Add(textBox3);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(btEgoera);
+            Controls.Add(btErosketaData);
+            Controls.Add(btKolorea);
+            Controls.Add(btUSBPortuak);
+            Controls.Add(btRamMemoria);
+            Controls.Add(btTxartelGrafikoa);
+            Controls.Add(btModeloa);
+            Controls.Add(btMintegiarenKodea);
+            Controls.Add(btMarka);
+            Controls.Add(btKodea);
             Controls.Add(label1);
             Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -324,16 +325,16 @@
         private Label label1;
         private PictureBox pictureBox1;
         private Label label4;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
-        private TextBox textBox4;
-        private TextBox textBox5;
-        private TextBox textBox6;
-        private TextBox textBox7;
-        private TextBox textBox8;
-        private TextBox textBox9;
-        private TextBox textBox10;
+        private TextBox btKodea;
+        private TextBox btMarka;
+        private TextBox btMintegiarenKodea;
+        private TextBox btModeloa;
+        private TextBox btTxartelGrafikoa;
+        private TextBox btRamMemoria;
+        private TextBox btUSBPortuak;
+        private TextBox btKolorea;
+        private TextBox btErosketaData;
+        private TextBox btEgoera;
         private Button bidaliBotoia;
         private Button button12;
         private Label lbkodea;

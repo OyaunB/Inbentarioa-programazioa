@@ -18,25 +18,23 @@ namespace Inbentarioa
             DataTable table = new DataTable();
 
             string query = @"
-        SELECT 
-            g.ID_Gailuak AS ID,
-            g.Gailu_Mota,
-            g.ID_Mintegia,
-            g.Marka,
-            g.Modeloa AS Izena,
-            g.Erosketa_data AS ErosketaData,
-            CASE WHEN e.ID_Gailuak IS NOT NULL THEN 1 ELSE 0 END AS EstaEliminado,
-            g.EgoeraGailua,
-            o.Memoria_RAM,
-            o.TxartelGrafikoa,
-            o.USB_Portuak,
-            o.Kolorea AS Ordenagailu_Kolorea,
-            i.Kolorea AS Imprimagailu_Kolorea
-        FROM Gailuak g
-        LEFT JOIN Ordenagailuak o ON g.ID_Gailuak = o.ID_Gailuak AND g.Gailu_Mota = 'Ordenagailuak'
-        LEFT JOIN Imprimagailuak i ON g.ID_Gailuak = i.ID_Gailuak AND g.Gailu_Mota = 'Inprimagailuak'
-        LEFT JOIN BesteGailuak b ON g.ID_Gailuak = b.ID_Gailuak AND g.Gailu_Mota = 'BesteGailuak'
-        LEFT JOIN EzabatutakoGailuak e ON g.ID_Gailuak = e.ID_Gailuak";
+    SELECT 
+        g.ID_Gailuak AS ID,
+        g.Gailu_Mota AS Gailu_Mota,
+        g.ID_Mintegia,
+        g.Marka,
+        g.Modeloa AS Izena,
+        g.Erosketa_data AS Erosketa_Data,
+        CASE WHEN e.ID_Gailuak IS NOT NULL THEN 1 ELSE 0 END AS Ezabatuta,
+        g.EgoeraGailua AS EgoeraGailua,
+        o.Memoria_RAM,
+        o.TxartelGrafikoa,
+        o.USB_Portuak
+    FROM Gailuak g
+    LEFT JOIN Ordenagailuak o ON g.ID_Gailuak = o.ID_Gailuak AND g.Gailu_Mota = 'Ordenagailuak'
+    LEFT JOIN Imprimagailuak i ON g.ID_Gailuak = i.ID_Gailuak AND g.Gailu_Mota = 'Inprimagailuak'
+    LEFT JOIN BesteGailuak b ON g.ID_Gailuak = b.ID_Gailuak AND g.Gailu_Mota = 'BesteGailuak'
+    LEFT JOIN EzabatutakoGailuak e ON g.ID_Gailuak = e.ID_Gailuak";
 
             try
             {
@@ -47,6 +45,7 @@ namespace Inbentarioa
 
                     // Agregar columna combinada para características específicas
                     table.Columns.Add("Ezaugarriak", typeof(string));
+
                     foreach (DataRow row in table.Rows)
                     {
                         switch (row["Gailu_Mota"].ToString())

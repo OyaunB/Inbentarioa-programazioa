@@ -1,4 +1,5 @@
-﻿using System;
+﻿//OrdenagailuakGehitu.cs
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -67,5 +68,48 @@ namespace Inbentarioa
         {
 
         }
+
+        private void bidaliBotoia_Click_1(object sender, EventArgs e)
+        {
+            // Jasotako datuak
+            string mintegia = btMintegiarenKodea.Text.Trim();
+            string marka = btMarka.Text.Trim();
+            string modeloa = btModeloa.Text.Trim();
+            string erosketadata = btErosketaData.Text.Trim();
+            string txartela = btTxartelGrafikoa.Text.Trim();
+            string ram = btRamMemoria.Text.Trim();
+            string usb = btUSBPortuak.Text.Trim();
+            string kolorea = btKolorea.Text.Trim();
+            string egoera = btEgoera.Text.Trim();
+
+            // Egiaztatu hutsik ez dauden eta formatu egokia duten
+            if (string.IsNullOrWhiteSpace(mintegia) || string.IsNullOrWhiteSpace(marka) ||
+                string.IsNullOrWhiteSpace(modeloa) || string.IsNullOrWhiteSpace(erosketadata) ||
+                string.IsNullOrWhiteSpace(txartela) || string.IsNullOrWhiteSpace(ram) ||
+                string.IsNullOrWhiteSpace(usb) || string.IsNullOrWhiteSpace(kolorea) ||
+                string.IsNullOrWhiteSpace(egoera))
+            {
+                MessageBox.Show("Sartu datu guztiak mesedez.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Formatuaren egiaztapena
+            if (!int.TryParse(mintegia, out _) || !int.TryParse(ram, out _) || !int.TryParse(usb, out _) || !DateTime.TryParse(erosketadata, out _))
+            {
+                MessageBox.Show("Sartu datuak formatu egokian mesedez.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                DBOrdenagailuakGehitu.OrdenagailuaGehitu(mintegia, marka, modeloa, erosketadata, txartela, ram, usb, kolorea, egoera);
+                MessageBox.Show("Ordenagailua ongi gehituta!", "Arrakasta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Errorea gertatu da: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 }
