@@ -74,8 +74,8 @@ namespace Inbentarioa
                 {
                     if (row.Cells["Ezabatuta"].Value != DBNull.Value)
                     {
-                        bool estaEliminado = Convert.ToInt32(row.Cells["Ezabatuta"].Value) == 1;
-                        row.Cells["EzabatzekoMarka"].Value = estaEliminado;
+                        bool EzabatzekoMarka = Convert.ToInt32(row.Cells["Ezabatuta"].Value) == 1;
+                        row.Cells["EzabatzekoMarka"].Value = EzabatzekoMarka;
                     }
                 }
 
@@ -133,7 +133,7 @@ namespace Inbentarioa
                                 if (row.Cells["ID"].Value != null)
                                 {
                                     int id = Convert.ToInt32(row.Cells["ID"].Value);
-                                    bool estaEliminado = Convert.ToInt32(row.Cells["EstaEliminado"].Value) == 1;
+                                    bool EzabatzekoMarka = Convert.ToInt32(row.Cells["EzabatzekoMarka"].Value) == 1;
                                     bool marcadoParaEliminar = Convert.ToBoolean(row.Cells["EzabatzekoMarka"].Value);
 
                                     // --- Actualizar TODOS los campos editables en Gailuak ---
@@ -141,14 +141,14 @@ namespace Inbentarioa
                                         id,
                                         Convert.ToInt32(row.Cells["ID_Mintegia"].Value),
                                         row.Cells["Marka"].Value?.ToString() ?? "",
-                                        row.Cells["Izena"].Value?.ToString() ?? "",
-                                        Convert.ToDateTime(row.Cells["ErosketaData"].Value),
+                                        row.Cells["Modeloa"].Value?.ToString() ?? "",
+                                        Convert.ToDateTime(row.Cells["Erosketa_data"].Value),
                                         marcadoParaEliminar,
                                         NormalizarEgoeraGailua(row.Cells["EgoeraGailua"].Value?.ToString())
                                     );
 
                                     // --- Mover a EzabatutakoGailuak si está marcado y no estaba eliminado ---
-                                    if (!estaEliminado && marcadoParaEliminar)
+                                    if (!EzabatzekoMarka && marcadoParaEliminar)
                                     {
                                         string datosGailua = gailuakDAL.ObtenerDatosGailua(id);
                                         if (datosGailua != null)
@@ -188,9 +188,58 @@ namespace Inbentarioa
                 return char.ToUpper(egoeraGailua[0]) + egoeraGailua.Substring(1).ToLower();
 
             }
-            
+
 
             return char.ToUpper(egoeraGailua[0]) + egoeraGailua.Substring(1).ToLower();
         }
+
+        private void btEzabatu_Click(object sender, EventArgs e)
+        {
+            // Verificar que se ha seleccionado un registro
+            if (dataGridViewGailuakGehitu.SelectedRows.Count > 0)
+            {
+                // Obtener el ID del registro seleccionado
+                var idGailua = dataGridViewGailuakGehitu.SelectedRows[0].Cells["Id"].Value.ToString();
+
+                // Iniciar la conexión a la base de datos
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Transacción para asegurar que se eliminen todos los registros
+                    using (var transaction = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            // Eliminar en la tabla de herencia 'BesteGailuak' (ahora la tabla correcta)
+                            var deleteBesteGailuak = new MySqlCommand("DELETE FROM BesteGailuak WHERE ID_Gailuak = @ID_Gailuak", connection, transaction);
+                            deleteBesteGailuak.Parameters.AddWithValue("@ID_Gailuak", idGailua);
+                            deleteBesteGailuak.ExecuteNonQuery();
+
+                            // Eliminar en la tabla principal 'Gailuak'
+                            var deleteGailuak = new MySqlCommand("DELETE FROM Gailuak WHERE Id = @Id", connection, transaction);
+                            deleteGailuak.Parameters.AddWithValue("@Id", idGailua);
+                            deleteGailuak.ExecuteNonQuery();
+
+                            // Commit de la transacción si todo ha ido bien
+                            transaction.Commit();
+                            MessageBox.Show("Gailua y su herencia en BesteGailuak han sido eliminados correctamente.");
+                        }
+                        catch (Exception ex)
+                        {
+                            // Si algo sale mal, hacer rollback
+                            transaction.Rollback();
+                            MessageBox.Show($"Error al eliminar: {ex.Message}");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, selecciona un Gailua para eliminar.");
+            }
+        }
+
+
     }
 }

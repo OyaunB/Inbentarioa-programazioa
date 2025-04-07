@@ -23,7 +23,7 @@ namespace Inbentarioa
         g.Gailu_Mota AS Gailu_Mota,
         g.ID_Mintegia,
         g.Marka,
-        g.Modeloa AS Izena,
+        g.Modeloa AS Modeloa,
         g.Erosketa_data AS Erosketa_Data,
         CASE WHEN e.ID_Gailuak IS NOT NULL THEN 1 ELSE 0 END AS Ezabatuta,
         g.EgoeraGailua AS EgoeraGailua,
@@ -44,24 +44,24 @@ namespace Inbentarioa
                     adapter.Fill(table);
 
                     // Agregar columna combinada para características específicas
-                    table.Columns.Add("Ezaugarriak", typeof(string));
+                   // table.Columns.Add("Ezaugarriak", typeof(string));
 
-                    foreach (DataRow row in table.Rows)
-                    {
-                        switch (row["Gailu_Mota"].ToString())
-                        {
-                            case "Ordenagailuak":
-                                row["Ezaugarriak"] = $"RAM: {row["Memoria_RAM"]}GB, GPU: {row["TxartelGrafikoa"]}, USB: {row["USB_Portuak"]}, Kolorea: {row["Ordenagailu_Kolorea"]}";
-                                break;
-                            case "Inprimagailuak":
-                                row["Ezaugarriak"] = $"Kolorea: {row["Imprimagailu_Kolorea"]}";
-                                break;
-                            case "BesteGailuak":
-                                string egoera = row["EgoeraGailua"].ToString();
-                                row["Ezaugarriak"] = $"Egoera: {egoera}";
-                                break;
-                        }
-                    }
+                   // foreach (DataRow row in table.Rows)
+                  //  {
+                     //   switch (row["Gailu_Mota"].ToString())
+                      //  {
+                      //      case "Ordenagailuak":
+                       //         row["Ezaugarriak"] = $"RAM: {row["Memoria_RAM"]}GB, GPU: {row["TxartelGrafikoa"]}, USB: {row["USB_Portuak"]}, Kolorea: {row["Ordenagailu_Kolorea"]}";
+                       //         break;
+                        //    case "Inprimagailuak":
+                       //         row["Ezaugarriak"] = $"Kolorea: {row["Imprimagailu_Kolorea"]}";
+                        //        break;
+                       //     case "BesteGailuak":
+                        //        string egoera = row["EgoeraGailua"].ToString();
+                        //        row["Ezaugarriak"] = $"Egoera: {egoera}";
+                        //        break;
+                       // }
+                    //}
                 }
             }
             catch (Exception ex)
@@ -74,16 +74,17 @@ namespace Inbentarioa
             return table; // Esta línea asegura que siempre se devuelve un valor
         }
         public void ActualizarGailua(int id, int idMintegia, string marka, string modeloa,
-                                   DateTime erosketaData, bool ezabatzekoMarka, string egoeraGailua)
+                              DateTime erosketaData, bool ezabatzekoMarka, string egoeraGailua)
+
         {
             string updateQuery = @"UPDATE gailuak 
                            SET ID_Mintegia = @ID_Mintegia, 
-                               Marka = @Marka, 
-                               Modeloa = @Modeloa, 
-                               Erosketa_data = @Erosketa_data, 
-                               EzabatzekoMarka = @EzabatzekoMarka,
-                               EgoeraGailua = @EgoeraGailua
-                           WHERE ID_Gailuak = @ID_Gailuak";
+                            Marka = @Marka, 
+                            Modeloa = @Modeloa, 
+                            Erosketa_data = @Erosketa_data, 
+                            EgoeraGailua = @EgoeraGailua,
+                            EzabatzekoMarka = @EzabatzekoMarka
+                            WHERE ID_Gailuak = @ID_Gailuak";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             using (MySqlCommand cmd = new MySqlCommand(updateQuery, connection))

@@ -102,6 +102,7 @@
             btEzabatu.Size = new Size(200, 80);
             btEzabatu.TabIndex = 15;
             btEzabatu.UseVisualStyleBackColor = false;
+            btEzabatu.Click += btEzabatu_Click;
             // 
             // btAtzera
             // 
