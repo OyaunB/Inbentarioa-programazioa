@@ -198,7 +198,9 @@ namespace Inbentarioa
             if (dataGridViewGailuakGehitu.SelectedRows.Count > 0)
             {
                 // Obtener el ID del registro seleccionado
-                var idGailua = dataGridViewGailuakGehitu.SelectedRows[0].Cells["Id"].Value.ToString();
+                var idGailua = dataGridViewGailuakGehitu.SelectedRows[0].Cells[0].Value.ToString();
+
+
 
                 using (var connection = new MySqlConnection(connectionString))
                 {
