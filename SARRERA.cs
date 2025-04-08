@@ -7,38 +7,40 @@ namespace Inbentarioa
 {
     public partial class Sarrera : Form
     {
+        private bool _isPainting = false;
         public Sarrera()
         {
             InitializeComponent();
-            this.Resize += Form1_Resize;
-
+            this.DoubleBuffered = true;
         }
 
-        private void Form1_Resize(object sender, EventArgs e)
+
+
+        protected override void OnPaintBackground(PaintEventArgs e)
         {
-            this.Invalidate(); // Forzar el redibujado del formulario
-        }
+            // Ez deitu base.OnPaintBackground() degradadoa guztiz kontrolatu nahi baduzu
+            Color colorInicio = ColorTranslator.FromHtml("#5de0e6");
+            Color colorFin = ColorTranslator.FromHtml("#004aad");
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-
-            // Definir los colores del degradado usando códigos hexadecimales
-            Color colorInicio = ColorTranslator.FromHtml("#5de0e6"); // Azul claro
-            Color colorFin = ColorTranslator.FromHtml("#004aad");    // Azul oscuro
-
-            // Crear un pincel con degradado lineal
-            using (LinearGradientBrush brush = new LinearGradientBrush(
-                this.ClientRectangle, // Área donde se aplicará el degradado
-                colorInicio,         // Color inicial
-                colorFin,            // Color final
-                LinearGradientMode.Horizontal)) // Dirección del degradado (horizontal)
+            using (var brush = new LinearGradientBrush(
+                this.ClientRectangle,
+                colorInicio,
+                colorFin,
+                LinearGradientMode.Horizontal))
             {
-                // Rellenar el fondo del formulario con el degradado
                 e.Graphics.FillRectangle(brush, this.ClientRectangle);
             }
         }
 
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            base.OnSizeChanged(e); // Garrantzitsua: base-ko kodea exekutatu
+
+            if (WindowState != FormWindowState.Minimized && this.ClientRectangle.Width > 0)
+            {
+                this.Invalidate(); // Baina ez Refresh()
+            }
+        }
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -73,61 +75,78 @@ namespace Inbentarioa
         {
             if (e.KeyCode == Keys.Enter)
             {
-                e.SuppressKeyPress = true; // Evita que Windows haga un sonido de alerta
-                e.Handled = true; // Evita que Windows procese la tecla
-                button1_Click(this, EventArgs.Empty); // Llama manualmente al evento del botón
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+                // Aldaketa 1: Ez deitu button1_Click zuzenean. Hobeto:
+                BtBidali.PerformClick(); // <- Honek botoiaren Click eventua modu egokian aktibatzen du
             }
         }
-      
+
+        
+
+     
 
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string erabiltzailea = TbErabiltzailea.Text.Trim();
-            string pasahitza = TbPasahitza.Text.Trim();
 
-            // Fitxategitik erabiltzaileak irakurri
-            string[] lerroak;
-            try
-            {
-                lerroak = File.ReadAllLines("Erabiltzaileak.txt"); // Fitxategia irakurri
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Errorea erabiltzaile fitxategia irakurtzerakoan: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            // Erabiltzailea bilatu
-            foreach (string lerroa in lerroak)
-            {
-                string[] zatiak = lerroa.Split(';');
-                if (zatiak.Length == 3)
-                {
-                    string fitxErabiltzailea = zatiak[0];
-                    string fitxPasahitza = zatiak[1];
-                    string rola = zatiak[2];
-
-                    if (erabiltzailea == fitxErabiltzailea && pasahitza == fitxPasahitza)
-                    {
-                        this.Hide();
-                        Aukerak f2 = new Aukerak(rola); // Rola bidali
-                        f2.ShowDialog();
-                        this.Show();
-                        return;
-                    }
-                }
-            }
-
-            // Ez bada aurkitzen, errorea erakutsiko digu
-            MessageBox.Show("Erabiltzaile edo pasahitza okerra!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
 
 
 
         private void TbErabiltzailea_TextChanged(object sender, EventArgs e)
         {
 
+        }
+        // Gehitu klasean (Sarrera klasearen barruan):
+        private bool ProcessingLogin = false;
+        private void BtBidali_Click(object sender, EventArgs e)
+
+        {
+            // Aldaketa 2: Egiaztatu ea jada prozesuan gauden (errepikapenak ekiditeko)
+            if (this.ProcessingLogin) return;
+            this.ProcessingLogin = true;
+
+            try
+            {
+                string erabiltzailea = TbErabiltzailea.Text.Trim();
+                string pasahitza = TbPasahitza.Text.Trim();
+
+                string[] lerroak;
+                try
+                {
+                    lerroak = File.ReadAllLines("Erabiltzaileak.txt");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Errorea fitxategia irakurtzean: " + ex.Message,
+                                  "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                foreach (string lerroa in lerroak)
+                {
+                    string[] zatiak = lerroa.Split(';');
+                    if (zatiak.Length == 3 && erabiltzailea == zatiak[0] && pasahitza == zatiak[1])
+                    {
+                        TbErabiltzailea.Text = "";
+                        TbPasahitza.Text = "";
+
+                        // Aldaketa 3: ShowDialog() baino lehen itxi formularioa modu kontrolatuan
+                        this.Hide();
+                        using (Aukerak f2 = new Aukerak(zatiak[2]))
+                        {
+                            f2.ShowDialog();
+                        }
+                        this.Show();
+                        return;
+                    }
+                }
+
+                MessageBox.Show("Erabiltzaile edo pasahitza okerra!", "Errorea",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                this.ProcessingLogin = false;
+            }
         }
     }
 }

@@ -128,7 +128,7 @@
             BtBidali.Size = new Size(163, 81);
             BtBidali.TabIndex = 7;
             BtBidali.UseVisualStyleBackColor = false;
-            BtBidali.Click += button1_Click;
+            BtBidali.Click += BtBidali_Click;
             // 
             // Sarrera
             // 

@@ -47,42 +47,53 @@ namespace Inbentarioa
 
         private void KudeatuBaimenak()
         {
-            if (erabiltzaileRola == "zuzendaria" || erabiltzaileRola == "IKT Irakaslea")
+            // Primero, deshabilitamos TODOS los botones por defecto
+            foreach (Control ctrl in this.Controls)
             {
-                // Guztia eskuragarri
+                if (ctrl is Button)
+                    ctrl.Enabled = false;
+            }
+
+            // Convertimos el rol a minúsculas para evitar problemas de mayúsculas/minúsculas
+            string rol = erabiltzaileRola.ToLower();
+
+            // Lógica de permisos según el rol
+            if (rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt")
+            {
+                // **Zuzendaria / IKT Irakaslea**: Acceso total
                 foreach (Control ctrl in this.Controls)
                 {
-                    if (ctrl is Button) ctrl.Enabled = true;
+                    if (ctrl is Button)
+                        ctrl.Enabled = true;
                 }
             }
-            else if (erabiltzaileRola == "Irakaslea")
+            else if (rol == "irakaslea")
             {
-                // "Aldatu" botoia bakarrik aktibo
+                // **Irakaslea**: Solo puede usar el botón "ALDATU" (si existe)
                 foreach (Control ctrl in this.Controls)
                 {
-                    if (ctrl is Button btn)
-                    {
-                        btn.Enabled = btn.Text == "ALDATU";
-                    }
+                    if (ctrl is Button btn && btn.Text.ToUpper() == "ALDATU")
+                        btn.Enabled = true;
                 }
             }
-            else if (erabiltzaileRola == "Ordezkaria")
+            else if (rol == "ordezkaria")
             {
-                // Botoi guztiak desgaituta
-                foreach (Control ctrl in this.Controls)
-                {
-                    if (ctrl is Button) ctrl.Enabled = false;
-                }
+                // **Ordezkaria**: Solo puede usar BtGailuakKudeatu y BtEzabatutakoakIkusi
+                BtGailuakKudeatu.Enabled = true;
+                BtEzabatutakoakIkusi.Enabled = true;
+
+                // Los demás botones ya están deshabilitados por el bucle inicial
             }
         }
         private void BtGailuakKudeatu_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            GailuakGehitu f3 = new GailuakGehitu();
-            f3.ShowDialog();
-
-
-
+            this.Hide(); // Ocultar formulario actual
+            using (GailuakGehitu f3 = new GailuakGehitu())
+            {
+                f3.ShowDialog(); // Mostrar formulario hijo
+            }
+            this.Show(); // Volver al formulario principal
+            KudeatuBaimenak(); // Reaplicar permisos
         }
 
         private void BtEzabatutakoakIkusi_Click(object sender, EventArgs e)
