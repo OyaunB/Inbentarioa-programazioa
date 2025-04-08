@@ -37,9 +37,9 @@
             label2 = new Label();
             btAtzera = new Button();
             bidaliBotoia = new Button();
-            comboBoxEgoeraImp = new ComboBox();
             btModeloaImp = new TextBox();
             label3 = new Label();
+            comboBoxEgoeraImprimagailua = new ComboBox();
             SuspendLayout();
             // 
             // BtAukeraAutatu
@@ -130,14 +130,6 @@
             bidaliBotoia.UseVisualStyleBackColor = true;
             bidaliBotoia.Click += bidaliBotoia_Click;
             // 
-            // comboBoxEgoeraImp
-            // 
-            comboBoxEgoeraImp.FormattingEnabled = true;
-            comboBoxEgoeraImp.Location = new Point(364, 284);
-            comboBoxEgoeraImp.Name = "comboBoxEgoeraImp";
-            comboBoxEgoeraImp.Size = new Size(260, 28);
-            comboBoxEgoeraImp.TabIndex = 56;
-            // 
             // btModeloaImp
             // 
             btModeloaImp.Location = new Point(364, 235);
@@ -158,15 +150,23 @@
             label3.TabIndex = 58;
             label3.Text = "ID Mintegia:";
             // 
+            // comboBoxEgoeraImprimagailua
+            // 
+            comboBoxEgoeraImprimagailua.FormattingEnabled = true;
+            comboBoxEgoeraImprimagailua.Location = new Point(364, 284);
+            comboBoxEgoeraImprimagailua.Name = "comboBoxEgoeraImprimagailua";
+            comboBoxEgoeraImprimagailua.Size = new Size(260, 28);
+            comboBoxEgoeraImprimagailua.TabIndex = 59;
+            // 
             // tbIDMintegia
             // 
             AccessibleName = "IMPRIMAGAILUAK";
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(comboBoxEgoeraImprimagailua);
             Controls.Add(label3);
             Controls.Add(btModeloaImp);
-            Controls.Add(comboBoxEgoeraImp);
             Controls.Add(bidaliBotoia);
             Controls.Add(btAtzera);
             Controls.Add(label2);
@@ -177,6 +177,7 @@
             Controls.Add(BtAukeraAutatu);
             Name = "tbIDMintegia";
             Text = "Izarraitz";
+            Load += tbIDMintegia_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -191,8 +192,8 @@
         private Label label2;
         private Button btAtzera;
         private Button bidaliBotoia;
-        private ComboBox comboBoxEgoeraImp;
         private TextBox btModeloaImp;
         private Label label3;
+        private ComboBox comboBoxEgoeraImprimagailua;
     }
 }

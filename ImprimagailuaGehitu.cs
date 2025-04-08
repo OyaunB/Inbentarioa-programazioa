@@ -18,11 +18,19 @@ namespace Inbentarioa
             InitializeComponent();
         }
 
-        private void IMPRIMAGAILUAK_Load(object sender, EventArgs e)
+        private void tbIDMintegia_Load(object sender, EventArgs e)
         {
-            // Rellenar el ComboBox con las opciones de estado
-            comboBoxEgoeraImp.Items.AddRange(new string[] { "Ongi", "Apurtuta", "Kompontzen" });
-            comboBoxEgoeraImp.SelectedIndex = 0; // Seleccionar "Ongi" por defecto
+            // Kargatu ComboBox-a hasierako egoerarekin
+            CargarComboBoxEgoera();
+        }
+        private void CargarComboBoxEgoera()
+        {
+            // ComboBox-a hutsik dagoen egiaztatu eta gero kargatu
+            if (comboBoxEgoeraImprimagailua.Items.Count == 0)
+            {
+                comboBoxEgoeraImprimagailua.Items.AddRange(new string[] { "Ongi", "Apurtuta", "Kompontzen" });
+                comboBoxEgoeraImprimagailua.SelectedIndex = 0; // "Ongi" hautatuko da lehen aldiz
+            }
         }
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -50,12 +58,12 @@ namespace Inbentarioa
             form8.ShowDialog();
         }
 
-    
+
 
         private void bidaliBotoia_Click(object sender, EventArgs e)
         {
             // 1. Obtener y validar mintegiId primero
-            if (!int.TryParse(tbIDMintegiaImp.Text.Trim(), out int mintegiId))
+            if (!int.TryParse(comboBoxEgoeraImprimagailua.Text.Trim(), out int mintegiId))
             {
                 MessageBox.Show("Mesedez, sartu balio numeriko bat Mintegi Kodea eremuan.");
                 return;
@@ -63,8 +71,8 @@ namespace Inbentarioa
 
             // 2. Obtener resto de datos
             string marka = tbMarkaImp.Text.Trim();
-            string modeloa = btModeloaImp.Text.Trim();
-            string egoera = comboBoxEgoeraImp.SelectedItem?.ToString();
+            string modeloa = comboBoxEgoeraImprimagailua.Text.Trim();
+            string egoera = comboBoxEgoeraImprimagailua.SelectedItem?.ToString();
 
             // 3. Validar campos
             if (string.IsNullOrEmpty(marka) || string.IsNullOrEmpty(modeloa) || string.IsNullOrEmpty(egoera))
@@ -84,7 +92,7 @@ namespace Inbentarioa
                     tbIDMintegiaImp.Text = "";
                     tbMarkaImp.Text = "";
                     btModeloaImp.Text = "";
-                    comboBoxEgoeraImp.SelectedIndex = -1;
+                    comboBoxEgoeraImprimagailua.SelectedIndex = -1;
                 }
                 else
                 {
@@ -101,5 +109,7 @@ namespace Inbentarioa
         {
 
         }
+
+       
     }
 }
