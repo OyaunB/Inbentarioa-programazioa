@@ -177,5 +177,151 @@ namespace Inbentarioa
             // Asegurar formato correcto (primera letra mayúscula, resto minúsculas)
             return char.ToUpper(egoeraGailua[0]) + egoeraGailua.Substring(1).ToLower();
         }
+        public GailuakDAL()
+        {
+            MySqlConnection Konektatu = DBKonexioa.Konektatu(); // Usando tu método existente
+            //string connectionString = DBKonexioa.GetConnectionString(); // zure string-etik
+        }
+        public bool GehituBesteGailua(string marka, string modeloa, string egoera)
+        {
+            bool success = false;
+            MySqlConnection Konektatu = DBKonexioa.Konektatu();
+            using (MySqlConnection konekzioa = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    konekzioa.Open();
+
+                    // 1. ID berria kalkulatu
+                    int nuevoId;
+                    string queryId = "SELECT IFNULL(MAX(ID_Gailuak), 0) + 1 FROM Gailuak";
+                    using (MySqlCommand cmdId = new MySqlCommand(queryId, konekzioa))
+                    {
+                        nuevoId = Convert.ToInt32(cmdId.ExecuteScalar());
+                    }
+
+                    // 2. Gailuak taulan sartu BALIO GUZTIEKIN
+                    DateTime gaurkoData = DateTime.Now;
+
+                    // 3. Gailuak taulan sartu BALIO GUZTIEKIN
+                    string queryGailuak = @"INSERT INTO Gailuak 
+            (ID_Gailuak, Gailu_Mota, Marka, Modeloa, Erosketa_data, EgoeraGailua) 
+            VALUES 
+            (@id, 'BesteGailuak', @marka, @modeloa, @data, @egoera)";
+                    using (MySqlCommand cmdGailuak = new MySqlCommand(queryGailuak, konekzioa))
+                    {
+                        cmdGailuak.Parameters.AddWithValue("@id", nuevoId);
+                        cmdGailuak.Parameters.AddWithValue("@marka", marka);
+                        cmdGailuak.Parameters.AddWithValue("@modeloa", modeloa);
+                        cmdGailuak.Parameters.AddWithValue("@data", gaurkoData);
+                        cmdGailuak.Parameters.AddWithValue("@egoera", egoera); // Ahora está bien
+                        cmdGailuak.ExecuteNonQuery();
+                    }
+
+                    // 4. BesteGailuak taulan sartu
+                    string queryBesteGailuak = "INSERT INTO BesteGailuak (ID_Gailuak, Marka, Modeloa) VALUES (@id, @marka, @modeloa)";
+                    using (MySqlCommand cmdBeste = new MySqlCommand(queryBesteGailuak, konekzioa))
+                    {
+                        cmdBeste.Parameters.AddWithValue("@id", nuevoId);
+                        cmdBeste.Parameters.AddWithValue("@marka", marka);
+                        cmdBeste.Parameters.AddWithValue("@modeloa", modeloa);
+                        cmdBeste.ExecuteNonQuery();
+                    }
+
+                    success = true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("❌ Errorea: " + ex.Message);
+                    throw;
+                }
+            }
+
+            return success;
+        }
+        // GEHITU INPRIMAGAILUAK GEHITZEKO METODOA
+        public bool GehituImprimagailua(int mintegiId, string marka, string modeloa, string egoera)
+        {
+            bool success = false;
+            MySqlConnection konekzioa = null;
+            MySqlTransaction transakzioa = null;
+
+            try
+            {
+                konekzioa = DBKonexioa.Konektatu();
+                transakzioa = konekzioa.BeginTransaction();
+
+                // 1. Verificar que existe el mintegia
+                string checkMintegia = "SELECT COUNT(*) FROM Mintegiak WHERE ID_Mintegia = @MintegiId";
+                using (MySqlCommand cmdCheck = new MySqlCommand(checkMintegia, konekzioa, transakzioa))
+                {
+                    cmdCheck.Parameters.AddWithValue("@MintegiId", mintegiId);
+                    int count = Convert.ToInt32(cmdCheck.ExecuteScalar());
+
+                    if (count == 0)
+                    {
+                        throw new Exception($"Ez da mintegi hori existitzen (ID: {mintegiId})");
+                    }
+                }
+
+                // 2. Insertar en Gailuak (ahora con ID_Mintegia)
+                string queryGailuak = @"INSERT INTO Gailuak 
+                    (Gailu_Mota, ID_Mintegia, Marka, Modeloa, Erosketa_data, EgoeraGailua) 
+                    VALUES ('Imprimagailuak', @mintegiId, @marka, @modeloa, @data, @egoera)";
+
+                using (MySqlCommand cmdGailuak = new MySqlCommand(queryGailuak, konekzioa, transakzioa))
+                {
+                    cmdGailuak.Parameters.AddWithValue("@mintegiId", mintegiId);
+                    cmdGailuak.Parameters.AddWithValue("@marka", marka);
+                    cmdGailuak.Parameters.AddWithValue("@modeloa", modeloa);
+                    cmdGailuak.Parameters.AddWithValue("@data", DateTime.Now);
+                    cmdGailuak.Parameters.AddWithValue("@egoera", egoera);
+                    cmdGailuak.ExecuteNonQuery();
+                }
+
+                // 3. Obtener el ID recién insertado
+                long azkenId;
+                using (MySqlCommand cmdId = new MySqlCommand("SELECT LAST_INSERT_ID();", konekzioa, transakzioa))
+                {
+                    azkenId = Convert.ToInt64(cmdId.ExecuteScalar());
+                }
+
+                // 4. Insertar en Imprimagailuak
+                string queryImprimagailuak = @"INSERT INTO Imprimagailuak 
+                            (ID_Gailuak, Marka, Modeloa) 
+                            VALUES (@id, @marka, @modeloa)";
+
+                using (MySqlCommand cmdImprimagailuak = new MySqlCommand(queryImprimagailuak, konekzioa, transakzioa))
+                {
+                    cmdImprimagailuak.Parameters.AddWithValue("@id", azkenId);
+                    cmdImprimagailuak.Parameters.AddWithValue("@marka", marka);
+                    cmdImprimagailuak.Parameters.AddWithValue("@modeloa", modeloa);
+                    cmdImprimagailuak.ExecuteNonQuery();
+                }
+
+                transakzioa.Commit();
+                success = true;
+            }
+            catch (MySqlException ex)
+            {
+                transakzioa?.Rollback();
+                Console.WriteLine("MySQL errorea: " + ex.Message);
+                throw new Exception("Errorea datu-basean: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                transakzioa?.Rollback();
+                Console.WriteLine("Errorea: " + ex.Message);
+                throw;
+            }
+            finally
+            {
+                DBKonexioa.ItxiKonexioa();
+            }
+
+            return success;
+        }
+
+
     }
 }

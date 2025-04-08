@@ -33,11 +33,11 @@
             lbmintkodea = new Label();
             label1 = new Label();
             label2 = new Label();
-            textBox3 = new TextBox();
-            textBox1 = new TextBox();
+            tbMarka = new TextBox();
+            tbModeloa = new TextBox();
             bidaliBotoia = new Button();
             btAtzera = new Button();
-            comboBox1 = new ComboBox();
+            comboBoxEgoera = new ComboBox();
             SuspendLayout();
             // 
             // BtAukeraAutatu
@@ -89,19 +89,19 @@
             label2.TabIndex = 45;
             label2.Text = "Egoera:";
             // 
-            // textBox3
+            // tbMarka
             // 
-            textBox3.Location = new Point(345, 180);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(260, 27);
-            textBox3.TabIndex = 46;
+            tbMarka.Location = new Point(345, 180);
+            tbMarka.Name = "tbMarka";
+            tbMarka.Size = new Size(260, 27);
+            tbMarka.TabIndex = 46;
             // 
-            // textBox1
+            // tbModeloa
             // 
-            textBox1.Location = new Point(345, 233);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(260, 27);
-            textBox1.TabIndex = 47;
+            tbModeloa.Location = new Point(345, 233);
+            tbModeloa.Name = "tbModeloa";
+            tbModeloa.Size = new Size(260, 27);
+            tbModeloa.TabIndex = 47;
             // 
             // bidaliBotoia
             // 
@@ -112,6 +112,7 @@
             bidaliBotoia.Size = new Size(173, 80);
             bidaliBotoia.TabIndex = 49;
             bidaliBotoia.UseVisualStyleBackColor = true;
+            bidaliBotoia.Click += bidaliBotoia_Click;
             // 
             // btAtzera
             // 
@@ -127,26 +128,25 @@
             btAtzera.UseVisualStyleBackColor = false;
             btAtzera.Click += btAtzera_Click;
             // 
-            // comboBox1
+            // comboBoxEgoera
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Ongi", "Apurtuta", "Kompontzen" });
-            comboBox1.Location = new Point(345, 289);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(260, 28);
-            comboBox1.TabIndex = 55;
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            comboBoxEgoera.FormattingEnabled = true;
+            comboBoxEgoera.Location = new Point(345, 289);
+            comboBoxEgoera.Name = "comboBoxEgoera";
+            comboBoxEgoera.Size = new Size(260, 28);
+            comboBoxEgoera.TabIndex = 55;
+            comboBoxEgoera.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // BesteGailuBatGehitu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(comboBox1);
+            Controls.Add(comboBoxEgoera);
             Controls.Add(btAtzera);
             Controls.Add(bidaliBotoia);
-            Controls.Add(textBox1);
-            Controls.Add(textBox3);
+            Controls.Add(tbModeloa);
+            Controls.Add(tbMarka);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(lbmintkodea);
@@ -164,10 +164,10 @@
         private Label lbmintkodea;
         private Label label1;
         private Label label2;
-        private TextBox textBox3;
-        private TextBox textBox1;
+        private TextBox tbMarka;
+        private TextBox tbModeloa;
         private Button bidaliBotoia;
         private Button btAtzera;
-        private ComboBox comboBox1;
+        private ComboBox comboBoxEgoera;
     }
 }

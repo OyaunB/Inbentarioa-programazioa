@@ -11,16 +11,18 @@ using System.Windows.Forms;
 
 namespace Inbentarioa
 {
-    public partial class IMPRIMAGAILUAK : Form
+    public partial class tbIDMintegia : Form
     {
-        public IMPRIMAGAILUAK()
+        public tbIDMintegia()
         {
             InitializeComponent();
         }
 
         private void IMPRIMAGAILUAK_Load(object sender, EventArgs e)
         {
-
+            // Rellenar el ComboBox con las opciones de estado
+            comboBoxEgoeraImp.Items.AddRange(new string[] { "Ongi", "Apurtuta", "Kompontzen" });
+            comboBoxEgoeraImp.SelectedIndex = 0; // Seleccionar "Ongi" por defecto
         }
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -46,6 +48,58 @@ namespace Inbentarioa
             this.Hide();
             aukeraAutatzeko form8 = new aukeraAutatzeko();
             form8.ShowDialog();
+        }
+
+    
+
+        private void bidaliBotoia_Click(object sender, EventArgs e)
+        {
+            // 1. Obtener y validar mintegiId primero
+            if (!int.TryParse(tbIDMintegiaImp.Text.Trim(), out int mintegiId))
+            {
+                MessageBox.Show("Mesedez, sartu balio numeriko bat Mintegi Kodea eremuan.");
+                return;
+            }
+
+            // 2. Obtener resto de datos
+            string marka = tbMarkaImp.Text.Trim();
+            string modeloa = btModeloaImp.Text.Trim();
+            string egoera = comboBoxEgoeraImp.SelectedItem?.ToString();
+
+            // 3. Validar campos
+            if (string.IsNullOrEmpty(marka) || string.IsNullOrEmpty(modeloa) || string.IsNullOrEmpty(egoera))
+            {
+                MessageBox.Show("Marka, Modeloa eta Egoera eremuak bete behar dira.");
+                return;
+            }
+
+            try
+            {
+                GailuakDAL gailuakDAL = new GailuakDAL();
+                bool result = gailuakDAL.GehituImprimagailua(mintegiId, marka, modeloa, egoera);
+
+                if (result)
+                {
+                    MessageBox.Show("Imprimagailua ondo gehitu da!");
+                    tbIDMintegiaImp.Text = "";
+                    tbMarkaImp.Text = "";
+                    btModeloaImp.Text = "";
+                    comboBoxEgoeraImp.SelectedIndex = -1;
+                }
+                else
+                {
+                    MessageBox.Show("Errorea gertatu da imprimagailua gehitzean.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Errorea: " + ex.Message);
+            }
+        }
+
+        private void btModeloaImp_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

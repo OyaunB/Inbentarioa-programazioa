@@ -1,6 +1,6 @@
 ﻿namespace Inbentarioa
 {
-    partial class IMPRIMAGAILUAK
+    partial class tbIDMintegia
     {
         /// <summary>
         /// Required designer variable.
@@ -28,16 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IMPRIMAGAILUAK));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(tbIDMintegia));
             BtAukeraAutatu = new Label();
-            textBox1 = new TextBox();
-            textBox3 = new TextBox();
+            tbMarkaImp = new TextBox();
+            tbIDMintegiaImp = new TextBox();
             lbmintkodea = new Label();
             label1 = new Label();
             label2 = new Label();
             btAtzera = new Button();
             bidaliBotoia = new Button();
-            comboBox1 = new ComboBox();
+            comboBoxEgoeraImp = new ComboBox();
+            btModeloaImp = new TextBox();
+            label3 = new Label();
             SuspendLayout();
             // 
             // BtAukeraAutatu
@@ -52,19 +54,19 @@
             BtAukeraAutatu.TabIndex = 29;
             BtAukeraAutatu.Text = "IMPRIMAGAILUAK GEHITU";
             // 
-            // textBox1
+            // tbMarkaImp
             // 
-            textBox1.Location = new Point(364, 208);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(260, 27);
-            textBox1.TabIndex = 30;
+            tbMarkaImp.Location = new Point(364, 180);
+            tbMarkaImp.Name = "tbMarkaImp";
+            tbMarkaImp.Size = new Size(260, 27);
+            tbMarkaImp.TabIndex = 30;
             // 
-            // textBox3
+            // tbIDMintegiaImp
             // 
-            textBox3.Location = new Point(364, 151);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(260, 27);
-            textBox3.TabIndex = 32;
+            tbIDMintegiaImp.Location = new Point(364, 123);
+            tbIDMintegiaImp.Name = "tbIDMintegiaImp";
+            tbIDMintegiaImp.Size = new Size(260, 27);
+            tbIDMintegiaImp.TabIndex = 32;
             // 
             // lbmintkodea
             // 
@@ -72,7 +74,7 @@
             lbmintkodea.BackColor = Color.Transparent;
             lbmintkodea.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbmintkodea.ForeColor = SystemColors.ControlLightLight;
-            lbmintkodea.Location = new Point(188, 147);
+            lbmintkodea.Location = new Point(185, 180);
             lbmintkodea.Name = "lbmintkodea";
             lbmintkodea.Size = new Size(115, 28);
             lbmintkodea.TabIndex = 42;
@@ -85,7 +87,7 @@
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.ControlLightLight;
-            label1.Location = new Point(152, 208);
+            label1.Location = new Point(149, 235);
             label1.Name = "label1";
             label1.Size = new Size(151, 28);
             label1.TabIndex = 43;
@@ -97,7 +99,7 @@
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(175, 270);
+            label2.Location = new Point(172, 280);
             label2.Name = "label2";
             label2.Size = new Size(128, 28);
             label2.TabIndex = 44;
@@ -126,34 +128,55 @@
             bidaliBotoia.Size = new Size(173, 80);
             bidaliBotoia.TabIndex = 46;
             bidaliBotoia.UseVisualStyleBackColor = true;
+            bidaliBotoia.Click += bidaliBotoia_Click;
             // 
-            // comboBox1
+            // comboBoxEgoeraImp
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Ongi", "Apurtuta", "Kompontzen" });
-            comboBox1.Location = new Point(364, 270);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(260, 28);
-            comboBox1.TabIndex = 56;
+            comboBoxEgoeraImp.FormattingEnabled = true;
+            comboBoxEgoeraImp.Location = new Point(364, 284);
+            comboBoxEgoeraImp.Name = "comboBoxEgoeraImp";
+            comboBoxEgoeraImp.Size = new Size(260, 28);
+            comboBoxEgoeraImp.TabIndex = 56;
             // 
-            // IMPRIMAGAILUAK
+            // btModeloaImp
+            // 
+            btModeloaImp.Location = new Point(364, 235);
+            btModeloaImp.Name = "btModeloaImp";
+            btModeloaImp.Size = new Size(260, 27);
+            btModeloaImp.TabIndex = 57;
+            btModeloaImp.TextChanged += btModeloaImp_TextChanged;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.ControlLightLight;
+            label3.Location = new Point(129, 123);
+            label3.Name = "label3";
+            label3.Size = new Size(171, 28);
+            label3.TabIndex = 58;
+            label3.Text = "ID Mintegia:";
+            // 
+            // tbIDMintegia
             // 
             AccessibleName = "IMPRIMAGAILUAK";
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(comboBox1);
+            Controls.Add(label3);
+            Controls.Add(btModeloaImp);
+            Controls.Add(comboBoxEgoeraImp);
             Controls.Add(bidaliBotoia);
             Controls.Add(btAtzera);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(lbmintkodea);
-            Controls.Add(textBox3);
-            Controls.Add(textBox1);
+            Controls.Add(tbIDMintegiaImp);
+            Controls.Add(tbMarkaImp);
             Controls.Add(BtAukeraAutatu);
-            Name = "IMPRIMAGAILUAK";
+            Name = "tbIDMintegia";
             Text = "Izarraitz";
-            Load += IMPRIMAGAILUAK_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -161,13 +184,15 @@
         #endregion
 
         private Label BtAukeraAutatu;
-        private TextBox textBox1;
-        private TextBox textBox3;
+        private TextBox tbMarkaImp;
+        private TextBox tbIDMintegiaImp;
         private Label lbmintkodea;
         private Label label1;
         private Label label2;
         private Button btAtzera;
         private Button bidaliBotoia;
-        private ComboBox comboBox1;
+        private ComboBox comboBoxEgoeraImp;
+        private TextBox btModeloaImp;
+        private Label label3;
     }
 }

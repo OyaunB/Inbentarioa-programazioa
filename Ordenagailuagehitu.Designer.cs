@@ -35,11 +35,10 @@
             btMintegiarenKodea = new TextBox();
             btModeloa = new TextBox();
             btTxartelGrafikoa = new TextBox();
-            btRamMemoria = new TextBox();
+            btRAMMemoria = new TextBox();
             btUSBPortuak = new TextBox();
             btKolorea = new TextBox();
             btErosketaData = new TextBox();
-            btEgoera = new TextBox();
             bidaliBotoia = new Button();
             button12 = new Button();
             lbkodea = new Label();
@@ -52,6 +51,7 @@
             lbUSBPortuak = new Label();
             lbkolorea = new Label();
             lbegoera = new Label();
+            comboBoxEgoeraOrd = new ComboBox();
             SuspendLayout();
             // 
             // label1
@@ -103,12 +103,12 @@
             btTxartelGrafikoa.Size = new Size(260, 27);
             btTxartelGrafikoa.TabIndex = 27;
             // 
-            // btRamMemoria
+            // btRAMMemoria
             // 
-            btRamMemoria.Location = new Point(861, 152);
-            btRamMemoria.Name = "btRamMemoria";
-            btRamMemoria.Size = new Size(260, 27);
-            btRamMemoria.TabIndex = 29;
+            btRAMMemoria.Location = new Point(861, 152);
+            btRAMMemoria.Name = "btRAMMemoria";
+            btRAMMemoria.Size = new Size(260, 27);
+            btRAMMemoria.TabIndex = 29;
             // 
             // btUSBPortuak
             // 
@@ -130,13 +130,6 @@
             btErosketaData.Name = "btErosketaData";
             btErosketaData.Size = new Size(260, 27);
             btErosketaData.TabIndex = 35;
-            // 
-            // btEgoera
-            // 
-            btEgoera.Location = new Point(861, 313);
-            btEgoera.Name = "btEgoera";
-            btEgoera.Size = new Size(260, 27);
-            btEgoera.TabIndex = 37;
             // 
             // bidaliBotoia
             // 
@@ -281,11 +274,20 @@
             lbegoera.TabIndex = 49;
             lbegoera.Text = "Egoera:";
             // 
+            // comboBoxEgoeraOrd
+            // 
+            comboBoxEgoeraOrd.FormattingEnabled = true;
+            comboBoxEgoeraOrd.Location = new Point(861, 317);
+            comboBoxEgoeraOrd.Name = "comboBoxEgoeraOrd";
+            comboBoxEgoeraOrd.Size = new Size(260, 28);
+            comboBoxEgoeraOrd.TabIndex = 57;
+            // 
             // Ordenagailuagehitu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1182, 533);
+            Controls.Add(comboBoxEgoeraOrd);
             Controls.Add(lbegoera);
             Controls.Add(lbkolorea);
             Controls.Add(lbUSBPortuak);
@@ -298,11 +300,10 @@
             Controls.Add(lbkodea);
             Controls.Add(button12);
             Controls.Add(bidaliBotoia);
-            Controls.Add(btEgoera);
             Controls.Add(btErosketaData);
             Controls.Add(btKolorea);
             Controls.Add(btUSBPortuak);
-            Controls.Add(btRamMemoria);
+            Controls.Add(btRAMMemoria);
             Controls.Add(btTxartelGrafikoa);
             Controls.Add(btModeloa);
             Controls.Add(btMintegiarenKodea);
@@ -330,11 +331,10 @@
         private TextBox btMintegiarenKodea;
         private TextBox btModeloa;
         private TextBox btTxartelGrafikoa;
-        private TextBox btRamMemoria;
+        private TextBox btRAMMemoria;
         private TextBox btUSBPortuak;
         private TextBox btKolorea;
         private TextBox btErosketaData;
-        private TextBox btEgoera;
         private Button bidaliBotoia;
         private Button button12;
         private Label lbkodea;
@@ -347,5 +347,6 @@
         private Label lbUSBPortuak;
         private Label lbkolorea;
         private Label lbegoera;
+        private ComboBox comboBoxEgoeraOrd;
     }
 }

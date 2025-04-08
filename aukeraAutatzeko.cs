@@ -53,7 +53,7 @@ namespace Inbentarioa
         private void btAldatu_Click(object sender, EventArgs e)
         {
             this.Hide();
-            IMPRIMAGAILUAK form8 = new IMPRIMAGAILUAK();
+            tbIDMintegia form8 = new tbIDMintegia();
             form8.ShowDialog();
         }
 

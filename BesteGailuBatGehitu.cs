@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,7 +21,9 @@ namespace Inbentarioa
 
         private void Form9_Load(object sender, EventArgs e)
         {
-
+            // Rellenar el ComboBox con las opciones de estado
+            comboBoxEgoera.Items.AddRange(new string[] { "Ongi", "Apurtuta", "Kompontzen" });
+            comboBoxEgoera.SelectedIndex = 0; // Seleccionar "Ongi" por defecto
         }
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -57,5 +60,42 @@ namespace Inbentarioa
         {
 
         }
+
+        private void bidaliBotoia_Click(object sender, EventArgs e)
+        {
+            string marka = tbMarka.Text.Trim();
+            string modeloa = tbModeloa.Text.Trim();
+            string egoera = comboBoxEgoera.SelectedItem?.ToString() ?? "Ongi";  // Obtiene el valor de ComboBox, o 'Ongi' si no se selecciona ninguno
+
+            if (string.IsNullOrEmpty(marka) || string.IsNullOrEmpty(modeloa))
+            {
+                MessageBox.Show("Marka eta Modeloa eremuak bete behar dira.");
+                return;
+            }
+
+            try
+            {
+                string connectionString = "server=localhost;database=inbentarioa;uid=root;pwd=root;";
+                GailuakDAL gailuakDAL = new GailuakDAL(connectionString);
+
+                bool result = gailuakDAL.GehituBesteGailua(marka, modeloa, egoera); // Ahora pasas egoera
+
+                if (result)
+                {
+                    MessageBox.Show("Gailua ondo gehitu da!");
+                    tbMarka.Text = "";
+                    tbModeloa.Text = "";
+                }
+                else
+                {
+                    MessageBox.Show("Errorea gertatu da gailua gehitzean.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Errorea: " + ex.Message);
+            }
+        }
+
     }
 }

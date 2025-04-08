@@ -61,7 +61,9 @@ namespace Inbentarioa
 
         private void Form7_Load(object sender, EventArgs e)
         {
-
+            // Rellenar el ComboBox con las opciones de estado
+            comboBoxEgoeraOrd.Items.AddRange(new string[] { "Ongi", "Apurtuta", "Kompontzen" });
+            comboBoxEgoeraOrd.SelectedIndex = 0; // Seleccionar "Ongi" por defecto
         }
 
         private void lbizena_Click(object sender, EventArgs e)
@@ -71,44 +73,78 @@ namespace Inbentarioa
 
         private void bidaliBotoia_Click_1(object sender, EventArgs e)
         {
-            // Jasotako datuak
-            string mintegia = btMintegiarenKodea.Text.Trim();
-            string marka = btMarka.Text.Trim();
-            string modeloa = btModeloa.Text.Trim();
-            string erosketadata = btErosketaData.Text.Trim();
-            string txartela = btTxartelGrafikoa.Text.Trim();
-            string ram = btRamMemoria.Text.Trim();
-            string usb = btUSBPortuak.Text.Trim();
-            string kolorea = btKolorea.Text.Trim();
-            string egoera = btEgoera.Text.Trim();
-
-            // Egiaztatu hutsik ez dauden eta formatu egokia duten
-            if (string.IsNullOrWhiteSpace(mintegia) || string.IsNullOrWhiteSpace(marka) ||
-                string.IsNullOrWhiteSpace(modeloa) || string.IsNullOrWhiteSpace(erosketadata) ||
-                string.IsNullOrWhiteSpace(txartela) || string.IsNullOrWhiteSpace(ram) ||
-                string.IsNullOrWhiteSpace(usb) || string.IsNullOrWhiteSpace(kolorea) ||
-                string.IsNullOrWhiteSpace(egoera))
+            // Validar campos requeridos
+            if (string.IsNullOrWhiteSpace(btMintegiarenKodea.Text) ||
+                string.IsNullOrWhiteSpace(btMarka.Text) ||
+                string.IsNullOrWhiteSpace(btModeloa.Text) ||
+                string.IsNullOrWhiteSpace(btErosketaData.Text) ||
+                string.IsNullOrWhiteSpace(btTxartelGrafikoa.Text) ||
+                string.IsNullOrWhiteSpace(btRAMMemoria.Text) ||
+                string.IsNullOrWhiteSpace(btUSBPortuak.Text) ||
+                comboBoxEgoeraOrd.SelectedItem == null)
             {
-                MessageBox.Show("Sartu datu guztiak mesedez.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Mesedez, bete eremu guztiak.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Formatuaren egiaztapena
-            if (!int.TryParse(mintegia, out _) || !int.TryParse(ram, out _) || !int.TryParse(usb, out _) || !DateTime.TryParse(erosketadata, out _))
+            // Validar formatos numéricos
+            if (!int.TryParse(btMintegiarenKodea.Text, out int mintegiKodea) ||
+                !int.TryParse(btRAMMemoria.Text, out int ram) ||
+                !int.TryParse(btUSBPortuak.Text, out int usbPortuak))
             {
-                MessageBox.Show("Sartu datuak formatu egokian mesedez.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Mintegi kodea, RAM eta USB portuak zenbakiak izan behar dira.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Validar fecha
+            if (!DateTime.TryParse(btErosketaData.Text, out DateTime erosketaData))
+            {
+                MessageBox.Show("Sartu data egokia (Adibidez: 2023-12-31).", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             try
             {
-                DBOrdenagailuakGehitu.OrdenagailuaGehitu(mintegia, marka, modeloa, erosketadata, txartela, ram, usb, kolorea, egoera);
-                MessageBox.Show("Ordenagailua ongi gehituta!", "Arrakasta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DBOrdenagailuakGehitu gailuakDAL = new DBOrdenagailuakGehitu();
+                bool result = gailuakDAL.GehituOrdenagailua(
+                    mintegiKodea.ToString(),
+                    btMarka.Text,
+                    btModeloa.Text,
+                    erosketaData,
+                    btTxartelGrafikoa.Text,
+                    ram,
+                    usbPortuak,
+                    comboBoxEgoeraOrd.SelectedItem.ToString()
+                );
+
+                if (result)
+                {
+                    MessageBox.Show("Ordenagailua ondo gehitu da!", "Arrakasta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Limpiar formulario
+                    btMintegiarenKodea.Text = "";
+                    btMarka.Text = "";
+                    btModeloa.Text = "";
+                    btErosketaData.Text = "";
+                    btTxartelGrafikoa.Text = "";
+                    btRAMMemoria.Text = "";
+                    btUSBPortuak.Text = "";
+                    comboBoxEgoeraOrd.SelectedIndex = 0;
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Errorea gertatu da: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void Ordenagailuagehitu_Load(object sender, EventArgs e)
+        {
+            // Rellenar ComboBox de estado
+            comboBoxEgoeraOrd.Items.AddRange(new string[] { "Ongi", "Apurtuta", "Kompontzen" });
+            comboBoxEgoeraOrd.SelectedIndex = 0;
+
+            // Configurar fecha actual por defecto
+            btErosketaData.Text = DateTime.Now.ToString("yyyy-MM-dd");
         }
 
     }
