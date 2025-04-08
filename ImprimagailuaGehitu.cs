@@ -62,19 +62,20 @@ namespace Inbentarioa
 
         private void bidaliBotoia_Click(object sender, EventArgs e)
         {
-            // 1. Obtener y validar mintegiId primero
-            if (!int.TryParse(comboBoxEgoeraImprimagailua.Text.Trim(), out int mintegiId))
+            // 1. Mintegi ID-a beharrezkoa den kasuetan, beharrezkoa izango litzateke ID bat lortzea
+            if (!int.TryParse(tbIDMintegiaImp.Text.Trim(), out int mintegiId))
             {
                 MessageBox.Show("Mesedez, sartu balio numeriko bat Mintegi Kodea eremuan.");
                 return;
             }
 
-            // 2. Obtener resto de datos
-            string marka = tbMarkaImp.Text.Trim();
-            string modeloa = comboBoxEgoeraImprimagailua.Text.Trim();
+            // 2. ComboBox-eko egoera lortu (Ongi, Apurtuta, Kompontzen)
             string egoera = comboBoxEgoeraImprimagailua.SelectedItem?.ToString();
 
-            // 3. Validar campos
+            // 3. Datuak balidatu
+            string marka = tbMarkaImp.Text.Trim();
+            string modeloa = btModeloaImprimagailua.Text.Trim();
+
             if (string.IsNullOrEmpty(marka) || string.IsNullOrEmpty(modeloa) || string.IsNullOrEmpty(egoera))
             {
                 MessageBox.Show("Marka, Modeloa eta Egoera eremuak bete behar dira.");
@@ -91,8 +92,8 @@ namespace Inbentarioa
                     MessageBox.Show("Imprimagailua ondo gehitu da!");
                     tbIDMintegiaImp.Text = "";
                     tbMarkaImp.Text = "";
-                    btModeloaImp.Text = "";
-                    comboBoxEgoeraImprimagailua.SelectedIndex = -1;
+                    btModeloaImprimagailua.Text = "";
+                    comboBoxEgoeraImprimagailua.SelectedIndex = -1; // Ez hautatu ezer
                 }
                 else
                 {
@@ -104,6 +105,7 @@ namespace Inbentarioa
                 MessageBox.Show("Errorea: " + ex.Message);
             }
         }
+
 
         private void btModeloaImp_TextChanged(object sender, EventArgs e)
         {

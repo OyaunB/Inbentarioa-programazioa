@@ -37,7 +37,7 @@
             label2 = new Label();
             btAtzera = new Button();
             bidaliBotoia = new Button();
-            btModeloaImp = new TextBox();
+            btModeloaImprimagailua = new TextBox();
             label3 = new Label();
             comboBoxEgoeraImprimagailua = new ComboBox();
             SuspendLayout();
@@ -130,13 +130,13 @@
             bidaliBotoia.UseVisualStyleBackColor = true;
             bidaliBotoia.Click += bidaliBotoia_Click;
             // 
-            // btModeloaImp
+            // btModeloaImprimagailua
             // 
-            btModeloaImp.Location = new Point(364, 235);
-            btModeloaImp.Name = "btModeloaImp";
-            btModeloaImp.Size = new Size(260, 27);
-            btModeloaImp.TabIndex = 57;
-            btModeloaImp.TextChanged += btModeloaImp_TextChanged;
+            btModeloaImprimagailua.Location = new Point(364, 235);
+            btModeloaImprimagailua.Name = "btModeloaImprimagailua";
+            btModeloaImprimagailua.Size = new Size(260, 27);
+            btModeloaImprimagailua.TabIndex = 57;
+            btModeloaImprimagailua.TextChanged += btModeloaImp_TextChanged;
             // 
             // label3
             // 
@@ -166,7 +166,7 @@
             ClientSize = new Size(800, 450);
             Controls.Add(comboBoxEgoeraImprimagailua);
             Controls.Add(label3);
-            Controls.Add(btModeloaImp);
+            Controls.Add(btModeloaImprimagailua);
             Controls.Add(bidaliBotoia);
             Controls.Add(btAtzera);
             Controls.Add(label2);
@@ -192,7 +192,7 @@
         private Label label2;
         private Button btAtzera;
         private Button bidaliBotoia;
-        private TextBox btModeloaImp;
+        private TextBox btModeloaImprimagailua;
         private Label label3;
         private ComboBox comboBoxEgoeraImprimagailua;
     }

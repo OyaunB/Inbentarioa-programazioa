@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -50,7 +49,7 @@ namespace Inbentarioa
             dataGridViewGailuakGehitu.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
             dataGridViewGailuakGehitu.DefaultCellStyle.SelectionForeColor = Color.Black;
 
-            // NO establecemos ReadOnly = true aquí, lo haremos por columna
+            //NO establecemos ReadOnly = true aquí, lo haremos por columna
         }
         private void dataGridViewGailuakGehitu_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -70,24 +69,46 @@ namespace Inbentarioa
             try
             {
                 DataTable table = gailuakDAL.ObtenerTodosGailuak();
+                //__________________________
+                dataGridViewGailuakGehitu.DataSource = table;
 
+                // Asegurar que EgoeraGailua no sea NULL
+                foreach (DataGridViewRow row in dataGridViewGailuakGehitu.Rows)
+                {
+                    if (row.Cells["EgoeraGailua"].Value == null || row.Cells["EgoeraGailua"].Value == DBNull.Value)
+                    {
+                        row.Cells["EgoeraGailua"].Value = "Ongi"; // Valor por defecto
+                    }
+                }
+                //__________________________
                 // Configurar columna ComboBox para EgoeraGailua
                 if (dataGridViewGailuakGehitu.Columns.Contains("EgoeraGailua"))
                 {
                     dataGridViewGailuakGehitu.Columns.Remove("EgoeraGailua");
-
-                    DataGridViewComboBoxColumn comboBoxColumn = new DataGridViewComboBoxColumn();
-                    comboBoxColumn.Name = "EgoeraGailua";
-                    comboBoxColumn.HeaderText = "Egoera Gailua";
-                    comboBoxColumn.DataPropertyName = "EgoeraGailua";
-                    comboBoxColumn.Items.AddRange("Ongi", "Apurtuta", "Kompontzen");
-                    dataGridViewGailuakGehitu.Columns.Add(comboBoxColumn);
                 }
+
+                DataGridViewComboBoxColumn comboBoxColumn = new DataGridViewComboBoxColumn();
+                comboBoxColumn.Name = "EgoeraGailua";
+                comboBoxColumn.HeaderText = "Egoera Gailua";
+                comboBoxColumn.DataPropertyName = "EgoeraGailua";
+                comboBoxColumn.Items.AddRange("Ongi", "Apurtuta", "Kompontzen");
+                dataGridViewGailuakGehitu.Columns.Add(comboBoxColumn);
 
                 dataGridViewGailuakGehitu.DataSource = table;
 
                 // Configurar columnas especiales
                 ConfigurarColumnasEditables();
+
+                // Asegurarse de que las columnas especiales son visibles
+                if (dataGridViewGailuakGehitu.Columns.Contains("EgoeraGailua"))
+                {
+                    dataGridViewGailuakGehitu.Columns["EgoeraGailua"].Visible = true;
+                }
+
+                if (dataGridViewGailuakGehitu.Columns.Contains("EzabatzekoMarka"))
+                {
+                    dataGridViewGailuakGehitu.Columns["EzabatzekoMarka"].Visible = true;
+                }
             }
             catch (Exception ex)
             {
@@ -102,20 +123,15 @@ namespace Inbentarioa
                 column.ReadOnly = true;
             }
 
-            // Configurar columna EgoeraGailua
+            // Configurar columnas editables
             if (dataGridViewGailuakGehitu.Columns.Contains("EgoeraGailua"))
             {
                 dataGridViewGailuakGehitu.Columns["EgoeraGailua"].ReadOnly = false;
             }
 
-            // Configurar columna EzabatzekoMarka (si existe)
-            if (dataGridViewGailuakGehitu.Columns.Contains("EzabatzekoMarka"))
+            // Configurar columna EzabatzekoMarka
+            if (!dataGridViewGailuakGehitu.Columns.Contains("EzabatzekoMarka"))
             {
-                dataGridViewGailuakGehitu.Columns["EzabatzekoMarka"].ReadOnly = false;
-            }
-            else
-            {
-                // Si no existe, crearla
                 var checkBoxColumn = new DataGridViewCheckBoxColumn
                 {
                     Name = "EzabatzekoMarka",
@@ -124,17 +140,19 @@ namespace Inbentarioa
                 };
                 dataGridViewGailuakGehitu.Columns.Add(checkBoxColumn);
             }
+            else
+            {
+                dataGridViewGailuakGehitu.Columns["EzabatzekoMarka"].ReadOnly = false;
+            }
 
-            // Configurar columna Ezabatuta (oculta)
+            // Rellenar la columna checkbox si existe columna Ezabatuta
             if (dataGridViewGailuakGehitu.Columns.Contains("Ezabatuta"))
             {
                 dataGridViewGailuakGehitu.Columns["Ezabatuta"].Visible = false;
 
-                // Rellenar la columna checkbox
                 foreach (DataGridViewRow row in dataGridViewGailuakGehitu.Rows)
                 {
-                    if (row.Cells["Ezabatuta"].Value != DBNull.Value &&
-                        dataGridViewGailuakGehitu.Columns.Contains("EzabatzekoMarka"))
+                    if (row.Cells["Ezabatuta"].Value != DBNull.Value)
                     {
                         bool ezabatzekoMarka = Convert.ToInt32(row.Cells["Ezabatuta"].Value) == 1;
                         row.Cells["EzabatzekoMarka"].Value = ezabatzekoMarka;
@@ -198,28 +216,47 @@ namespace Inbentarioa
             {
                 foreach (DataGridViewRow row in dataGridViewGailuakGehitu.Rows)
                 {
-                    if (row.Cells["ID"].Value != null)
+                    if (row.Cells["ID"].Value != null && row.Cells["ID"].Value != DBNull.Value)
                     {
                         int id = Convert.ToInt32(row.Cells["ID"].Value);
 
-                        // Obtener EgoeraGailua (con valor por defecto si es nulo)
-                        string egoeraGailua = row.Cells["EgoeraGailua"].Value?.ToString() ?? "Ongi";
+                        // Obtener EgoeraGailua (manejar DBNull)
+                        string egoeraGailua = "Ongi"; // Valor por defecto
+                        if (row.Cells["EgoeraGailua"].Value != null && row.Cells["EgoeraGailua"].Value != DBNull.Value)
+                        {
+                            egoeraGailua = row.Cells["EgoeraGailua"].Value.ToString();
+                        }
 
-                        // Obtener EzabatzekoMarka (con valor por defecto si es nulo)
+                        // Obtener EzabatzekoMarka (manejar DBNull)
                         bool ezabatzekoMarka = false;
                         if (dataGridViewGailuakGehitu.Columns.Contains("EzabatzekoMarka") &&
-                            row.Cells["EzabatzekoMarka"].Value != null)
+                            row.Cells["EzabatzekoMarka"].Value != null &&
+                            row.Cells["EzabatzekoMarka"].Value != DBNull.Value)
                         {
                             ezabatzekoMarka = Convert.ToBoolean(row.Cells["EzabatzekoMarka"].Value);
+                        }
+
+                        // Obtener ID_Mintegia (manejar DBNull si es necesario)
+                        int idMintegia = 0;
+                        if (row.Cells["ID_Mintegia"].Value != null && row.Cells["ID_Mintegia"].Value != DBNull.Value)
+                        {
+                            idMintegia = Convert.ToInt32(row.Cells["ID_Mintegia"].Value);
+                        }
+
+                        // Obtener Erosketa_Data (manejar DBNull si es necesario)
+                        DateTime erosketaData = DateTime.Now;
+                        if (row.Cells["Erosketa_Data"].Value != null && row.Cells["Erosketa_Data"].Value != DBNull.Value)
+                        {
+                            erosketaData = Convert.ToDateTime(row.Cells["Erosketa_Data"].Value);
                         }
 
                         // Actualizar en la base de datos
                         gailuakDAL.ActualizarGailua(
                             id,
-                            Convert.ToInt32(row.Cells["ID_Mintegia"].Value),
-                            row.Cells["Marka"].Value?.ToString() ?? "",
+                            idMintegia,
+                            row.Cells["Marka"].Value?.ToString() ?? "", // Usar operador ?. para manejar null
                             row.Cells["Modeloa"].Value?.ToString() ?? "",
-                            Convert.ToDateTime(row.Cells["Erosketa_Data"].Value),
+                            erosketaData,
                             ezabatzekoMarka,
                             egoeraGailua
                         );
@@ -233,6 +270,7 @@ namespace Inbentarioa
                 MessageBox.Show("Errorea aldaketak gordetzean: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void btEzabatu_Click(object sender, EventArgs e)
         {
             if (dataGridViewGailuakGehitu.SelectedRows.Count == 0)

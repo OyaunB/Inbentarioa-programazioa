@@ -38,6 +38,8 @@
             bidaliBotoia = new Button();
             btAtzera = new Button();
             comboBoxEgoera = new ComboBox();
+            tb_ID_Mintegia = new TextBox();
+            label3 = new Label();
             SuspendLayout();
             // 
             // BtAukeraAutatu
@@ -51,7 +53,7 @@
             BtAukeraAutatu.Size = new Size(520, 41);
             BtAukeraAutatu.TabIndex = 30;
             BtAukeraAutatu.Text = "BESTE GAILU BAT GEHITU";
-            BtAukeraAutatu.Click += BtAukeraAutatu_Click;
+            //BtAukeraAutatu.Click += BtAukeraAutatu_Click;
             // 
             // lbmintkodea
             // 
@@ -135,13 +137,34 @@
             comboBoxEgoera.Name = "comboBoxEgoera";
             comboBoxEgoera.Size = new Size(260, 28);
             comboBoxEgoera.TabIndex = 55;
-            comboBoxEgoera.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            //comboBoxEgoera.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            // 
+            // tb_ID_Mintegia
+            // 
+            tb_ID_Mintegia.Location = new Point(345, 120);
+            tb_ID_Mintegia.Name = "tb_ID_Mintegia";
+            tb_ID_Mintegia.Size = new Size(260, 27);
+            tb_ID_Mintegia.TabIndex = 56;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.ControlLightLight;
+            label3.Location = new Point(98, 116);
+            label3.Name = "label3";
+            label3.Size = new Size(171, 28);
+            label3.TabIndex = 59;
+            label3.Text = "ID Mintegia:";
             // 
             // BesteGailuBatGehitu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label3);
+            Controls.Add(tb_ID_Mintegia);
             Controls.Add(comboBoxEgoera);
             Controls.Add(btAtzera);
             Controls.Add(bidaliBotoia);
@@ -169,5 +192,7 @@
         private Button bidaliBotoia;
         private Button btAtzera;
         private ComboBox comboBoxEgoera;
+        private TextBox tb_ID_Mintegia;
+        private Label label3;
     }
 }

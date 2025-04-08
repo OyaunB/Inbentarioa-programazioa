@@ -114,8 +114,9 @@
             Controls.Add(btAldatu);
             Controls.Add(BtGehitu);
             Controls.Add(BtAukeraAutatu);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "aukeraAutatzeko";
-            Text = "Form8";
+            Text = "Izarraitz";
             Load += Form8_Load;
             ResumeLayout(false);
             PerformLayout();

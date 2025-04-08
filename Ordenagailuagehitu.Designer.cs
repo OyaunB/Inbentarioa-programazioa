@@ -30,18 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ordenagailuagehitu));
             label1 = new Label();
-            btKodea = new TextBox();
             btMarka = new TextBox();
             btMintegiarenKodea = new TextBox();
             btModeloa = new TextBox();
             btTxartelGrafikoa = new TextBox();
             btRAMMemoria = new TextBox();
             btUSBPortuak = new TextBox();
-            btKolorea = new TextBox();
             btErosketaData = new TextBox();
             bidaliBotoia = new Button();
             button12 = new Button();
-            lbkodea = new Label();
             lbmintkodea = new Label();
             lbizena = new Label();
             lbmarka = new Label();
@@ -49,7 +46,6 @@
             lbTxartelGrafikoa = new Label();
             lbRAMMemoria = new Label();
             lbUSBPortuak = new Label();
-            lbkolorea = new Label();
             lbegoera = new Label();
             comboBoxEgoeraOrd = new ComboBox();
             SuspendLayout();
@@ -68,30 +64,23 @@
             label1.Text = "ORDENAGAILUA GEHITU";
             label1.Click += label1_Click;
             // 
-            // btKodea
-            // 
-            btKodea.Location = new Point(301, 102);
-            btKodea.Name = "btKodea";
-            btKodea.Size = new Size(260, 27);
-            btKodea.TabIndex = 19;
-            // 
             // btMarka
             // 
-            btMarka.Location = new Point(301, 203);
+            btMarka.Location = new Point(301, 175);
             btMarka.Name = "btMarka";
             btMarka.Size = new Size(260, 27);
             btMarka.TabIndex = 21;
             // 
             // btMintegiarenKodea
             // 
-            btMintegiarenKodea.Location = new Point(301, 152);
+            btMintegiarenKodea.Location = new Point(301, 106);
             btMintegiarenKodea.Name = "btMintegiarenKodea";
             btMintegiarenKodea.Size = new Size(260, 27);
             btMintegiarenKodea.TabIndex = 23;
             // 
             // btModeloa
             // 
-            btModeloa.Location = new Point(301, 262);
+            btModeloa.Location = new Point(301, 245);
             btModeloa.Name = "btModeloa";
             btModeloa.Size = new Size(260, 27);
             btModeloa.TabIndex = 25;
@@ -105,28 +94,21 @@
             // 
             // btRAMMemoria
             // 
-            btRAMMemoria.Location = new Point(861, 152);
+            btRAMMemoria.Location = new Point(861, 171);
             btRAMMemoria.Name = "btRAMMemoria";
             btRAMMemoria.Size = new Size(260, 27);
             btRAMMemoria.TabIndex = 29;
             // 
             // btUSBPortuak
             // 
-            btUSBPortuak.Location = new Point(861, 207);
+            btUSBPortuak.Location = new Point(861, 245);
             btUSBPortuak.Name = "btUSBPortuak";
             btUSBPortuak.Size = new Size(260, 27);
             btUSBPortuak.TabIndex = 31;
             // 
-            // btKolorea
-            // 
-            btKolorea.Location = new Point(861, 261);
-            btKolorea.Name = "btKolorea";
-            btKolorea.Size = new Size(260, 27);
-            btKolorea.TabIndex = 33;
-            // 
             // btErosketaData
             // 
-            btErosketaData.Location = new Point(301, 313);
+            btErosketaData.Location = new Point(301, 318);
             btErosketaData.Name = "btErosketaData";
             btErosketaData.Size = new Size(260, 27);
             btErosketaData.TabIndex = 35;
@@ -153,25 +135,13 @@
             button12.UseVisualStyleBackColor = true;
             button12.Click += button12_Click;
             // 
-            // lbkodea
-            // 
-            lbkodea.AutoSize = true;
-            lbkodea.BackColor = Color.Transparent;
-            lbkodea.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbkodea.ForeColor = SystemColors.ControlLightLight;
-            lbkodea.Location = new Point(39, 99);
-            lbkodea.Name = "lbkodea";
-            lbkodea.Size = new Size(101, 28);
-            lbkodea.TabIndex = 40;
-            lbkodea.Text = "Kodea:";
-            // 
             // lbmintkodea
             // 
             lbmintkodea.AutoSize = true;
             lbmintkodea.BackColor = Color.Transparent;
             lbmintkodea.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbmintkodea.ForeColor = SystemColors.ControlLightLight;
-            lbmintkodea.Location = new Point(39, 152);
+            lbmintkodea.Location = new Point(12, 106);
             lbmintkodea.Name = "lbmintkodea";
             lbmintkodea.Size = new Size(261, 28);
             lbmintkodea.TabIndex = 41;
@@ -183,7 +153,7 @@
             lbizena.BackColor = Color.Transparent;
             lbizena.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbizena.ForeColor = SystemColors.ControlLightLight;
-            lbizena.Location = new Point(41, 262);
+            lbizena.Location = new Point(144, 241);
             lbizena.Name = "lbizena";
             lbizena.Size = new Size(129, 28);
             lbizena.TabIndex = 42;
@@ -196,7 +166,7 @@
             lbmarka.BackColor = Color.Transparent;
             lbmarka.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbmarka.ForeColor = SystemColors.ControlLightLight;
-            lbmarka.Location = new Point(41, 202);
+            lbmarka.Location = new Point(174, 174);
             lbmarka.Name = "lbmarka";
             lbmarka.Size = new Size(99, 28);
             lbmarka.TabIndex = 43;
@@ -208,7 +178,7 @@
             lberosketaData.BackColor = Color.Transparent;
             lberosketaData.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lberosketaData.ForeColor = SystemColors.ControlLightLight;
-            lberosketaData.Location = new Point(39, 313);
+            lberosketaData.Location = new Point(70, 318);
             lberosketaData.Name = "lberosketaData";
             lberosketaData.Size = new Size(203, 28);
             lberosketaData.TabIndex = 44;
@@ -220,7 +190,7 @@
             lbTxartelGrafikoa.BackColor = Color.Transparent;
             lbTxartelGrafikoa.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbTxartelGrafikoa.ForeColor = SystemColors.ControlLightLight;
-            lbTxartelGrafikoa.Location = new Point(600, 102);
+            lbTxartelGrafikoa.Location = new Point(588, 102);
             lbTxartelGrafikoa.Name = "lbTxartelGrafikoa";
             lbTxartelGrafikoa.Size = new Size(228, 28);
             lbTxartelGrafikoa.TabIndex = 45;
@@ -232,7 +202,7 @@
             lbRAMMemoria.BackColor = Color.Transparent;
             lbRAMMemoria.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbRAMMemoria.ForeColor = SystemColors.ControlLightLight;
-            lbRAMMemoria.Location = new Point(600, 148);
+            lbRAMMemoria.Location = new Point(618, 174);
             lbRAMMemoria.Name = "lbRAMMemoria";
             lbRAMMemoria.Size = new Size(198, 28);
             lbRAMMemoria.TabIndex = 46;
@@ -244,23 +214,11 @@
             lbUSBPortuak.BackColor = Color.Transparent;
             lbUSBPortuak.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbUSBPortuak.ForeColor = SystemColors.ControlLightLight;
-            lbUSBPortuak.Location = new Point(600, 203);
+            lbUSBPortuak.Location = new Point(634, 241);
             lbUSBPortuak.Name = "lbUSBPortuak";
             lbUSBPortuak.Size = new Size(182, 28);
             lbUSBPortuak.TabIndex = 47;
             lbUSBPortuak.Text = "USB Portuak:";
-            // 
-            // lbkolorea
-            // 
-            lbkolorea.AutoSize = true;
-            lbkolorea.BackColor = Color.Transparent;
-            lbkolorea.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbkolorea.ForeColor = SystemColors.ControlLightLight;
-            lbkolorea.Location = new Point(600, 262);
-            lbkolorea.Name = "lbkolorea";
-            lbkolorea.Size = new Size(120, 28);
-            lbkolorea.TabIndex = 48;
-            lbkolorea.Text = "Kolorea:";
             // 
             // lbegoera
             // 
@@ -268,7 +226,7 @@
             lbegoera.BackColor = Color.Transparent;
             lbegoera.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbegoera.ForeColor = SystemColors.ControlLightLight;
-            lbegoera.Location = new Point(600, 313);
+            lbegoera.Location = new Point(706, 313);
             lbegoera.Name = "lbegoera";
             lbegoera.Size = new Size(110, 28);
             lbegoera.TabIndex = 49;
@@ -289,7 +247,6 @@
             ClientSize = new Size(1182, 533);
             Controls.Add(comboBoxEgoeraOrd);
             Controls.Add(lbegoera);
-            Controls.Add(lbkolorea);
             Controls.Add(lbUSBPortuak);
             Controls.Add(lbRAMMemoria);
             Controls.Add(lbTxartelGrafikoa);
@@ -297,18 +254,15 @@
             Controls.Add(lbmarka);
             Controls.Add(lbizena);
             Controls.Add(lbmintkodea);
-            Controls.Add(lbkodea);
             Controls.Add(button12);
             Controls.Add(bidaliBotoia);
             Controls.Add(btErosketaData);
-            Controls.Add(btKolorea);
             Controls.Add(btUSBPortuak);
             Controls.Add(btRAMMemoria);
             Controls.Add(btTxartelGrafikoa);
             Controls.Add(btModeloa);
             Controls.Add(btMintegiarenKodea);
             Controls.Add(btMarka);
-            Controls.Add(btKodea);
             Controls.Add(label1);
             Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -326,18 +280,15 @@
         private Label label1;
         private PictureBox pictureBox1;
         private Label label4;
-        private TextBox btKodea;
         private TextBox btMarka;
         private TextBox btMintegiarenKodea;
         private TextBox btModeloa;
         private TextBox btTxartelGrafikoa;
         private TextBox btRAMMemoria;
         private TextBox btUSBPortuak;
-        private TextBox btKolorea;
         private TextBox btErosketaData;
         private Button bidaliBotoia;
         private Button button12;
-        private Label lbkodea;
         private Label lbmintkodea;
         private Label lbizena;
         private Label lbmarka;
@@ -345,7 +296,6 @@
         private Label lbTxartelGrafikoa;
         private Label lbRAMMemoria;
         private Label lbUSBPortuak;
-        private Label lbkolorea;
         private Label lbegoera;
         private ComboBox comboBoxEgoeraOrd;
     }

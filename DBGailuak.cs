@@ -182,59 +182,63 @@ namespace Inbentarioa
             MySqlConnection Konektatu = DBKonexioa.Konektatu(); // Usando tu método existente
             //string connectionString = DBKonexioa.GetConnectionString(); // zure string-etik
         }
-        public bool GehituBesteGailua(string marka, string modeloa, string egoera)
+        public bool GehituBesteGailua(int idMintegia, string marka, string modeloa, string egoera)
         {
             bool success = false;
-            MySqlConnection Konektatu = DBKonexioa.Konektatu();
-            using (MySqlConnection konekzioa = new MySqlConnection(connectionString))
+            MySqlConnection konekzioa = null;
+
+            try
             {
-                try
+                konekzioa = new MySqlConnection(connectionString);
+                konekzioa.Open();
+
+                // 1. ID berria kalkulatu
+                int nuevoId;
+                string queryId = "SELECT IFNULL(MAX(ID_Gailuak), 0) + 1 FROM Gailuak";
+                using (MySqlCommand cmdId = new MySqlCommand(queryId, konekzioa))
                 {
-                    konekzioa.Open();
+                    nuevoId = Convert.ToInt32(cmdId.ExecuteScalar());
+                }
 
-                    // 1. ID berria kalkulatu
-                    int nuevoId;
-                    string queryId = "SELECT IFNULL(MAX(ID_Gailuak), 0) + 1 FROM Gailuak";
-                    using (MySqlCommand cmdId = new MySqlCommand(queryId, konekzioa))
-                    {
-                        nuevoId = Convert.ToInt32(cmdId.ExecuteScalar());
-                    }
+                // 2. Gailuak taulan sartu BALIO GUZTIEKIN
+                DateTime gaurkoData = DateTime.Now;
 
-                    // 2. Gailuak taulan sartu BALIO GUZTIEKIN
-                    DateTime gaurkoData = DateTime.Now;
-
-                    // 3. Gailuak taulan sartu BALIO GUZTIEKIN
-                    string queryGailuak = @"INSERT INTO Gailuak 
-            (ID_Gailuak, Gailu_Mota, Marka, Modeloa, Erosketa_data, EgoeraGailua) 
+                // 3. Gailuak taulan sartu
+                string queryGailuak = @"INSERT INTO Gailuak 
+            (ID_Gailuak, Gailu_Mota, Marka, Modeloa, Erosketa_data, EgoeraGailua, ID_Mintegia) 
             VALUES 
-            (@id, 'BesteGailuak', @marka, @modeloa, @data, @egoera)";
-                    using (MySqlCommand cmdGailuak = new MySqlCommand(queryGailuak, konekzioa))
-                    {
-                        cmdGailuak.Parameters.AddWithValue("@id", nuevoId);
-                        cmdGailuak.Parameters.AddWithValue("@marka", marka);
-                        cmdGailuak.Parameters.AddWithValue("@modeloa", modeloa);
-                        cmdGailuak.Parameters.AddWithValue("@data", gaurkoData);
-                        cmdGailuak.Parameters.AddWithValue("@egoera", egoera); // Ahora está bien
-                        cmdGailuak.ExecuteNonQuery();
-                    }
-
-                    // 4. BesteGailuak taulan sartu
-                    string queryBesteGailuak = "INSERT INTO BesteGailuak (ID_Gailuak, Marka, Modeloa) VALUES (@id, @marka, @modeloa)";
-                    using (MySqlCommand cmdBeste = new MySqlCommand(queryBesteGailuak, konekzioa))
-                    {
-                        cmdBeste.Parameters.AddWithValue("@id", nuevoId);
-                        cmdBeste.Parameters.AddWithValue("@marka", marka);
-                        cmdBeste.Parameters.AddWithValue("@modeloa", modeloa);
-                        cmdBeste.ExecuteNonQuery();
-                    }
-
-                    success = true;
-                }
-                catch (Exception ex)
+            (@id, 'BesteGailuak', @marka, @modeloa, @data, @egoera, @idMintegia)"; // ID_Mintegia gehituta
+                using (MySqlCommand cmdGailuak = new MySqlCommand(queryGailuak, konekzioa))
                 {
-                    Console.WriteLine("❌ Errorea: " + ex.Message);
-                    throw;
+                    cmdGailuak.Parameters.AddWithValue("@id", nuevoId);
+                    cmdGailuak.Parameters.AddWithValue("@marka", marka);
+                    cmdGailuak.Parameters.AddWithValue("@modeloa", modeloa);
+                    cmdGailuak.Parameters.AddWithValue("@data", gaurkoData);
+                    cmdGailuak.Parameters.AddWithValue("@egoera", egoera);
+                    cmdGailuak.Parameters.AddWithValue("@idMintegia", idMintegia); // ID_Mintegia ere sartzen da
+                    cmdGailuak.ExecuteNonQuery();
                 }
+
+                // 4. BesteGailuak taulan sartu
+                string queryBesteGailuak = "INSERT INTO BesteGailuak (ID_Gailuak, Marka, Modeloa) VALUES (@id, @marka, @modeloa)";
+                using (MySqlCommand cmdBeste = new MySqlCommand(queryBesteGailuak, konekzioa))
+                {
+                    cmdBeste.Parameters.AddWithValue("@id", nuevoId);
+                    cmdBeste.Parameters.AddWithValue("@marka", marka);
+                    cmdBeste.Parameters.AddWithValue("@modeloa", modeloa);
+                    cmdBeste.ExecuteNonQuery();
+                }
+
+                success = true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("❌ Errorea: " + ex.Message);
+                throw;
+            }
+            finally
+            {
+                konekzioa?.Close();
             }
 
             return success;

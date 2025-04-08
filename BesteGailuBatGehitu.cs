@@ -1,13 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Inbentarioa
@@ -21,17 +15,15 @@ namespace Inbentarioa
 
         private void Form9_Load(object sender, EventArgs e)
         {
-            // Kargatu ComboBox-a hasierako egoerarekin
             CargarComboBoxEgoera();
         }
 
         private void CargarComboBoxEgoera()
         {
-            // ComboBox-a hutsik dagoen egiaztatu eta gero kargatu
             if (comboBoxEgoera.Items.Count == 0)
             {
                 comboBoxEgoera.Items.AddRange(new string[] { "Ongi", "Apurtuta", "Kompontzen" });
-                comboBoxEgoera.SelectedIndex = 0; // "Ongi" hautatuko da lehen aldiz
+                comboBoxEgoera.SelectedIndex = 0;
             }
         }
 
@@ -48,7 +40,6 @@ namespace Inbentarioa
                 e.Graphics.FillRectangle(brush, this.ClientRectangle);
             }
         }
-
         private void btAtzera_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -56,26 +47,18 @@ namespace Inbentarioa
             form8.ShowDialog();
         }
 
-        private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
-        {
-            // Scroll-a beharrezkoa denean
-        }
-
-        private void BtAukeraAutatu_Click(object sender, EventArgs e)
-        {
-            // Botoiaren logika
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // ComboBox-a aldatzen denean egon daitekeen logika
-        }
-
         private void bidaliBotoia_Click(object sender, EventArgs e)
         {
             string marka = tbMarka.Text.Trim();
             string modeloa = tbModeloa.Text.Trim();
-            string egoera = comboBoxEgoera.SelectedItem?.ToString() ?? "Ongi";  // 'Ongi' hautatu ezean
+            string egoera = comboBoxEgoera.SelectedItem?.ToString() ?? "Ongi";
+            int idMintegia;
+
+            if (!int.TryParse(tb_ID_Mintegia.Text.Trim(), out idMintegia))
+            {
+                MessageBox.Show("ID_Mintegia zenbakizkoa izan behar da.");
+                return;
+            }
 
             if (string.IsNullOrEmpty(marka) || string.IsNullOrEmpty(modeloa))
             {
@@ -88,13 +71,14 @@ namespace Inbentarioa
                 string connectionString = "server=localhost;database=inbentarioa;uid=root;pwd=root;";
                 GailuakDAL gailuakDAL = new GailuakDAL(connectionString);
 
-                bool result = gailuakDAL.GehituBesteGailua(marka, modeloa, egoera); // Egoera ere pasatzen da
+                bool result = gailuakDAL.GehituBesteGailua(idMintegia, marka, modeloa, egoera);
 
                 if (result)
                 {
                     MessageBox.Show("Gailua ondo gehitu da!");
                     tbMarka.Text = "";
                     tbModeloa.Text = "";
+                    tb_ID_Mintegia.Text = "";
                 }
                 else
                 {
