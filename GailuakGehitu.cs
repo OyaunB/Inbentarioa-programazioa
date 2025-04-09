@@ -2,7 +2,8 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-
+//  En cualquier otro formulario donde necesites el rol del usuario, simplemente accede a:
+//     string rolActual = Errola.ErabiltzaileRola;
 namespace Inbentarioa
 {
     public partial class GailuakGehitu : Form
@@ -36,6 +37,22 @@ namespace Inbentarioa
         {
             ConfigurarDataGridView();
             CargarDatos();
+
+            // Control de permisos directo aquí
+            string rol = Errola.ErabiltzaileRola?.ToLower() ?? "";
+
+            btAtzera.Enabled = true;
+            BtGehitu.Enabled = (rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt");
+            btAldatu.Enabled = (rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt" || rol == "irakaslea");
+            btEzabatu.Enabled = (rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt");
+
+            // Configurar edición del DataGridView
+            bool permitirEdicion = (rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt" || rol == "irakaslea");
+            foreach (DataGridViewColumn column in dataGridViewGailuakGehitu.Columns)
+            {
+                column.ReadOnly = !permitirEdicion ||
+                                !(column.Name == "EzabatzekoMarka" || column.Name == "EgoeraGailua");
+            }
         }
 
         private void ConfigurarDataGridView()
@@ -53,12 +70,16 @@ namespace Inbentarioa
         }
         private void dataGridViewGailuakGehitu_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Permitir edición solo en las columnas específicas al hacer clic
+            // Verificar permisos primero
+            string rol = Errola.ErabiltzaileRola?.ToLower() ?? "";
+            if (rol == "ordezkaria") return; // No permitir edición
+
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
                 string columnName = dataGridViewGailuakGehitu.Columns[e.ColumnIndex].Name;
 
-                if (columnName == "EgoeraGailua" || columnName == "EzabatzekoMarka")
+                if ((columnName == "EgoeraGailua" && (rol == "irakaslea" || rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt")) ||
+                    (columnName == "EzabatzekoMarka" && (rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt")))
                 {
                     dataGridViewGailuakGehitu.BeginEdit(true);
                 }
@@ -115,52 +136,77 @@ namespace Inbentarioa
                 MessageBox.Show("Errorea datuak kargatzean: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void ConfigurarColumnasEditables()
+        private void ConfigurarEdicionSegunRol()
         {
-            // Hacer todas las columnas NO editables por defecto
+            string rol = Errola.ErabiltzaileRola?.ToLower() ?? "";
+
+            // Configurar columnas editables según el rol
             foreach (DataGridViewColumn column in dataGridViewGailuakGehitu.Columns)
             {
-                column.ReadOnly = true;
+                if (rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt")
+                {
+                    column.ReadOnly = false;
+                }
+                else if (rol == "irakaslea")
+                {
+                    column.ReadOnly = !(column.Name == "EzabatzekoMarka" || column.Name == "EgoeraGailua");
+                }
+                else
+                {
+                    column.ReadOnly = true;
+                }
             }
+        }
+        private void ConfigurarEdicionSegunRol(string rol)
+        {
+            bool permitirEdicion = rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt" || rol == "irakaslea";
 
-            // Configurar columnas editables
-            if (dataGridViewGailuakGehitu.Columns.Contains("EgoeraGailua"))
+            foreach (DataGridViewColumn column in dataGridViewGailuakGehitu.Columns)
             {
-                dataGridViewGailuakGehitu.Columns["EgoeraGailua"].ReadOnly = false;
+                column.ReadOnly = !permitirEdicion ||
+                                 !(column.Name == "EzabatzekoMarka" || column.Name == "EgoeraGailua");
             }
 
-            // Configurar columna EzabatzekoMarka
+            // Restricción adicional para ordezkaria
+            if (rol == "ordezkaria")
+            {
+                foreach (DataGridViewColumn column in dataGridViewGailuakGehitu.Columns)
+                {
+                    column.ReadOnly = true;
+                }
+            }
+        }
+        private void ConfigurarColumnasEditables()
+        {
+            // No establecer valores fijos de ReadOnly aquí, 
+            // ya que se manejarán en ConfigurarEdicionSegunRol
+
+            // Solo configurar las columnas especiales
             if (!dataGridViewGailuakGehitu.Columns.Contains("EzabatzekoMarka"))
             {
                 var checkBoxColumn = new DataGridViewCheckBoxColumn
                 {
                     Name = "EzabatzekoMarka",
                     HeaderText = "Ezabatuta",
-                    ReadOnly = false
+                    ReadOnly = true // Se ajustará en KudeatuBaimenak
                 };
                 dataGridViewGailuakGehitu.Columns.Add(checkBoxColumn);
             }
-            else
-            {
-                dataGridViewGailuakGehitu.Columns["EzabatzekoMarka"].ReadOnly = false;
-            }
 
-            // Rellenar la columna checkbox si existe columna Ezabatuta
-            if (dataGridViewGailuakGehitu.Columns.Contains("Ezabatuta"))
+            // Configurar columna ComboBox para EgoeraGailua si no existe
+            if (!dataGridViewGailuakGehitu.Columns.Contains("EgoeraGailua"))
             {
-                dataGridViewGailuakGehitu.Columns["Ezabatuta"].Visible = false;
-
-                foreach (DataGridViewRow row in dataGridViewGailuakGehitu.Rows)
+                DataGridViewComboBoxColumn comboBoxColumn = new DataGridViewComboBoxColumn
                 {
-                    if (row.Cells["Ezabatuta"].Value != DBNull.Value)
-                    {
-                        bool ezabatzekoMarka = Convert.ToInt32(row.Cells["Ezabatuta"].Value) == 1;
-                        row.Cells["EzabatzekoMarka"].Value = ezabatzekoMarka;
-                    }
-                }
+                    Name = "EgoeraGailua",
+                    HeaderText = "Egoera Gailua",
+                    DataPropertyName = "EgoeraGailua",
+                    ReadOnly = true // Se ajustará en KudeatuBaimenak
+                };
+                comboBoxColumn.Items.AddRange("Ongi", "Apurtuta", "Kompontzen");
+                dataGridViewGailuakGehitu.Columns.Add(comboBoxColumn);
             }
         }
-
         private void ConfigurarColumnasEspeciales()
         {
             // Configurar columna EzabatzekoMarka
@@ -202,7 +248,7 @@ namespace Inbentarioa
         private void btAtzera_Click(object sender, EventArgs e)
         {
             this.Hide();
-            new Aukerak().ShowDialog();
+            //new Aukerak().ShowDialog();
         }
 
         private void BtGehitu_Click(object sender, EventArgs e)

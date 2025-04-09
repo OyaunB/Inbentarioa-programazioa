@@ -70,8 +70,8 @@ namespace Inbentarioa
         private void btAtzera_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Aukerak f2 = new Aukerak();
-            f2.ShowDialog();
+           // Aukerak f2 = new Aukerak();
+            //f2.ShowDialog();
         }
 
         private void TbGailuakGehitu_Click(object sender, EventArgs e)

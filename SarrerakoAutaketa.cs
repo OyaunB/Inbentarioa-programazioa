@@ -13,36 +13,10 @@ namespace Inbentarioa
 {
     public partial class Aukerak : Form
     {
+        public string erabiltzaileRola;
         public Aukerak()
         {
             InitializeComponent();
-        }
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-
-            // Definir los colores del degradado usando códigos hexadecimales
-            Color colorInicio = ColorTranslator.FromHtml("#5de0e6"); // Azul claro
-            Color colorFin = ColorTranslator.FromHtml("#004aad");    // Azul oscuro
-
-            // Crear un pincel con degradado lineal
-            using (LinearGradientBrush brush = new LinearGradientBrush(
-                this.ClientRectangle, // Área donde se aplicará el degradado
-                colorInicio,         // Color inicial
-                colorFin,            // Color final
-                LinearGradientMode.Horizontal)) // Dirección del degradado (horizontal)
-            {
-                // Rellenar el fondo del formulario con el degradado
-                e.Graphics.FillRectangle(brush, this.ClientRectangle);
-            }
-        }
-        private string erabiltzaileRola;
-
-        public Aukerak(string rola)
-        {
-            InitializeComponent();
-            erabiltzaileRola = rola;
-            KudeatuBaimenak();
         }
 
         private void KudeatuBaimenak()
@@ -55,9 +29,9 @@ namespace Inbentarioa
             }
 
             // Convertimos el rol a minúsculas para evitar problemas de mayúsculas/minúsculas
-            string rol = erabiltzaileRola.ToLower();
+            string rol = Errola.ErabiltzaileRola.ToLower();
 
-            // Lógica de permisos según el rol
+            // Resto del código permanece igual...
             if (rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt")
             {
                 // **Zuzendaria / IKT Irakaslea**: Acceso total
@@ -81,24 +55,52 @@ namespace Inbentarioa
                 // **Ordezkaria**: Solo puede usar BtGailuakKudeatu y BtEzabatutakoakIkusi
                 BtGailuakKudeatu.Enabled = true;
                 BtEzabatutakoakIkusi.Enabled = true;
-
-                // Los demás botones ya están deshabilitados por el bucle inicial
             }
         }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            // Definir los colores del degradado usando códigos hexadecimales
+            Color colorInicio = ColorTranslator.FromHtml("#5de0e6"); // Azul claro
+            Color colorFin = ColorTranslator.FromHtml("#004aad");    // Azul oscuro
+
+            // Crear un pincel con degradado lineal
+            using (LinearGradientBrush brush = new LinearGradientBrush(
+                this.ClientRectangle, // Área donde se aplicará el degradado
+                colorInicio,         // Color inicial
+                colorFin,            // Color final
+                LinearGradientMode.Horizontal)) // Dirección del degradado (horizontal)
+            {
+                // Rellenar el fondo del formulario con el degradado
+                e.Graphics.FillRectangle(brush, this.ClientRectangle);
+            }
+        }
+        
+
+        public Aukerak(string rola)
+        {
+            InitializeComponent();
+            erabiltzaileRola = rola;
+            //KudeatuBaimenak();
+        }
+
+      
         private void BtGailuakKudeatu_Click(object sender, EventArgs e)
         {
-            this.Hide(); // Ocultar formulario actual
+            //this.Hide(); // Ocultar formulario actual
             using (GailuakGehitu f3 = new GailuakGehitu())
             {
                 f3.ShowDialog(); // Mostrar formulario hijo
             }
             this.Show(); // Volver al formulario principal
-            KudeatuBaimenak(); // Reaplicar permisos
+             //KudeatuBaimenak(); // Reaplicar permisos
         }
 
         private void BtEzabatutakoakIkusi_Click(object sender, EventArgs e)
         {
-            this.Hide();
+           // this.Hide();
             EzabatutakoakIkusi f4 = new EzabatutakoakIkusi();
             f4.ShowDialog();
         }
@@ -120,7 +122,7 @@ namespace Inbentarioa
 
         private void Aukerak_Load(object sender, EventArgs e)
         {
-
+            KudeatuBaimenak();
         }
     }
 }

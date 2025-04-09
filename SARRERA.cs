@@ -98,9 +98,7 @@ namespace Inbentarioa
         // Gehitu klasean (Sarrera klasearen barruan):
         private bool ProcessingLogin = false;
         private void BtBidali_Click(object sender, EventArgs e)
-
         {
-            // Aldaketa 2: Egiaztatu ea jada prozesuan gauden (errepikapenak ekiditeko)
             if (this.ProcessingLogin) return;
             this.ProcessingLogin = true;
 
@@ -129,9 +127,11 @@ namespace Inbentarioa
                         TbErabiltzailea.Text = "";
                         TbPasahitza.Text = "";
 
-                        // Aldaketa 3: ShowDialog() baino lehen itxi formularioa modu kontrolatuan
+                        // Guardar el rol en la clase estática
+                        Errola.ErabiltzaileRola = zatiak[2];
+
                         this.Hide();
-                        using (Aukerak f2 = new Aukerak(zatiak[2]))
+                        using (Aukerak f2 = new Aukerak())
                         {
                             f2.ShowDialog();
                         }
