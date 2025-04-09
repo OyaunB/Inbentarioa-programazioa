@@ -38,20 +38,20 @@ namespace Inbentarioa
             ConfigurarDataGridView();
             CargarDatos();
 
-            // Control de permisos directo aquí
             string rol = Errola.ErabiltzaileRola?.ToLower() ?? "";
 
-            btAtzera.Enabled = true;
-            BtGehitu.Enabled = (rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt");
-            btAldatu.Enabled = (rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt" || rol == "irakaslea");
-            btEzabatu.Enabled = (rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt");
+            // Configurar botones según el rol
+            btAtzera.Enabled = true; // Siempre permitir volver atrás
+            BtGehitu.Enabled = (rol == "irakaslea" || rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt");
+            btAldatu.Enabled = (rol == "irakaslea" || rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt");
+            btEzabatu.Enabled = (rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt"); // Irakaslea NO puede eliminar
 
             // Configurar edición del DataGridView
-            bool permitirEdicion = (rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt" || rol == "irakaslea");
+            bool permitirEdicion = (rol == "irakaslea" || rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt");
             foreach (DataGridViewColumn column in dataGridViewGailuakGehitu.Columns)
             {
                 column.ReadOnly = !permitirEdicion ||
-                                !(column.Name == "EzabatzekoMarka" || column.Name == "EgoeraGailua");
+                                !(column.Name == "EgoeraGailua"); // Irakaslea solo puede editar EgoeraGailua (no EzabatzekoMarka)
             }
         }
 
@@ -70,18 +70,15 @@ namespace Inbentarioa
         }
         private void dataGridViewGailuakGehitu_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Verificar permisos primero
             string rol = Errola.ErabiltzaileRola?.ToLower() ?? "";
-            if (rol == "ordezkaria") return; // No permitir edición
 
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
                 string columnName = dataGridViewGailuakGehitu.Columns[e.ColumnIndex].Name;
 
-                if ((columnName == "EgoeraGailua" && (rol == "irakaslea" || rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt")) ||
-                    (columnName == "EzabatzekoMarka" && (rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt")))
+                if (columnName == "EgoeraGailua" && (rol == "irakaslea" || rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt"))
                 {
-                    dataGridViewGailuakGehitu.BeginEdit(true);
+                    dataGridViewGailuakGehitu.BeginEdit(true); // Solo permite editar EgoeraGailua
                 }
             }
         }
@@ -248,7 +245,7 @@ namespace Inbentarioa
         private void btAtzera_Click(object sender, EventArgs e)
         {
             this.Hide();
-            //new Aukerak().ShowDialog();
+            new Aukerak().ShowDialog();
         }
 
         private void BtGehitu_Click(object sender, EventArgs e)

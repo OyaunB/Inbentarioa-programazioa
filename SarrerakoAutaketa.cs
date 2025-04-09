@@ -44,11 +44,9 @@ namespace Inbentarioa
             else if (rol == "irakaslea")
             {
                 // **Irakaslea**: Solo puede usar el botón "ALDATU" (si existe)
-                foreach (Control ctrl in this.Controls)
-                {
-                    if (ctrl is Button btn && btn.Text.ToUpper() == "ALDATU")
-                        btn.Enabled = true;
-                }
+                BtGailuakKudeatu.Enabled = true;
+                BtEzabatutakoakIkusi.Enabled = true;
+                BtMintegiakKudeatu.Enabled = true;
             }
             else if (rol == "ordezkaria")
             {
@@ -89,7 +87,7 @@ namespace Inbentarioa
       
         private void BtGailuakKudeatu_Click(object sender, EventArgs e)
         {
-            //this.Hide(); // Ocultar formulario actual
+            this.Hide(); // Ocultar formulario actual
             using (GailuakGehitu f3 = new GailuakGehitu())
             {
                 f3.ShowDialog(); // Mostrar formulario hijo

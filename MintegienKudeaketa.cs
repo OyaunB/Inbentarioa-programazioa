@@ -18,19 +18,28 @@ namespace Inbentarioa
         }
         private void Form5_Load(object sender, EventArgs e)
         {
-            // Configurar DataGridView antes de cargar datos
+            // Configuración inicial del DataGridView
             DataGridViewMintegiak.ReadOnly = true;
             DataGridViewMintegiak.AllowUserToAddRows = false;
             DataGridViewMintegiak.AllowUserToDeleteRows = false;
             DataGridViewMintegiak.MultiSelect = false;
             DataGridViewMintegiak.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             DataGridViewMintegiak.RowHeadersVisible = false;
-
-            // Estilo visual para la selección
             DataGridViewMintegiak.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
             DataGridViewMintegiak.DefaultCellStyle.SelectionForeColor = Color.Black;
 
             CargarMintegiak();
+
+            // Control de permisos según el rol
+            string rol = Errola.ErabiltzaileRola?.ToLower() ?? "";
+
+            btAtzera.Enabled = true; // Siempre permitido
+            BtGehitu.Enabled = (rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt"); // Irakaslea NO puede añadir
+            btAldatu.Enabled = (rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt"); // Irakaslea NO puede modificar
+            btEzabatu.Enabled = (rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt"); // Irakaslea NO puede eliminar
+
+            // Opcional: Deshabilitar la selección si el rol es "irakaslea"
+            DataGridViewMintegiak.Enabled = !(rol == "irakaslea");
         }
 
         // PANTALLA KOLOREZTATZEKO

@@ -19,40 +19,39 @@ namespace Inbentarioa
             DataTable table = new DataTable();
 
             string query = @"
-                SELECT 
-                    g.ID_Gailuak AS ID,
-                    g.Gailu_Mota AS Gailu_Mota,
-                    g.ID_Mintegia,
-                    g.Marka,
-                    g.Modeloa AS Modeloa,
-                    g.Erosketa_data AS Erosketa_Data,
-                    CASE WHEN e.ID_Gailuak IS NOT NULL THEN 1 ELSE 0 END AS Ezabatuta,
-                    g.EgoeraGailua AS EgoeraGailua,
-                    o.Memoria_RAM,
-                    o.TxartelGrafikoa,
-                    o.USB_Portuak
-                FROM Gailuak g
-                LEFT JOIN Ordenagailuak o ON g.ID_Gailuak = o.ID_Gailuak AND g.Gailu_Mota = 'Ordenagailuak'
-                LEFT JOIN Imprimagailuak i ON g.ID_Gailuak = i.ID_Gailuak AND g.Gailu_Mota = 'Inprimagailuak'
-                LEFT JOIN BesteGailuak b ON g.ID_Gailuak = b.ID_Gailuak AND g.Gailu_Mota = 'BesteGailuak'
-                LEFT JOIN EzabatutakoGailuak e ON g.ID_Gailuak = e.ID_Gailuak";
+        SELECT 
+            g.ID_Gailuak AS ID,
+            g.Gailu_Mota AS Gailu_Mota,
+            m.Izena AS Mintegi_Izena,  -- Cambiado de ID_Mintegia a Izena
+            g.Marka,
+            g.Modeloa AS Modeloa,
+            g.Erosketa_data AS Erosketa_Data,
+            CASE WHEN e.ID_Gailuak IS NOT NULL THEN 1 ELSE 0 END AS Ezabatuta,
+            g.EgoeraGailua AS EgoeraGailua,
+            o.Memoria_RAM,
+            o.TxartelGrafikoa,
+            o.USB_Portuak
+        FROM Gailuak g
+        LEFT JOIN Mintegiak m ON g.ID_Mintegia = m.ID_Mintegia  -- Nuevo JOIN para obtener el nombre
+        LEFT JOIN Ordenagailuak o ON g.ID_Gailuak = o.ID_Gailuak AND g.Gailu_Mota = 'Ordenagailuak'
+        LEFT JOIN Imprimagailuak i ON g.ID_Gailuak = i.ID_Gailuak AND g.Gailu_Mota = 'Inprimagailuak'
+        LEFT JOIN BesteGailuak b ON g.ID_Gailuak = b.ID_Gailuak AND g.Gailu_Mota = 'BesteGailuak'
+        LEFT JOIN EzabatutakoGailuak e ON g.ID_Gailuak = e.ID_Gailuak";
 
-            try
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
-                    adapter.Fill(table);
+                    connection.Open();
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                    {
+                        adapter.Fill(table);
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al obtener los gailuak: " + ex.Message);
             }
 
             return table;
         }
-
         public void ActualizarGailua(int id, int idMintegia, string marka, string modeloa,
                        DateTime erosketaData, bool ezabatzekoMarka, string egoeraGailua)
         {
