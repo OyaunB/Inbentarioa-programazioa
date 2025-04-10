@@ -22,6 +22,10 @@ namespace Inbentarioa
             string KONEXIOA = $"Database={DB}; Data Source={zerbitzaria}; Port={portua}; User Id={erabiltzailea}; Password={pasahitza};";
             nirekonexioa = new MySqlConnection(KONEXIOA);
         }
+        public static string GetConnectionString()
+        {
+            return "server=localhost;database=inbentarioa;uid=root;pwd=root;";
+        }
 
         public static MySqlConnection Konektatu()
         {

@@ -66,9 +66,9 @@ namespace Inbentarioa
             string egoera = comboBoxEgoera.SelectedItem?.ToString() ?? "Ongi";
             int idMintegia;
 
-            if (cbMintegiaB.SelectedItem == null || !int.TryParse(cbMintegiaB.SelectedItem.ToString(), out idMintegia))
+            if (cbMintegiaB.SelectedValue == null || !int.TryParse(cbMintegiaB.SelectedValue.ToString(), out idMintegia))
             {
-                MessageBox.Show("Mesedez, hautatu balio numeriko bat Mintegi ComboBoxean.");
+                MessageBox.Show("Mesedez, hautatu mintegi bat ComboBoxean.");
                 return;
             }
 
@@ -80,7 +80,7 @@ namespace Inbentarioa
 
             try
             {
-                string connectionString = "server=localhost;database=inbentarioa;uid=root;pwd=root;";
+                string connectionString = DBKonexioa.GetConnectionString();
                 GailuakDAL gailuakDAL = new GailuakDAL(connectionString);
 
                 bool result = gailuakDAL.GehituBesteGailua(idMintegia, marka, modeloa, egoera);

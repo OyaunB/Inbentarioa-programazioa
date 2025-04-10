@@ -261,16 +261,20 @@ namespace Inbentarioa
                 {
                     if (row.Cells["ID"].Value != null && row.Cells["ID"].Value != DBNull.Value)
                     {
-                        int id = Convert.ToInt32(row.Cells["ID"].Value);
+                        int id = Convert.ToInt32(row.Cells["ID"].Value); // Gailuaren ID
+                        int idMintegia = 0;
 
-                        // Obtener EgoeraGailua (manejar DBNull)
-                        string egoeraGailua = "Ongi"; // Valor por defecto
+                        if (row.Cells["cbMintegia"].Value != null && row.Cells["cbMintegia"].Value != DBNull.Value)
+                        {
+                            idMintegia = Convert.ToInt32(row.Cells["cbMintegia"].Value);
+                        }
+
+                        string egoeraGailua = "Ongi";
                         if (row.Cells["EgoeraGailua"].Value != null && row.Cells["EgoeraGailua"].Value != DBNull.Value)
                         {
                             egoeraGailua = row.Cells["EgoeraGailua"].Value.ToString();
                         }
 
-                        // Obtener EzabatzekoMarka (manejar DBNull)
                         bool ezabatzekoMarka = false;
                         if (dataGridViewGailuakGehitu.Columns.Contains("EzabatzekoMarka") &&
                             row.Cells["EzabatzekoMarka"].Value != null &&
@@ -279,25 +283,16 @@ namespace Inbentarioa
                             ezabatzekoMarka = Convert.ToBoolean(row.Cells["EzabatzekoMarka"].Value);
                         }
 
-                        // Obtener ID_Mintegia (manejar DBNull si es necesario)
-                        int idMintegia = 0;
-                        if (row.Cells["ID_Mintegia"].Value != null && row.Cells["ID_Mintegia"].Value != DBNull.Value)
-                        {
-                            idMintegia = Convert.ToInt32(row.Cells["ID_Mintegia"].Value);
-                        }
-
-                        // Obtener Erosketa_Data (manejar DBNull si es necesario)
                         DateTime erosketaData = DateTime.Now;
                         if (row.Cells["Erosketa_Data"].Value != null && row.Cells["Erosketa_Data"].Value != DBNull.Value)
                         {
                             erosketaData = Convert.ToDateTime(row.Cells["Erosketa_Data"].Value);
                         }
 
-                        // Actualizar en la base de datos
                         gailuakDAL.ActualizarGailua(
                             id,
                             idMintegia,
-                            row.Cells["Marka"].Value?.ToString() ?? "", // Usar operador ?. para manejar null
+                            row.Cells["Marka"].Value?.ToString() ?? "",
                             row.Cells["Modeloa"].Value?.ToString() ?? "",
                             erosketaData,
                             ezabatzekoMarka,
@@ -305,6 +300,7 @@ namespace Inbentarioa
                         );
                     }
                 }
+
                 MessageBox.Show("Aldaketak ondo gorde dira.", "Ongi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CargarDatos(); // Recargar para reflejar cambios
             }

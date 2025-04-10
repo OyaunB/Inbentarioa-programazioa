@@ -74,11 +74,14 @@ namespace Inbentarioa
         private void bidaliBotoia_Click(object sender, EventArgs e)
         {
             // 1. Mintegi ID-a beharrezkoa den kasuetan, beharrezkoa izango litzateke ID bat lortzea
-            if (cbMintegiaImp.SelectedItem == null || !int.TryParse(cbMintegiaImp.SelectedItem.ToString(), out int mintegiId))
+            int mintegiId;
+
+            if (cbMintegiaImp.SelectedValue == null || !int.TryParse(cbMintegiaImp.SelectedValue.ToString(), out mintegiId))
             {
                 MessageBox.Show("Mesedez, hautatu balio numeriko bat Mintegi ComboBoxean.");
                 return;
             }
+
 
             // 2. ComboBox-eko egoera lortu (Ongi, Apurtuta, Kompontzen)
             string egoera = comboBoxEgoeraImprimagailua.SelectedItem?.ToString();
