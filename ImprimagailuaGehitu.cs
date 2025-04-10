@@ -22,6 +22,8 @@ namespace Inbentarioa
         {
             // Kargatu ComboBox-a hasierako egoerarekin
             CargarComboBoxEgoera();
+            // Centrar el formulario en la pantalla
+            this.CenterToScreen();
         }
         private void CargarComboBoxEgoera()
         {
@@ -30,7 +32,16 @@ namespace Inbentarioa
             {
                 comboBoxEgoeraImprimagailua.Items.AddRange(new string[] { "Ongi", "Apurtuta", "Kompontzen" });
                 comboBoxEgoeraImprimagailua.SelectedIndex = 0; // "Ongi" hautatuko da lehen aldiz
+                // Llamar al método para cargar los mintegiak en el ComboBox
+                CargarMintegiakCombo();
             }
+        }
+        private void CargarMintegiakCombo()
+        {
+            GailuakDAL dal = new GailuakDAL();
+            cbMintegiaImp.DisplayMember = "Izena";
+            cbMintegiaImp.ValueMember = "ID_Mintegia";
+            cbMintegiaImp.DataSource = dal.ObtenerMintegiak();
         }
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -63,9 +74,9 @@ namespace Inbentarioa
         private void bidaliBotoia_Click(object sender, EventArgs e)
         {
             // 1. Mintegi ID-a beharrezkoa den kasuetan, beharrezkoa izango litzateke ID bat lortzea
-            if (!int.TryParse(tbIDMintegiaImp.Text.Trim(), out int mintegiId))
+            if (cbMintegiaImp.SelectedItem == null || !int.TryParse(cbMintegiaImp.SelectedItem.ToString(), out int mintegiId))
             {
-                MessageBox.Show("Mesedez, sartu balio numeriko bat Mintegi Kodea eremuan.");
+                MessageBox.Show("Mesedez, hautatu balio numeriko bat Mintegi ComboBoxean.");
                 return;
             }
 
@@ -90,10 +101,9 @@ namespace Inbentarioa
                 if (result)
                 {
                     MessageBox.Show("Imprimagailua ondo gehitu da!");
-                    tbIDMintegiaImp.Text = "";
-                    tbMarkaImp.Text = "";
-                    btModeloaImprimagailua.Text = "";
-                    comboBoxEgoeraImprimagailua.SelectedIndex = -1; // Ez hautatu ezer
+                    tbMarkaImp.Text = ""; // Limpiar el TextBox de marca
+                    btModeloaImprimagailua.Text = ""; // Limpiar el TextBox de modelo
+                    comboBoxEgoeraImprimagailua.SelectedIndex = -1; // Restablecer el ComboBox de estado
                 }
                 else
                 {

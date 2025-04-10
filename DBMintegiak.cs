@@ -34,6 +34,8 @@ namespace Inbentarioa
             return dt;
         }
 
+
+
         // 🔹 Añadir nuevo almacén
         // 🔹 Añadir nuevo almacén sin especificar ID
         public bool GehituMintegia(string izena, string kokapena)
@@ -143,5 +145,6 @@ namespace Inbentarioa
             return nextId;
         }
 
+      
     }
 }

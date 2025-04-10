@@ -64,7 +64,22 @@ namespace Inbentarioa
             // Rellenar el ComboBox con las opciones de estado
             comboBoxEgoeraOrd.Items.AddRange(new string[] { "Ongi", "Apurtuta", "Kompontzen" });
             comboBoxEgoeraOrd.SelectedIndex = 0; // Seleccionar "Ongi" por defecto
+
+            // Llamar al método para cargar los mintegiak en el ComboBox
+            CargarMintegiakCombo();
+            
+
+            this.CenterToScreen();
         }
+        private void CargarMintegiakCombo()
+        {
+            GailuakDAL dal = new GailuakDAL();
+            cbMintegiaOrd.DisplayMember = "Izena";
+            cbMintegiaOrd.ValueMember = "ID_Mintegia";
+            cbMintegiaOrd.DataSource = dal.ObtenerMintegiak();
+        }
+
+
 
         private void lbizena_Click(object sender, EventArgs e)
         {
@@ -74,7 +89,7 @@ namespace Inbentarioa
         private void bidaliBotoia_Click_1(object sender, EventArgs e)
         {
             // Validar campos requeridos
-            if (string.IsNullOrWhiteSpace(btMintegiarenKodea.Text) ||
+            if (cbMintegiaOrd.SelectedItem == null ||
                 string.IsNullOrWhiteSpace(btMarka.Text) ||
                 string.IsNullOrWhiteSpace(btModeloa.Text) ||
                 string.IsNullOrWhiteSpace(btErosketaData.Text) ||
@@ -87,27 +102,29 @@ namespace Inbentarioa
                 return;
             }
 
-            // Validar formatos numéricos
-            if (!int.TryParse(btMintegiarenKodea.Text, out int mintegiKodea) ||
-                !int.TryParse(btRAMMemoria.Text, out int ram) ||
+            // Validar RAM eta USB portuak
+            if (!int.TryParse(btRAMMemoria.Text, out int ram) ||
                 !int.TryParse(btUSBPortuak.Text, out int usbPortuak))
             {
-                MessageBox.Show("Mintegi kodea, RAM eta USB portuak zenbakiak izan behar dira.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("RAM eta USB portuak zenbakiak izan behar dira.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Validar fecha
+            // Validar data
             if (!DateTime.TryParse(btErosketaData.Text, out DateTime erosketaData))
             {
                 MessageBox.Show("Sartu data egokia (Adibidez: 2023-12-31).", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
+            // Lortu mintegiaren ID-a ComboBox-etik
+            int idMintegia = Convert.ToInt32(cbMintegiaOrd.SelectedValue);
+
             try
             {
                 DBOrdenagailuakGehitu gailuakDAL = new DBOrdenagailuakGehitu();
                 bool result = gailuakDAL.GehituOrdenagailua(
-                    mintegiKodea.ToString(),
+                    idMintegia.ToString(),
                     btMarka.Text,
                     btModeloa.Text,
                     erosketaData,
@@ -119,21 +136,21 @@ namespace Inbentarioa
 
                 if (result)
                 {
-                    MessageBox.Show("Ordenagailua ondo gehitu da!", "Arrakasta", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    // Limpiar formulario
-                    btMintegiarenKodea.Text = "";
-                    btMarka.Text = "";
-                    btModeloa.Text = "";
-                    btErosketaData.Text = "";
-                    btTxartelGrafikoa.Text = "";
-                    btRAMMemoria.Text = "";
-                    btUSBPortuak.Text = "";
+                    MessageBox.Show("Ordenagailua ondo gehitu da!");
+                    // Garbitu formularioa
+                    cbMintegiaOrd.SelectedIndex = -1;
+                    btMarka.Clear();
+                    btModeloa.Clear();
+                    btErosketaData.Clear();
+                    btTxartelGrafikoa.Clear();
+                    btRAMMemoria.Clear();
+                    btUSBPortuak.Clear();
                     comboBoxEgoeraOrd.SelectedIndex = 0;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Errorea gertatu da: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Errorea gertatu da ordenagailua gehitzean.\n" + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -147,5 +164,14 @@ namespace Inbentarioa
             btErosketaData.Text = DateTime.Now.ToString("yyyy-MM-dd");
         }
 
+        private void lbRAMMemoria_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbMintegiaOrd_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

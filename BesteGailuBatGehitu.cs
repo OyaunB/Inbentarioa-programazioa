@@ -16,8 +16,19 @@ namespace Inbentarioa
         private void Form9_Load(object sender, EventArgs e)
         {
             CargarComboBoxEgoera();
-        }
 
+            // Llamar al método para cargar los mintegiak en el ComboBox
+            CargarMintegiakCombo();
+            // Centrar el formulario en la pantalla
+            this.CenterToScreen();
+        }
+        private void CargarMintegiakCombo()
+        {
+            GailuakDAL dal = new GailuakDAL();
+            cbMintegiaB.DisplayMember = "Izena";
+            cbMintegiaB.ValueMember = "ID_Mintegia";
+            cbMintegiaB.DataSource = dal.ObtenerMintegiak();
+        }
         private void CargarComboBoxEgoera()
         {
             if (comboBoxEgoera.Items.Count == 0)
@@ -26,6 +37,7 @@ namespace Inbentarioa
                 comboBoxEgoera.SelectedIndex = 0;
             }
         }
+
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -54,9 +66,9 @@ namespace Inbentarioa
             string egoera = comboBoxEgoera.SelectedItem?.ToString() ?? "Ongi";
             int idMintegia;
 
-            if (!int.TryParse(tb_ID_Mintegia.Text.Trim(), out idMintegia))
+            if (cbMintegiaB.SelectedItem == null || !int.TryParse(cbMintegiaB.SelectedItem.ToString(), out idMintegia))
             {
-                MessageBox.Show("ID_Mintegia zenbakizkoa izan behar da.");
+                MessageBox.Show("Mesedez, hautatu balio numeriko bat Mintegi ComboBoxean.");
                 return;
             }
 
@@ -78,7 +90,7 @@ namespace Inbentarioa
                     MessageBox.Show("Gailua ondo gehitu da!");
                     tbMarka.Text = "";
                     tbModeloa.Text = "";
-                    tb_ID_Mintegia.Text = "";
+                    cbMintegiaB.SelectedIndex = -1; // Limpiar ComboBox
                 }
                 else
                 {

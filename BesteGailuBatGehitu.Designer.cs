@@ -38,8 +38,8 @@
             bidaliBotoia = new Button();
             btAtzera = new Button();
             comboBoxEgoera = new ComboBox();
-            tb_ID_Mintegia = new TextBox();
             label3 = new Label();
+            cbMintegiaB = new ComboBox();
             SuspendLayout();
             // 
             // BtAukeraAutatu
@@ -53,7 +53,6 @@
             BtAukeraAutatu.Size = new Size(520, 41);
             BtAukeraAutatu.TabIndex = 30;
             BtAukeraAutatu.Text = "BESTE GAILU BAT GEHITU";
-            //BtAukeraAutatu.Click += BtAukeraAutatu_Click;
             // 
             // lbmintkodea
             // 
@@ -137,14 +136,6 @@
             comboBoxEgoera.Name = "comboBoxEgoera";
             comboBoxEgoera.Size = new Size(260, 28);
             comboBoxEgoera.TabIndex = 55;
-            //comboBoxEgoera.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
-            // 
-            // tb_ID_Mintegia
-            // 
-            tb_ID_Mintegia.Location = new Point(345, 120);
-            tb_ID_Mintegia.Name = "tb_ID_Mintegia";
-            tb_ID_Mintegia.Size = new Size(260, 27);
-            tb_ID_Mintegia.TabIndex = 56;
             // 
             // label3
             // 
@@ -158,13 +149,21 @@
             label3.TabIndex = 59;
             label3.Text = "ID Mintegia:";
             // 
+            // cbMintegiaB
+            // 
+            cbMintegiaB.FormattingEnabled = true;
+            cbMintegiaB.Location = new Point(345, 116);
+            cbMintegiaB.Name = "cbMintegiaB";
+            cbMintegiaB.Size = new Size(260, 28);
+            cbMintegiaB.TabIndex = 60;
+            // 
             // BesteGailuBatGehitu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(cbMintegiaB);
             Controls.Add(label3);
-            Controls.Add(tb_ID_Mintegia);
             Controls.Add(comboBoxEgoera);
             Controls.Add(btAtzera);
             Controls.Add(bidaliBotoia);
@@ -175,7 +174,7 @@
             Controls.Add(lbmintkodea);
             Controls.Add(BtAukeraAutatu);
             Name = "BesteGailuBatGehitu";
-            Text = "Form9";
+            Text = "Izarraitz";
             Load += Form9_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -192,7 +191,7 @@
         private Button bidaliBotoia;
         private Button btAtzera;
         private ComboBox comboBoxEgoera;
-        private TextBox tb_ID_Mintegia;
         private Label label3;
+        private ComboBox cbMintegiaB;
     }
 }

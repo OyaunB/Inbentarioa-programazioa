@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ordenagailuagehitu));
             label1 = new Label();
             btMarka = new TextBox();
-            btMintegiarenKodea = new TextBox();
             btModeloa = new TextBox();
             btTxartelGrafikoa = new TextBox();
             btRAMMemoria = new TextBox();
@@ -48,6 +47,7 @@
             lbUSBPortuak = new Label();
             lbegoera = new Label();
             comboBoxEgoeraOrd = new ComboBox();
+            cbMintegiaOrd = new ComboBox();
             SuspendLayout();
             // 
             // label1
@@ -66,49 +66,42 @@
             // 
             // btMarka
             // 
-            btMarka.Location = new Point(301, 175);
+            btMarka.Location = new Point(418, 178);
             btMarka.Name = "btMarka";
             btMarka.Size = new Size(260, 27);
             btMarka.TabIndex = 21;
             // 
-            // btMintegiarenKodea
-            // 
-            btMintegiarenKodea.Location = new Point(301, 106);
-            btMintegiarenKodea.Name = "btMintegiarenKodea";
-            btMintegiarenKodea.Size = new Size(260, 27);
-            btMintegiarenKodea.TabIndex = 23;
-            // 
             // btModeloa
             // 
-            btModeloa.Location = new Point(301, 245);
+            btModeloa.Location = new Point(418, 249);
             btModeloa.Name = "btModeloa";
             btModeloa.Size = new Size(260, 27);
             btModeloa.TabIndex = 25;
             // 
             // btTxartelGrafikoa
             // 
-            btTxartelGrafikoa.Location = new Point(861, 102);
+            btTxartelGrafikoa.Location = new Point(910, 102);
             btTxartelGrafikoa.Name = "btTxartelGrafikoa";
             btTxartelGrafikoa.Size = new Size(260, 27);
             btTxartelGrafikoa.TabIndex = 27;
             // 
             // btRAMMemoria
             // 
-            btRAMMemoria.Location = new Point(861, 171);
+            btRAMMemoria.Location = new Point(910, 174);
             btRAMMemoria.Name = "btRAMMemoria";
             btRAMMemoria.Size = new Size(260, 27);
             btRAMMemoria.TabIndex = 29;
             // 
             // btUSBPortuak
             // 
-            btUSBPortuak.Location = new Point(861, 245);
+            btUSBPortuak.Location = new Point(910, 245);
             btUSBPortuak.Name = "btUSBPortuak";
             btUSBPortuak.Size = new Size(260, 27);
             btUSBPortuak.TabIndex = 31;
             // 
             // btErosketaData
             // 
-            btErosketaData.Location = new Point(301, 318);
+            btErosketaData.Location = new Point(418, 313);
             btErosketaData.Name = "btErosketaData";
             btErosketaData.Size = new Size(260, 27);
             btErosketaData.TabIndex = 35;
@@ -141,7 +134,7 @@
             lbmintkodea.BackColor = Color.Transparent;
             lbmintkodea.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbmintkodea.ForeColor = SystemColors.ControlLightLight;
-            lbmintkodea.Location = new Point(12, 106);
+            lbmintkodea.Location = new Point(122, 106);
             lbmintkodea.Name = "lbmintkodea";
             lbmintkodea.Size = new Size(261, 28);
             lbmintkodea.TabIndex = 41;
@@ -153,7 +146,7 @@
             lbizena.BackColor = Color.Transparent;
             lbizena.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbizena.ForeColor = SystemColors.ControlLightLight;
-            lbizena.Location = new Point(144, 241);
+            lbizena.Location = new Point(254, 245);
             lbizena.Name = "lbizena";
             lbizena.Size = new Size(129, 28);
             lbizena.TabIndex = 42;
@@ -166,7 +159,7 @@
             lbmarka.BackColor = Color.Transparent;
             lbmarka.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbmarka.ForeColor = SystemColors.ControlLightLight;
-            lbmarka.Location = new Point(174, 174);
+            lbmarka.Location = new Point(284, 178);
             lbmarka.Name = "lbmarka";
             lbmarka.Size = new Size(99, 28);
             lbmarka.TabIndex = 43;
@@ -178,11 +171,11 @@
             lberosketaData.BackColor = Color.Transparent;
             lberosketaData.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lberosketaData.ForeColor = SystemColors.ControlLightLight;
-            lberosketaData.Location = new Point(70, 318);
+            lberosketaData.Location = new Point(0, 313);
             lberosketaData.Name = "lberosketaData";
-            lberosketaData.Size = new Size(203, 28);
+            lberosketaData.Size = new Size(409, 28);
             lberosketaData.TabIndex = 44;
-            lberosketaData.Text = "Erosketa-Data:";
+            lberosketaData.Text = "Erosketa-Data (YYYY-DD-MM):";
             // 
             // lbTxartelGrafikoa
             // 
@@ -190,7 +183,7 @@
             lbTxartelGrafikoa.BackColor = Color.Transparent;
             lbTxartelGrafikoa.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbTxartelGrafikoa.ForeColor = SystemColors.ControlLightLight;
-            lbTxartelGrafikoa.Location = new Point(588, 102);
+            lbTxartelGrafikoa.Location = new Point(676, 98);
             lbTxartelGrafikoa.Name = "lbTxartelGrafikoa";
             lbTxartelGrafikoa.Size = new Size(228, 28);
             lbTxartelGrafikoa.TabIndex = 45;
@@ -202,11 +195,12 @@
             lbRAMMemoria.BackColor = Color.Transparent;
             lbRAMMemoria.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbRAMMemoria.ForeColor = SystemColors.ControlLightLight;
-            lbRAMMemoria.Location = new Point(618, 174);
+            lbRAMMemoria.Location = new Point(706, 170);
             lbRAMMemoria.Name = "lbRAMMemoria";
             lbRAMMemoria.Size = new Size(198, 28);
             lbRAMMemoria.TabIndex = 46;
             lbRAMMemoria.Text = "RAM Memoria:";
+            lbRAMMemoria.Click += lbRAMMemoria_Click;
             // 
             // lbUSBPortuak
             // 
@@ -214,7 +208,7 @@
             lbUSBPortuak.BackColor = Color.Transparent;
             lbUSBPortuak.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbUSBPortuak.ForeColor = SystemColors.ControlLightLight;
-            lbUSBPortuak.Location = new Point(634, 241);
+            lbUSBPortuak.Location = new Point(722, 245);
             lbUSBPortuak.Name = "lbUSBPortuak";
             lbUSBPortuak.Size = new Size(182, 28);
             lbUSBPortuak.TabIndex = 47;
@@ -226,7 +220,7 @@
             lbegoera.BackColor = Color.Transparent;
             lbegoera.Font = new Font("Verdana", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbegoera.ForeColor = SystemColors.ControlLightLight;
-            lbegoera.Location = new Point(706, 313);
+            lbegoera.Location = new Point(794, 313);
             lbegoera.Name = "lbegoera";
             lbegoera.Size = new Size(110, 28);
             lbegoera.TabIndex = 49;
@@ -235,16 +229,26 @@
             // comboBoxEgoeraOrd
             // 
             comboBoxEgoeraOrd.FormattingEnabled = true;
-            comboBoxEgoeraOrd.Location = new Point(861, 317);
+            comboBoxEgoeraOrd.Location = new Point(910, 317);
             comboBoxEgoeraOrd.Name = "comboBoxEgoeraOrd";
             comboBoxEgoeraOrd.Size = new Size(260, 28);
             comboBoxEgoeraOrd.TabIndex = 57;
+            // 
+            // cbMintegiaOrd
+            // 
+            cbMintegiaOrd.FormattingEnabled = true;
+            cbMintegiaOrd.Location = new Point(410, 110);
+            cbMintegiaOrd.Name = "cbMintegiaOrd";
+            cbMintegiaOrd.Size = new Size(260, 28);
+            cbMintegiaOrd.TabIndex = 58;
+            cbMintegiaOrd.SelectedIndexChanged += cbMintegiaOrd_SelectedIndexChanged;
             // 
             // Ordenagailuagehitu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1182, 533);
+            Controls.Add(cbMintegiaOrd);
             Controls.Add(comboBoxEgoeraOrd);
             Controls.Add(lbegoera);
             Controls.Add(lbUSBPortuak);
@@ -261,7 +265,6 @@
             Controls.Add(btRAMMemoria);
             Controls.Add(btTxartelGrafikoa);
             Controls.Add(btModeloa);
-            Controls.Add(btMintegiarenKodea);
             Controls.Add(btMarka);
             Controls.Add(label1);
             Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -281,7 +284,6 @@
         private PictureBox pictureBox1;
         private Label label4;
         private TextBox btMarka;
-        private TextBox btMintegiarenKodea;
         private TextBox btModeloa;
         private TextBox btTxartelGrafikoa;
         private TextBox btRAMMemoria;
@@ -298,5 +300,6 @@
         private Label lbUSBPortuak;
         private Label lbegoera;
         private ComboBox comboBoxEgoeraOrd;
+        private ComboBox cbMintegiaOrd;
     }
 }

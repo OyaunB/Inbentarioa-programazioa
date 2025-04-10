@@ -76,7 +76,7 @@ namespace Inbentarioa
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Errorea: {ex.Message}", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Errorea. zerbait ez duzu ondo egin");
             }
         }
 
@@ -90,8 +90,7 @@ namespace Inbentarioa
         {
             if (DataGridViewMintegiak.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Hautatu mintegi bat eguneratzeko!", "Errorea",
-                               MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Hautatu mintegi bat eguneratzeko!", "Errorea");
                 return;
             }
 
@@ -110,21 +109,18 @@ namespace Inbentarioa
 
             if (string.IsNullOrWhiteSpace(izenaBerria) || string.IsNullOrWhiteSpace(kokapenaBerria))
             {
-                MessageBox.Show("Izena eta kokapena bete behar dira!", "Errorea",
-                               MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Izena eta kokapena bete behar dira!", "Errorea");
                 return;
             }
 
             if (dbMintegiak.EguneratuMintegia(id, izenaBerria, kokapenaBerria))
             {
-                MessageBox.Show("Mintegia eguneratu da!", "Ongi",
-                               MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Mintegia eguneratu da!", "Ongi");
                 CargarMintegiak();
             }
             else
             {
-                MessageBox.Show("Errorea mintegia eguneratzerakoan!", "Errorea",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Errorea mintegia eguneratzerakoan!", "Errorea");
             }
         }
         //Gehitu botoiaren funtzioa
@@ -133,29 +129,25 @@ namespace Inbentarioa
             string izena = Microsoft.VisualBasic.Interaction.InputBox("Sartu mintegiaren izena:", "Gehitu Mintegia", "");
             if (string.IsNullOrWhiteSpace(izena))
             {
-                MessageBox.Show("Mintegiaren izena beharrezkoa da!", "Errorea",
-                               MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Mintegiaren izena beharrezkoa da!", "Errorea");
                 return;
             }
 
             string kokapena = Microsoft.VisualBasic.Interaction.InputBox("Sartu kokapena:", "Gehitu Mintegia", "");
             if (string.IsNullOrWhiteSpace(kokapena))
             {
-                MessageBox.Show("Kokapena beharrezkoa da!", "Errorea",
-                               MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Kokapena beharrezkoa da!", "Errorea");
                 return;
             }
 
             if (dbMintegiak.GehituMintegia(izena, kokapena))
             {
-                MessageBox.Show("Mintegia gehitu da!", "Ongi",
-                               MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Mintegia gehitu da!", "Ongi");
                 CargarMintegiak();
             }
             else
             {
-                MessageBox.Show("Errorea mintegia gehitzean!", "Errorea",
-                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Errorea mintegia gehitzean!", "Errorea");
             }
         }
         private void btEzabatu_Click(object sender, EventArgs e)

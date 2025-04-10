@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(tbIDMintegia));
             BtAukeraAutatu = new Label();
             tbMarkaImp = new TextBox();
-            tbIDMintegiaImp = new TextBox();
             lbmintkodea = new Label();
             label1 = new Label();
             label2 = new Label();
@@ -40,6 +39,7 @@
             btModeloaImprimagailua = new TextBox();
             label3 = new Label();
             comboBoxEgoeraImprimagailua = new ComboBox();
+            cbMintegiaImp = new ComboBox();
             SuspendLayout();
             // 
             // BtAukeraAutatu
@@ -60,13 +60,6 @@
             tbMarkaImp.Name = "tbMarkaImp";
             tbMarkaImp.Size = new Size(260, 27);
             tbMarkaImp.TabIndex = 30;
-            // 
-            // tbIDMintegiaImp
-            // 
-            tbIDMintegiaImp.Location = new Point(364, 123);
-            tbIDMintegiaImp.Name = "tbIDMintegiaImp";
-            tbIDMintegiaImp.Size = new Size(260, 27);
-            tbIDMintegiaImp.TabIndex = 32;
             // 
             // lbmintkodea
             // 
@@ -158,12 +151,21 @@
             comboBoxEgoeraImprimagailua.Size = new Size(260, 28);
             comboBoxEgoeraImprimagailua.TabIndex = 59;
             // 
+            // cbMintegiaImp
+            // 
+            cbMintegiaImp.FormattingEnabled = true;
+            cbMintegiaImp.Location = new Point(364, 127);
+            cbMintegiaImp.Name = "cbMintegiaImp";
+            cbMintegiaImp.Size = new Size(260, 28);
+            cbMintegiaImp.TabIndex = 60;
+            // 
             // tbIDMintegia
             // 
             AccessibleName = "IMPRIMAGAILUAK";
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(cbMintegiaImp);
             Controls.Add(comboBoxEgoeraImprimagailua);
             Controls.Add(label3);
             Controls.Add(btModeloaImprimagailua);
@@ -172,7 +174,6 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(lbmintkodea);
-            Controls.Add(tbIDMintegiaImp);
             Controls.Add(tbMarkaImp);
             Controls.Add(BtAukeraAutatu);
             Name = "tbIDMintegia";
@@ -186,7 +187,6 @@
 
         private Label BtAukeraAutatu;
         private TextBox tbMarkaImp;
-        private TextBox tbIDMintegiaImp;
         private Label lbmintkodea;
         private Label label1;
         private Label label2;
@@ -195,5 +195,6 @@
         private TextBox btModeloaImprimagailua;
         private Label label3;
         private ComboBox comboBoxEgoeraImprimagailua;
+        private ComboBox cbMintegiaImp;
     }
 }

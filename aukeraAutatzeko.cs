@@ -20,7 +20,8 @@ namespace Inbentarioa
 
         private void Form8_Load(object sender, EventArgs e)
         {
-
+            // Centrar el formulario en la pantalla
+            this.CenterToScreen();
         }
         protected override void OnPaint(PaintEventArgs e)
         {

@@ -325,6 +325,33 @@ namespace Inbentarioa
             return success;
         }
 
+        // Clase para obtener 'Mintegiak y usarlo para cargar el nombre
+        public DataTable ObtenerMintegiak()
+        {
+            DataTable table = new DataTable();
+            string query = "SELECT ID_Mintegia, Izena FROM Mintegiak";
+
+            try
+            {
+                using (MySqlCommand command = new MySqlCommand(query, DBKonexioa.Konektatu()))
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                {
+                    adapter.Fill(table);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Errorea mintegiak lortzerakoan: " + ex.Message);
+            }
+            finally
+            {
+                DBKonexioa.ItxiKonexioa();  // Beti gomendagarria
+            }
+
+            return table;
+        }
+
+
 
     }
 }
