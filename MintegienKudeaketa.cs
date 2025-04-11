@@ -154,8 +154,7 @@ namespace Inbentarioa
         {
             if (DataGridViewMintegiak.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Hautatu mintegi bat ezabatzeko!", "Errorea",
-                               MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Mesedez hautatu mintegi bat ezabatzeko!");
                 return;
             }
 
@@ -178,8 +177,7 @@ namespace Inbentarioa
                 }
                 else
                 {
-                    MessageBox.Show("Errorea mintegia ezabatzerakoan!", "Errorea",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Errorea mintegia ezabatzerakoan!", "Errorea");
                 }
             }
         }

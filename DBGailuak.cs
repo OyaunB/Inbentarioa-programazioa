@@ -83,6 +83,29 @@ namespace Inbentarioa
             }
         }
 
+        //LortuMintegiarenIDa
+        public static int LortuMintegiarenID(string izena)
+        {
+            int id = 0;
+            string connectionString = DBKonexioa.GetConnectionString();  // Asumiendo que tienes este método
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT ID_Mintegia FROM Mintegiak WHERE Izena = @izena";
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@izena", izena);
+                    object result = cmd.ExecuteScalar();
+                    if (result != null)
+                    {
+                        id = Convert.ToInt32(result);
+                    }
+                }
+            }
+            return id;
+        }
+
+
         public void MoverAEzabatutakoGailuak(int idGailuak, string marka, string modeloa)
         {
             string insertQuery = @"INSERT INTO EzabatutakoGailuak 
@@ -351,6 +374,47 @@ namespace Inbentarioa
             return table;
         }
 
+        //Ordenagailuak gehitzeko=
+        // Ordenagailuak gehitzeko funtzioa
+        public void OrdenagailuakGehitu(string kodea, string marka, string modeloa, string sistemaEragilea, string prozesadorea, string ram, string ssd, string hdd, string pantaila, DateTime erosketaData, string egoera, string ikasgela, string gelaKokapena)
+        {
+            string connectionString = "server=localhost;user=root;database=gailuak;port=3306;password=";
+
+            using (MySqlConnection konexioa = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    konexioa.Open();
+
+                    string kontsulta = "INSERT INTO ordenagailuak (Kodea, Marka, Modeloa, Sistema_eragilea, Prozesadorea, RAM, SSD, HDD, Pantaila, Erosketa_data, Egoera, Ikasgela, Gela_kokapena) " +
+                                       "VALUES (@kodea, @marka, @modeloa, @sistema_eragilea, @prozesadorea, @ram, @ssd, @hdd, @pantaila, @erosketa_data, @egoera, @ikasgela, @gela_kokapena)";
+
+                    using (MySqlCommand command = new MySqlCommand(kontsulta, konexioa))
+                    {
+                        // Parametroak gehitu
+                        command.Parameters.AddWithValue("@kodea", kodea);
+                        command.Parameters.AddWithValue("@marka", marka);
+                        command.Parameters.AddWithValue("@modeloa", modeloa);
+                        command.Parameters.AddWithValue("@sistema_eragilea", sistemaEragilea);
+                        command.Parameters.AddWithValue("@prozesadorea", prozesadorea);
+                        command.Parameters.AddWithValue("@ram", ram);
+                        command.Parameters.AddWithValue("@ssd", ssd);
+                        command.Parameters.AddWithValue("@hdd", hdd);
+                        command.Parameters.AddWithValue("@pantaila", pantaila);
+                        command.Parameters.AddWithValue("@erosketa_data", erosketaData); // DateTime zuzenean
+                        command.Parameters.AddWithValue("@egoera", egoera);
+                        command.Parameters.AddWithValue("@ikasgela", ikasgela);
+                        command.Parameters.AddWithValue("@gela_kokapena", gelaKokapena);
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Errorea datuak gehitzean: " + ex.Message);
+                }
+            }
+        }
 
 
     }

@@ -49,7 +49,6 @@
             TbGailuakGehitu.Size = new Size(354, 41);
             TbGailuakGehitu.TabIndex = 11;
             TbGailuakGehitu.Text = "GAILUAK GEHITU";
-                        //TbGailuakGehitu.Click += label1_Click;
             // 
             // dataGridViewGailuakGehitu
             // 
@@ -60,7 +59,7 @@
             dataGridViewGailuakGehitu.RowHeadersWidth = 51;
             dataGridViewGailuakGehitu.Size = new Size(1696, 285);
             dataGridViewGailuakGehitu.TabIndex = 12;
-                    // dataGridViewGailuakGehitu.CellContentClick += dataGridView1_CellContentClick;
+            dataGridViewGailuakGehitu.CellContentClick += dataGridViewGailuakGehitu_CellContentClick;
             // 
             // BtGehitu
             // 

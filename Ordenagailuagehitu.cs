@@ -92,13 +92,12 @@ namespace Inbentarioa
             if (cbMintegiaOrd.SelectedItem == null ||
                 string.IsNullOrWhiteSpace(btMarka.Text) ||
                 string.IsNullOrWhiteSpace(btModeloa.Text) ||
-                string.IsNullOrWhiteSpace(btErosketaData.Text) ||
                 string.IsNullOrWhiteSpace(btTxartelGrafikoa.Text) ||
                 string.IsNullOrWhiteSpace(btRAMMemoria.Text) ||
                 string.IsNullOrWhiteSpace(btUSBPortuak.Text) ||
                 comboBoxEgoeraOrd.SelectedItem == null)
             {
-                MessageBox.Show("Mesedez, bete eremu guztiak.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Mesedez, bete eremu guztiak.");
                 return;
             }
 
@@ -106,16 +105,12 @@ namespace Inbentarioa
             if (!int.TryParse(btRAMMemoria.Text, out int ram) ||
                 !int.TryParse(btUSBPortuak.Text, out int usbPortuak))
             {
-                MessageBox.Show("RAM eta USB portuak zenbakiak izan behar dira.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("RAM eta USB portuak zenbakiak izan behar dira.");
                 return;
             }
 
-            // Validar data
-            if (!DateTime.TryParse(btErosketaData.Text, out DateTime erosketaData))
-            {
-                MessageBox.Show("Sartu data egokia (Adibidez: 2023-12-31).", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            // dATEtIMEpICKERR-EZ EGUNA ETA ORDUA AUKERATZEKO FUNTZIOA
+            DateTime erosketaData = dateTimePicker1.Value;
 
             // Lortu mintegiaren ID-a ComboBox-etik
             int idMintegia = Convert.ToInt32(cbMintegiaOrd.SelectedValue);
@@ -141,7 +136,7 @@ namespace Inbentarioa
                     cbMintegiaOrd.SelectedIndex = -1;
                     btMarka.Clear();
                     btModeloa.Clear();
-                    btErosketaData.Clear();
+                    //btErosketaData.Clear();
                     btTxartelGrafikoa.Clear();
                     btRAMMemoria.Clear();
                     btUSBPortuak.Clear();
@@ -150,19 +145,29 @@ namespace Inbentarioa
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Errorea gertatu da ordenagailua gehitzean.\n" + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Errorea gertatu da ordenagailua gehitzean.\n" + ex.Message);
             }
         }
 
+
         private void Ordenagailuagehitu_Load(object sender, EventArgs e)
         {
-            // Rellenar ComboBox de estado
             comboBoxEgoeraOrd.Items.AddRange(new string[] { "Ongi", "Apurtuta", "Kompontzen" });
             comboBoxEgoeraOrd.SelectedIndex = 0;
 
-            // Configurar fecha actual por defecto
-            btErosketaData.Text = DateTime.Now.ToString("yyyy-MM-dd");
+            // Data formatu pertsonalizatua jarri
+            dateTimePicker1.Format = DateTimePickerFormat.Custom;
+            dateTimePicker1.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+
+            // Gaurko data lehenetsita
+            dateTimePicker1.Value = DateTime.Now;
+
+            // Mintegiak kargatu
+            CargarMintegiakCombo();
+
+            this.CenterToScreen();
         }
+
 
         private void lbRAMMemoria_Click(object sender, EventArgs e)
         {

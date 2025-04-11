@@ -97,13 +97,29 @@ namespace Inbentarioa
                 using (MySqlConnection connection = new MySqlConnection(konekzioString))
                 {
                     connection.Open();
-                    string query = "DELETE FROM Mintegiak WHERE ID_Mintegia = @id";
-                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
+
+                    // Verificar si hay registros dependientes en gailuak
+                    string checkQuery = "SELECT COUNT(*) FROM gailuak WHERE ID_Mintegia = @id";
+                    using (MySqlCommand checkCmd = new MySqlCommand(checkQuery, connection))
+                    {
+                        checkCmd.Parameters.AddWithValue("@id", id);
+                        int dependentCount = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                        if (dependentCount > 0)
+                        {
+                            MessageBox.Show($"Ezin da mintegia ezabatu, {dependentCount} gailu daude erregistratuta ID_Mintegia honekin.",
+                                            "Abisua", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return false;
+                        }
+                    }
+
+                    // Si no hay dependencias, eliminar el registro de Mintegiak
+                    string deleteQuery = "DELETE FROM Mintegiak WHERE ID_Mintegia = @id";
+                    using (MySqlCommand cmd = new MySqlCommand(deleteQuery, connection))
                     {
                         cmd.Parameters.AddWithValue("@id", id);
                         int affectedRows = cmd.ExecuteNonQuery();
 
-                        
                         return affectedRows > 0;
                     }
                 }

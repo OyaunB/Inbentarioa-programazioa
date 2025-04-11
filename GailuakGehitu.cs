@@ -262,19 +262,19 @@ namespace Inbentarioa
                     if (row.Cells["ID"].Value != null && row.Cells["ID"].Value != DBNull.Value)
                     {
                         int id = Convert.ToInt32(row.Cells["ID"].Value); // Gailuaren ID
-                        int idMintegia = 0;
 
-                        if (row.Cells["cbMintegia"].Value != null && row.Cells["cbMintegia"].Value != DBNull.Value)
-                        {
-                            idMintegia = Convert.ToInt32(row.Cells["cbMintegia"].Value);
-                        }
+                        // 🔁 Lortu mintegiaren izena eta bere ID-a
+                        string mintegiIzena = row.Cells["Mintegi_Izena"].Value?.ToString() ?? "";
+                        int idMintegia = GailuakDAL.LortuMintegiarenID(mintegiIzena);
 
+                        // 🔁 Egoera
                         string egoeraGailua = "Ongi";
                         if (row.Cells["EgoeraGailua"].Value != null && row.Cells["EgoeraGailua"].Value != DBNull.Value)
                         {
                             egoeraGailua = row.Cells["EgoeraGailua"].Value.ToString();
                         }
 
+                        // 🔁 Ezabatzeko marka
                         bool ezabatzekoMarka = false;
                         if (dataGridViewGailuakGehitu.Columns.Contains("EzabatzekoMarka") &&
                             row.Cells["EzabatzekoMarka"].Value != null &&
@@ -283,12 +283,14 @@ namespace Inbentarioa
                             ezabatzekoMarka = Convert.ToBoolean(row.Cells["EzabatzekoMarka"].Value);
                         }
 
+                        // 🔁 Erosketa data
                         DateTime erosketaData = DateTime.Now;
                         if (row.Cells["Erosketa_Data"].Value != null && row.Cells["Erosketa_Data"].Value != DBNull.Value)
                         {
                             erosketaData = Convert.ToDateTime(row.Cells["Erosketa_Data"].Value);
                         }
 
+                        // 🔁 Aktualizatu datuak
                         gailuakDAL.ActualizarGailua(
                             id,
                             idMintegia,
@@ -309,6 +311,7 @@ namespace Inbentarioa
                 MessageBox.Show("Errorea aldaketak gordetzean: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void btEzabatu_Click(object sender, EventArgs e)
         {
@@ -334,6 +337,11 @@ namespace Inbentarioa
                     MessageBox.Show($"Errorea ezabatzerakoan: {ex.Message}", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void dataGridViewGailuakGehitu_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

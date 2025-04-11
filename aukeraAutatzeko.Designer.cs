@@ -42,11 +42,11 @@
             BtAukeraAutatu.BackColor = Color.Transparent;
             BtAukeraAutatu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtAukeraAutatu.ForeColor = SystemColors.ControlLightLight;
-            BtAukeraAutatu.Location = new Point(354, 52);
+            BtAukeraAutatu.Location = new Point(229, 72);
             BtAukeraAutatu.Name = "BtAukeraAutatu";
-            BtAukeraAutatu.Size = new Size(340, 41);
+            BtAukeraAutatu.Size = new Size(581, 41);
             BtAukeraAutatu.TabIndex = 28;
-            BtAukeraAutatu.Text = "AUTATU AUKERA";
+            BtAukeraAutatu.Text = "HARTU NAHI DUZUN AUKERA";
             // 
             // BtGehitu
             // 

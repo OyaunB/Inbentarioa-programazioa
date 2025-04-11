@@ -37,9 +37,9 @@
             tbModeloa = new TextBox();
             bidaliBotoia = new Button();
             btAtzera = new Button();
-            comboBoxEgoera = new ComboBox();
             label3 = new Label();
             cbMintegiaB = new ComboBox();
+            comboBoxEgoera = new ComboBox();
             SuspendLayout();
             // 
             // BtAukeraAutatu
@@ -129,14 +129,6 @@
             btAtzera.UseVisualStyleBackColor = false;
             btAtzera.Click += btAtzera_Click;
             // 
-            // comboBoxEgoera
-            // 
-            comboBoxEgoera.FormattingEnabled = true;
-            comboBoxEgoera.Location = new Point(345, 289);
-            comboBoxEgoera.Name = "comboBoxEgoera";
-            comboBoxEgoera.Size = new Size(260, 28);
-            comboBoxEgoera.TabIndex = 55;
-            // 
             // label3
             // 
             label3.AutoSize = true;
@@ -156,6 +148,14 @@
             cbMintegiaB.Name = "cbMintegiaB";
             cbMintegiaB.Size = new Size(260, 28);
             cbMintegiaB.TabIndex = 60;
+            // 
+            // comboBoxEgoera
+            // 
+            comboBoxEgoera.FormattingEnabled = true;
+            comboBoxEgoera.Location = new Point(345, 289);
+            comboBoxEgoera.Name = "comboBoxEgoera";
+            comboBoxEgoera.Size = new Size(260, 28);
+            comboBoxEgoera.TabIndex = 55;
             // 
             // BesteGailuBatGehitu
             // 
@@ -190,8 +190,8 @@
         private TextBox tbModeloa;
         private Button bidaliBotoia;
         private Button btAtzera;
-        private ComboBox comboBoxEgoera;
         private Label label3;
         private ComboBox cbMintegiaB;
+        private ComboBox comboBoxEgoera;
     }
 }
