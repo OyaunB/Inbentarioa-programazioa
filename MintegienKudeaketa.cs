@@ -1,4 +1,5 @@
-﻿using System;
+﻿//MintegienKudeaketa.cs
+using System;
 using System.Data;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;

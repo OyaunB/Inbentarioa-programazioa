@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿//GailuakGehitu.cs
+using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -123,10 +124,10 @@ namespace Inbentarioa
                     dataGridViewGailuakGehitu.Columns["EgoeraGailua"].Visible = true;
                 }
 
-                if (dataGridViewGailuakGehitu.Columns.Contains("EzabatzekoMarka"))
-                {
-                    dataGridViewGailuakGehitu.Columns["EzabatzekoMarka"].Visible = true;
-                }
+               // if (dataGridViewGailuakGehitu.Columns.Contains("EzabatzekoMarka"))
+               // {
+               //     dataGridViewGailuakGehitu.Columns["EzabatzekoMarka"].Visible = true;
+               // }
             }
             catch (Exception ex)
             {
@@ -175,21 +176,6 @@ namespace Inbentarioa
         }
         private void ConfigurarColumnasEditables()
         {
-            // No establecer valores fijos de ReadOnly aquí, 
-            // ya que se manejarán en ConfigurarEdicionSegunRol
-
-            // Solo configurar las columnas especiales
-            if (!dataGridViewGailuakGehitu.Columns.Contains("EzabatzekoMarka"))
-            {
-                var checkBoxColumn = new DataGridViewCheckBoxColumn
-                {
-                    Name = "EzabatzekoMarka",
-                    HeaderText = "Ezabatuta",
-                    ReadOnly = true // Se ajustará en KudeatuBaimenak
-                };
-                dataGridViewGailuakGehitu.Columns.Add(checkBoxColumn);
-            }
-
             // Configurar columna ComboBox para EgoeraGailua si no existe
             if (!dataGridViewGailuakGehitu.Columns.Contains("EgoeraGailua"))
             {
@@ -198,7 +184,7 @@ namespace Inbentarioa
                     Name = "EgoeraGailua",
                     HeaderText = "Egoera Gailua",
                     DataPropertyName = "EgoeraGailua",
-                    ReadOnly = true // Se ajustará en KudeatuBaimenak
+                    ReadOnly = true // Se ajustará en ConfigurarEdicionSegunRol
                 };
                 comboBoxColumn.Items.AddRange("Ongi", "Apurtuta", "Kompontzen");
                 dataGridViewGailuakGehitu.Columns.Add(comboBoxColumn);

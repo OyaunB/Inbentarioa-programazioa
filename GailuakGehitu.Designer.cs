@@ -57,7 +57,7 @@
             dataGridViewGailuakGehitu.Location = new Point(12, 80);
             dataGridViewGailuakGehitu.Name = "dataGridViewGailuakGehitu";
             dataGridViewGailuakGehitu.RowHeadersWidth = 51;
-            dataGridViewGailuakGehitu.Size = new Size(1696, 285);
+            dataGridViewGailuakGehitu.Size = new Size(1413, 285);
             dataGridViewGailuakGehitu.TabIndex = 12;
             dataGridViewGailuakGehitu.CellContentClick += dataGridViewGailuakGehitu_CellContentClick;
             // 
@@ -68,7 +68,7 @@
             BtGehitu.BackgroundImage = (Image)resources.GetObject("BtGehitu.BackgroundImage");
             BtGehitu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtGehitu.ForeColor = Color.Transparent;
-            BtGehitu.Location = new Point(486, 400);
+            BtGehitu.Location = new Point(332, 400);
             BtGehitu.Name = "BtGehitu";
             BtGehitu.Size = new Size(170, 80);
             BtGehitu.TabIndex = 13;
@@ -82,7 +82,7 @@
             btAldatu.BackgroundImage = (Image)resources.GetObject("btAldatu.BackgroundImage");
             btAldatu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btAldatu.ForeColor = Color.Transparent;
-            btAldatu.Location = new Point(669, 400);
+            btAldatu.Location = new Point(515, 400);
             btAldatu.Name = "btAldatu";
             btAldatu.Size = new Size(185, 80);
             btAldatu.TabIndex = 14;
@@ -96,7 +96,7 @@
             btEzabatu.BackgroundImage = (Image)resources.GetObject("btEzabatu.BackgroundImage");
             btEzabatu.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btEzabatu.ForeColor = Color.Transparent;
-            btEzabatu.Location = new Point(864, 400);
+            btEzabatu.Location = new Point(710, 400);
             btEzabatu.Name = "btEzabatu";
             btEzabatu.Size = new Size(200, 80);
             btEzabatu.TabIndex = 15;
@@ -110,7 +110,7 @@
             btAtzera.BackgroundImage = (Image)resources.GetObject("btAtzera.BackgroundImage");
             btAtzera.Font = new Font("Verdana", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btAtzera.ForeColor = Color.Transparent;
-            btAtzera.Location = new Point(1079, 400);
+            btAtzera.Location = new Point(925, 400);
             btAtzera.Name = "btAtzera";
             btAtzera.Size = new Size(179, 80);
             btAtzera.TabIndex = 16;
@@ -121,7 +121,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1740, 533);
+            ClientSize = new Size(1432, 533);
             Controls.Add(btAtzera);
             Controls.Add(btEzabatu);
             Controls.Add(btAldatu);

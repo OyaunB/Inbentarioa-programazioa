@@ -1,4 +1,5 @@
-﻿using System;
+﻿//DBOrdenagailuaGehitu.cs
+using System;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using Inbentarioa;

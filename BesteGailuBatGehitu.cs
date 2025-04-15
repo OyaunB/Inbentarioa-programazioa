@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿//BesteGailuBatGehitu.cs
+using MySql.Data.MySqlClient;
 using System;
 using System.Data;
 using System.Drawing.Drawing2D;

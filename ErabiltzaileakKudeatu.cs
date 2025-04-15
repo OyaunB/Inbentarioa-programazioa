@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿//ErabiltzaileakKudeatu.cs
+using MySql.Data.MySqlClient;
 using System;
 using System.Data;
 using System.Drawing;
@@ -107,7 +108,7 @@ namespace Inbentarioa
                 return;
             }
 
-            bool gehituta = dbErabiltzaileak.GehituErabiltzailea(id, izena, errola, erabiltzailea);
+            bool gehituta = dbErabiltzaileak.GehituErabiltzailea(id, izena, errola, erabiltzailea, pasahitza);
 
             if (gehituta)
             {

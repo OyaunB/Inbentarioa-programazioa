@@ -1,4 +1,5 @@
-﻿using System;
+﻿//DBMintegiak.cs
+using System;
 using System.Data;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;

@@ -1,3 +1,5 @@
+//SARRERA.cs
+using MySql.Data.MySqlClient;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -107,41 +109,33 @@ namespace Inbentarioa
                 string erabiltzailea = TbErabiltzailea.Text.Trim();
                 string pasahitza = TbPasahitza.Text.Trim();
 
-                string[] lerroak;
-                try
-                {
-                    lerroak = File.ReadAllLines("Erabiltzaileak.txt");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Errorea fitxategia irakurtzean: " + ex.Message,
-                                  "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                DBErabiltzaileak dbErabiltzaileak = new DBErabiltzaileak();
+                var (egiaztatuta, izena, errola) = dbErabiltzaileak.EgiaztatuErabiltzailea(erabiltzailea, pasahitza);
 
-                foreach (string lerroa in lerroak)
+                if (egiaztatuta)
                 {
-                    string[] zatiak = lerroa.Split(';');
-                    if (zatiak.Length == 3 && erabiltzailea == zatiak[0] && pasahitza == zatiak[1])
+                    TbErabiltzailea.Text = "";
+                    TbPasahitza.Text = "";
+
+                    // Rola gorde klase estatikoan
+                    Errola.ErabiltzaileRola = errola;
+
+                    this.Hide();
+                    using (Aukerak f2 = new Aukerak())
                     {
-                        TbErabiltzailea.Text = "";
-                        TbPasahitza.Text = "";
-
-                        // Guardar el rol en la clase estática
-                        Errola.ErabiltzaileRola = zatiak[2];
-
-                        this.Hide();
-                        using (Aukerak f2 = new Aukerak())
-                        {
-                            f2.ShowDialog();
-                        }
-                        this.Show();
-                        return;
+                        f2.ShowDialog();
                     }
+                    this.Show();
+                    return;
                 }
 
                 MessageBox.Show("Erabiltzaile edo pasahitza okerra!", "Errorea",
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Errorea datu-basearekin konektatzerakoan: " + ex.Message,
+                              "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
