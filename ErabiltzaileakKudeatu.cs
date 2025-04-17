@@ -55,6 +55,11 @@ namespace Inbentarioa
         private void CargarDatos()
         {
             dataGridViewErabiltzailea.DataSource = dbErabiltzaileak.LortuErabiltzaileak();
+            //Erabiltzailearen pasahitza ezkutatu=
+            if (dataGridViewErabiltzailea.Columns.Contains("ErabiltzailePasahitza"))
+            {
+                dataGridViewErabiltzailea.Columns["ErabiltzailePasahitza"].Visible = false;
+            }
         }
 
         // 🔹 Al seleccionar una fila, almacenamos los datos en variables

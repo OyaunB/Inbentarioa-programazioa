@@ -232,6 +232,7 @@ namespace Inbentarioa
         {
             this.Hide();
             new Aukerak().ShowDialog();
+            
         }
 
         private void BtGehitu_Click(object sender, EventArgs e)

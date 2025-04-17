@@ -44,7 +44,7 @@ namespace Inbentarioa
             }
             else if (rol == "irakaslea")
             {
-                // **Irakaslea**: Solo puede usar el botón "ALDATU" (si existe)
+                // **Irakaslea**: Solo puede usar el botón "ALDATU"
                 BtGailuakKudeatu.Enabled = true;
                 BtEzabatutakoakIkusi.Enabled = true;
                 BtMintegiakKudeatu.Enabled = true;
@@ -82,7 +82,7 @@ namespace Inbentarioa
         {
             InitializeComponent();
             erabiltzaileRola = rola;
-            //KudeatuBaimenak();
+            KudeatuBaimenak();
         }
 
       
@@ -93,8 +93,9 @@ namespace Inbentarioa
             {
                 f3.ShowDialog(); // Mostrar formulario hijo
             }
-            this.Show(); // Volver al formulario principal
-             //KudeatuBaimenak(); // Reaplicar permisos
+            // this.Show(); // Volver al formulario principal
+            this.Close(); // Cerramos el formulario actual
+            KudeatuBaimenak(); // Reaplicar permisos
         }
 
         private void BtEzabatutakoakIkusi_Click(object sender, EventArgs e)
