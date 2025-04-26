@@ -35,6 +35,7 @@
             btAldatu = new Button();
             btEzabatu = new Button();
             btAtzera = new Button();
+            comboBoxMintegiak = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dataGridViewGailuakGehitu).BeginInit();
             SuspendLayout();
             // 
@@ -117,11 +118,21 @@
             btAtzera.UseVisualStyleBackColor = false;
             btAtzera.Click += btAtzera_Click;
             // 
+            // comboBoxMintegiak
+            // 
+            comboBoxMintegiak.FormattingEnabled = true;
+            comboBoxMintegiak.Location = new Point(44, 31);
+            comboBoxMintegiak.Name = "comboBoxMintegiak";
+            comboBoxMintegiak.Size = new Size(151, 28);
+            comboBoxMintegiak.TabIndex = 18;
+            comboBoxMintegiak.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            // 
             // GailuakGehitu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1432, 533);
+            Controls.Add(comboBoxMintegiak);
             Controls.Add(btAtzera);
             Controls.Add(btEzabatu);
             Controls.Add(btAldatu);
@@ -147,5 +158,6 @@
         private Button btAldatu;
         private Button btEzabatu;
         private Button btAtzera;
+        private ComboBox comboBoxMintegiak;
     }
 }

@@ -417,5 +417,72 @@ namespace Inbentarioa
         }
 
 
+        public DataTable ObtenerTodosMintegiak()
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add("ID_Mintegia", typeof(int)); // Asegurar tipo int
+            table.Columns.Add("Izena", typeof(string));
+            string query = "SELECT ID_Mintegia, Izena FROM Mintegiak";
+
+            try
+            {
+                using (MySqlCommand command = new MySqlCommand(query, DBKonexioa.Konektatu()))
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                {
+                    adapter.Fill(table);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Errorea mintegiak lortzerakoan: " + ex.Message);
+                throw; // Re-lanzar la excepción para manejo superior
+            }
+            finally
+            {
+                DBKonexioa.ItxiKonexioa();
+            }
+
+            return table;
+        }
+
+        public DataTable ObtenerGailuakPorMintegia(int idMintegia)
+        {
+            DataTable table = new DataTable();
+            string query = @"SELECT g.ID_Gailuak AS ID, g.Gailu_Mota AS Gailu_Mota, 
+                    m.Izena AS Mintegi_Izena, g.Marka, g.Modeloa AS Modeloa, 
+                    g.Erosketa_data AS Erosketa_Data, 
+                    CASE WHEN e.ID_Gailuak IS NOT NULL THEN 1 ELSE 0 END AS Ezabatuta,
+                    g.EgoeraGailua AS EgoeraGailua
+                    FROM Gailuak g
+                    LEFT JOIN Mintegiak m ON g.ID_Mintegia = m.ID_Mintegia
+                    LEFT JOIN EzabatutakoGailuak e ON g.ID_Gailuak = e.ID_Gailuak
+                    WHERE g.ID_Mintegia = @idMintegia";
+
+            try
+            {
+                MySqlConnection connection = DBKonexioa.Konektatu();
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@idMintegia", idMintegia);
+
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                    {
+                        adapter.Fill(table);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Errorea gailuak lortzerakoan: " + ex.Message);
+                throw;
+            }
+            finally
+            {
+                DBKonexioa.ItxiKonexioa();
+            }
+
+            return table;
+        }
+
     }
 }

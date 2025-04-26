@@ -9,13 +9,19 @@ namespace Inbentarioa
 {
     public partial class GailuakGehitu : Form
     {
+       
         private readonly GailuakDAL gailuakDAL;
+        private DataTable todosLosGailuak;
 
         public GailuakGehitu()
         {
             InitializeComponent();
             gailuakDAL = new GailuakDAL("server=127.0.0.1;database=inbentarioa;uid=root;pwd=root;");
             dataGridViewGailuakGehitu.CellClick += dataGridViewGailuakGehitu_CellClick;
+
+            // Configurar el ComboBox
+            comboBoxMintegiak.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxMintegiak.SelectedIndexChanged += comboBoxMintegiak_SelectedIndexChanged;
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -35,7 +41,11 @@ namespace Inbentarioa
         }
 
         private void GailuakGehitu_Load(object sender, EventArgs e)
-        {
+        {   //Mintegiak kargatzeko=
+            ConfigurarDataGridView();
+            CargarMintegiak(); // Cargar los mintegiak en el ComboBox
+            CargarTodosLosGailuak(); // Cargar todos los gailuak inicialmente
+            //_______________________
             ConfigurarDataGridView();
             CargarDatos();
 
@@ -83,6 +93,114 @@ namespace Inbentarioa
                 }
             }
         }
+        private bool cargandoMintegiak = false; // Variable de control
+
+        private void CargarMintegiak()
+        {
+            cargandoMintegiak = true; // Activamos el flag
+
+            try
+            {
+                DataTable mintegiak = gailuakDAL.ObtenerTodosMintegiak();
+
+                // Agregar opción "Todos" al principio
+                DataRow todosRow = mintegiak.NewRow();
+                todosRow["ID_Mintegia"] = -1;
+                todosRow["Izena"] = "Guztiak";
+                mintegiak.Rows.InsertAt(todosRow, 0);
+
+                // Desvinculamos temporalmente el evento
+                comboBoxMintegiak.SelectedIndexChanged -= comboBoxMintegiak_SelectedIndexChanged;
+
+                comboBoxMintegiak.DataSource = mintegiak;
+                comboBoxMintegiak.DisplayMember = "Izena";
+                comboBoxMintegiak.ValueMember = "ID_Mintegia";
+                comboBoxMintegiak.SelectedIndex = 0;
+
+                // Volvemos a vincular el evento
+                comboBoxMintegiak.SelectedIndexChanged += comboBoxMintegiak_SelectedIndexChanged;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Errorea mintegiak kargatzean: " + ex.Message,
+                              "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                cargandoMintegiak = false; // Desactivamos el flag
+            }
+        }
+
+        private void CargarTodosLosGailuak()
+        {
+            todosLosGailuak = gailuakDAL.ObtenerTodosGailuak();
+            MostrarGailuak(todosLosGailuak);
+        }
+
+        private void MostrarGailuak(DataTable gailuak)
+        {
+            try
+            {
+                dataGridViewGailuakGehitu.DataSource = gailuak;
+
+                // Resto de la configuración del DataGridView...
+                ConfigurarColumnasEditables();
+
+                // Asegurar que EgoeraGailua no sea NULL
+                foreach (DataGridViewRow row in dataGridViewGailuakGehitu.Rows)
+                {
+                    if (row.Cells["EgoeraGailua"].Value == null || row.Cells["EgoeraGailua"].Value == DBNull.Value)
+                    {
+                        row.Cells["EgoeraGailua"].Value = "Ongi";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Errorea datuak kargatzean: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void comboBoxMintegiak_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxMintegiak.SelectedItem == null) return;
+
+            try
+            {
+                // Manejo seguro del SelectedValue
+                object selectedValue = comboBoxMintegiak.SelectedValue;
+
+                if (selectedValue == null)
+                {
+                    MessageBox.Show("Ez da mintegirik hautatu.", "Abisua", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Conversión segura a int
+                if (!int.TryParse(selectedValue.ToString(), out int idMintegia))
+                {
+                    MessageBox.Show("Mintegiaren IDa ez da baliozkoa.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Cargar los gailuak según la selección
+                if (idMintegia == -1) // "Todos" seleccionado
+                {
+                    MostrarGailuak(todosLosGailuak);
+                }
+                else
+                {
+                    DataTable gailuakMintegia = gailuakDAL.ObtenerGailuakPorMintegia(idMintegia);
+                    MostrarGailuak(gailuakMintegia);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Errorea gailuak kargatzean: {ex.Message}", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Opcional: registrar el error en un log
+            }
+        }
+
+
         private void CargarDatos()
         {
             try
@@ -124,10 +242,10 @@ namespace Inbentarioa
                     dataGridViewGailuakGehitu.Columns["EgoeraGailua"].Visible = true;
                 }
 
-               // if (dataGridViewGailuakGehitu.Columns.Contains("EzabatzekoMarka"))
-               // {
-               //     dataGridViewGailuakGehitu.Columns["EzabatzekoMarka"].Visible = true;
-               // }
+                // if (dataGridViewGailuakGehitu.Columns.Contains("EzabatzekoMarka"))
+                // {
+                //     dataGridViewGailuakGehitu.Columns["EzabatzekoMarka"].Visible = true;
+                // }
             }
             catch (Exception ex)
             {
@@ -232,7 +350,7 @@ namespace Inbentarioa
         {
             this.Hide();
             new Aukerak().ShowDialog();
-            
+
         }
 
         private void BtGehitu_Click(object sender, EventArgs e)
@@ -327,6 +445,11 @@ namespace Inbentarioa
         }
 
         private void dataGridViewGailuakGehitu_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
