@@ -100,40 +100,61 @@ namespace Inbentarioa
                 return;
             }
 
-            // Resto del código permanece igual...
             string izena = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen izena:", "Gehitu Erabiltzailea", "");
-            string errola = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen errola:", "Gehitu Erabiltzailea", "");
-            string erabiltzailea = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen username-a:", "Gehitu Erabiltzailea", "");
-            string pasahitza = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen pasahitza:", "Gehitu Erabiltzailea", "");
-
-            if (string.IsNullOrWhiteSpace(izena) || string.IsNullOrWhiteSpace(errola) ||
-                string.IsNullOrWhiteSpace(erabiltzailea) || string.IsNullOrWhiteSpace(pasahitza))
+            if (string.IsNullOrWhiteSpace(izena))
             {
                 MessageBox.Show("Bete datu guztiak!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            bool gehituta = dbErabiltzaileak.GehituErabiltzailea(id, izena, errola, erabiltzailea, pasahitza);
-
-            if (gehituta)
+            // Obtener roles disponibles y mostrar el formulario de selección
+            var errolak = dbErabiltzaileak.LortuErrolak();
+            if (errolak.Count == 0)
             {
-                bool fitxategianGordeta = dbErabiltzaileak.GordeErabiltzaileaFitxategian(erabiltzailea, erabiltzailea, pasahitza, errola, true);
+                MessageBox.Show("Ez daude errolak eskuragarri!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-                if (fitxategianGordeta)
+            using (var errolaForm = new ErrolaAukeraketaForm(errolak))
+            {
+                if (errolaForm.ShowDialog() != DialogResult.OK)
                 {
-                    MessageBox.Show("Erabiltzailea gehitu da eta fitxategian gorde da!", "Ongi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    CargarDatos();
+                    return;
+                }
+                string errola = errolaForm.AukeratutakoErrola;
+
+                string erabiltzailea = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen username-a:", "Gehitu Erabiltzailea", "");
+                string pasahitza = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen pasahitza:", "Gehitu Erabiltzailea", "");
+
+                if (string.IsNullOrWhiteSpace(erabiltzailea) || string.IsNullOrWhiteSpace(pasahitza))
+                {
+                    MessageBox.Show("Bete datu guztiak!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                bool gehituta = dbErabiltzaileak.GehituErabiltzailea(id, izena, errola, erabiltzailea, pasahitza);
+
+                if (gehituta)
+                {
+                    bool fitxategianGordeta = dbErabiltzaileak.GordeErabiltzaileaFitxategian(erabiltzailea, erabiltzailea, pasahitza, errola, true);
+
+                    if (fitxategianGordeta)
+                    {
+                        MessageBox.Show("Erabiltzailea gehitu da eta fitxategian gorde da!", "Ongi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        CargarDatos();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erabiltzailea datu-basean gehitu da, baina errorea fitxategian gordetzean!", "Abisua", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Erabiltzailea datu-basean gehitu da, baina errorea fitxategian gordetzean!", "Abisua", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Errorea erabiltzailea gehitzean!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else
-            {
-                MessageBox.Show("Errorea erabiltzailea gehitzean!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
+
         private void btAldatu_Click(object sender, EventArgs e)
         {
             if (dataGridViewErabiltzailea.SelectedRows.Count == 0)
@@ -151,29 +172,43 @@ namespace Inbentarioa
 
             // Pedir nuevos valores al usuario
             string izenaBerria = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen izen berria:",
-                                                                          "Eguneratu Erabiltzailea",
-                                                                          izenaActual);
+                                                                        "Eguneratu Erabiltzailea",
+                                                                        izenaActual);
 
-            string errolaBerria = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen errol berria:",
-                                                                            "Eguneratu Erabiltzailea",
-                                                                            errolaActual);
+            // Obtener roles disponibles y mostrar el formulario de selección
+            var errolak = dbErabiltzaileak.LortuErrolak();
+            if (errolak.Count == 0)
+            {
+                MessageBox.Show("Ez daude errolak eskuragarri!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string errolaBerria;
+            using (var errolaForm = new ErrolaAukeraketaForm(errolak))
+            {
+                errolaForm.AukeratutakoErrola = errolaActual; // Establecer el valor actual
+                if (errolaForm.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+                errolaBerria = errolaForm.AukeratutakoErrola;
+            }
 
             string erabiltzaileaIzenaBerria = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen username berria:",
-                                                                                      "Eguneratu Erabiltzailea",
-                                                                                      erabiltzaileaIzanaActual);
+                                                                                    "Eguneratu Erabiltzailea",
+                                                                                    erabiltzaileaIzanaActual);
 
             string pasahitzBerria = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen pasahitz berria (utzi hutsik ez aldatzeko):",
-                                                                             "Eguneratu Erabiltzailea",
-                                                                             "");
+                                                                           "Eguneratu Erabiltzailea",
+                                                                           "");
 
             // Validar datos obligatorios
             if (string.IsNullOrWhiteSpace(izenaBerria) ||
-                string.IsNullOrWhiteSpace(errolaBerria) ||
                 string.IsNullOrWhiteSpace(erabiltzaileaIzenaBerria))
             {
-                MessageBox.Show("Izena, errola eta erabiltzaile izena bete behar dira!",
-                                "Errorea",
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Izena eta erabiltzaile izena bete behar dira!",
+                              "Errorea",
+                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -196,8 +231,8 @@ namespace Inbentarioa
                     if (fitxategiaEguneratuta)
                     {
                         MessageBox.Show("Erabiltzailea eguneratu da datu-basean eta fitxategian!",
-                                       "Ongi",
-                                       MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                     "Ongi",
+                                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
@@ -209,8 +244,8 @@ namespace Inbentarioa
                 else
                 {
                     MessageBox.Show("Erabiltzailea eguneratu da datu-basean!",
-                                   "Ongi",
-                                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                 "Ongi",
+                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
                 CargarDatos(); // Actualizar la vista
@@ -218,8 +253,8 @@ namespace Inbentarioa
             else
             {
                 MessageBox.Show("Errorea erabiltzailea eguneratzerakoan!",
-                               "Errorea",
-                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+                             "Errorea",
+                             MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void btEzabatu_Click_1(object sender, EventArgs e)

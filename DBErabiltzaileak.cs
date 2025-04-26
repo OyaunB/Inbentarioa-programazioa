@@ -1,5 +1,7 @@
 ﻿//DBErabiltzaileak.cs
 using System;
+using System.IO;
+using System.Linq;
 using System.Data;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
@@ -180,6 +182,33 @@ namespace Inbentarioa
                 return -1; // O maneja el error de otra forma
             }
         }
+        public List<string> LortuErrolak()
+        {
+            List<string> errolak = new List<string>();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(konekzioString))
+                {
+                    connection.Open();
+                    string query = "SELECT DISTINCT Errola FROM Erabiltzaileak";
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                    {
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                errolak.Add(reader["Errola"].ToString());
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Errorea errolak lortzerakoan: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return errolak;
+        }
 
         public bool EzabatuErabiltzailea(int id)
         {
@@ -203,6 +232,7 @@ namespace Inbentarioa
                 return false;
             }
         }
+        
 
     }
 }
