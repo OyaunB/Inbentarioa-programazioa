@@ -184,7 +184,15 @@ namespace Inbentarioa
         }
         public List<string> LortuErrolak()
         {
-            List<string> errolak = new List<string>();
+            // Lista fija de roles oficiales (sin duplicados)
+            List<string> errolak = new List<string>
+    {
+        "irakaslea",
+        "ikt irakaslea", 
+        "zuzendaria",
+        "ordezkaria"
+    };
+
             try
             {
                 using (MySqlConnection connection = new MySqlConnection(konekzioString))
@@ -197,7 +205,13 @@ namespace Inbentarioa
                         {
                             while (reader.Read())
                             {
-                                errolak.Add(reader["Errola"].ToString());
+                                string errolaDb = reader["Errola"].ToString();
+
+                                // Solo añadir si no existe ya en la lista
+                                if (!errolak.Contains(errolaDb))
+                                {
+                                    errolak.Add(errolaDb);
+                                }
                             }
                         }
                     }
@@ -205,8 +219,14 @@ namespace Inbentarioa
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Errorea errolak lortzerakoan: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Errorea errolak lortzerakoan: " + ex.Message,
+                              "Errorea",
+                              MessageBoxButtons.OK,
+                              MessageBoxIcon.Error);
             }
+
+            // Ordenar alfabéticamente antes de devolver
+            errolak.Sort();
             return errolak;
         }
 

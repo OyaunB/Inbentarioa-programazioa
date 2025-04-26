@@ -37,6 +37,7 @@
             ClientSize = new Size(800, 450);
             Name = "ErrolaAukeraketaForm";
             Text = "Form1";
+            Load += ErrolaAukeraketaForm_Load;
             ResumeLayout(false);
         }
 
