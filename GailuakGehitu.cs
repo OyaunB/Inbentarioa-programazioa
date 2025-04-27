@@ -362,6 +362,10 @@ namespace Inbentarioa
         {
             try
             {
+                // Guardar el Mintegiak seleccionado antes de hacer cambios
+                int mintegiIdSeleccionado = comboBoxMintegiak.SelectedValue != null ?
+                                           Convert.ToInt32(comboBoxMintegiak.SelectedValue) : -1;
+
                 foreach (DataGridViewRow row in dataGridViewGailuakGehitu.Rows)
                 {
                     if (row.Cells["ID"].Value != null && row.Cells["ID"].Value != DBNull.Value)
@@ -409,14 +413,23 @@ namespace Inbentarioa
                 }
 
                 MessageBox.Show("Aldaketak ondo gorde dira.", "Ongi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                CargarDatos(); // Recargar para reflejar cambios
+
+                // Recargar los datos según el Mintegiak seleccionado
+                if (mintegiIdSeleccionado == -1) // "Guztiak" seleccionado
+                {
+                    CargarTodosLosGailuak();
+                }
+                else
+                {
+                    DataTable gailuakMintegia = gailuakDAL.ObtenerGailuakPorMintegia(mintegiIdSeleccionado);
+                    MostrarGailuak(gailuakMintegia);
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Errorea aldaketak gordetzean: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private void btEzabatu_Click(object sender, EventArgs e)
         {
@@ -432,10 +445,24 @@ namespace Inbentarioa
             {
                 try
                 {
+                    // Guardar el Mintegiak seleccionado antes de hacer cambios
+                    int mintegiIdSeleccionado = comboBoxMintegiak.SelectedValue != null ?
+                                               Convert.ToInt32(comboBoxMintegiak.SelectedValue) : -1;
+
                     int idGailua = Convert.ToInt32(dataGridViewGailuakGehitu.SelectedRows[0].Cells["ID"].Value);
                     gailuakDAL.EliminarGailuaCompleto(idGailua);
                     MessageBox.Show("Gailua ezabatu da.", "Ongi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    CargarDatos();
+
+                    // Recargar los datos según el Mintegiak seleccionado
+                    if (mintegiIdSeleccionado == -1) // "Guztiak" seleccionado
+                    {
+                        CargarTodosLosGailuak();
+                    }
+                    else
+                    {
+                        DataTable gailuakMintegia = gailuakDAL.ObtenerGailuakPorMintegia(mintegiIdSeleccionado);
+                        MostrarGailuak(gailuakMintegia);
+                    }
                 }
                 catch (Exception ex)
                 {

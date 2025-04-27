@@ -22,21 +22,19 @@ namespace Inbentarioa
         SELECT 
             g.ID_Gailuak AS ID,
             g.Gailu_Mota AS Gailu_Mota,
-            m.Izena AS Mintegi_Izena,  -- Cambiado de ID_Mintegia a Izena
+            m.Izena AS Mintegi_Izena,
             g.Marka,
             g.Modeloa AS Modeloa,
             g.Erosketa_data AS Erosketa_Data,
-            CASE WHEN e.ID_Gailuak IS NOT NULL THEN 1 ELSE 0 END AS Ezabatuta,
             g.EgoeraGailua AS EgoeraGailua,
             o.Memoria_RAM,
             o.TxartelGrafikoa,
             o.USB_Portuak
         FROM Gailuak g
-        LEFT JOIN Mintegiak m ON g.ID_Mintegia = m.ID_Mintegia  -- Nuevo JOIN para obtener el nombre
+        LEFT JOIN Mintegiak m ON g.ID_Mintegia = m.ID_Mintegia
         LEFT JOIN Ordenagailuak o ON g.ID_Gailuak = o.ID_Gailuak AND g.Gailu_Mota = 'Ordenagailuak'
         LEFT JOIN Imprimagailuak i ON g.ID_Gailuak = i.ID_Gailuak AND g.Gailu_Mota = 'Inprimagailuak'
-        LEFT JOIN BesteGailuak b ON g.ID_Gailuak = b.ID_Gailuak AND g.Gailu_Mota = 'BesteGailuak'
-        LEFT JOIN EzabatutakoGailuak e ON g.ID_Gailuak = e.ID_Gailuak";
+        LEFT JOIN BesteGailuak b ON g.ID_Gailuak = b.ID_Gailuak AND g.Gailu_Mota = 'BesteGailuak'";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -368,7 +366,7 @@ namespace Inbentarioa
             }
             finally
             {
-                DBKonexioa.ItxiKonexioa();  // Beti gomendagarria
+                DBKonexioa.ItxiKonexioa(); 
             }
 
             return table;
@@ -420,7 +418,7 @@ namespace Inbentarioa
         public DataTable ObtenerTodosMintegiak()
         {
             DataTable table = new DataTable();
-            table.Columns.Add("ID_Mintegia", typeof(int)); // Asegurar tipo int
+            table.Columns.Add("ID_Mintegia", typeof(int));
             table.Columns.Add("Izena", typeof(string));
             string query = "SELECT ID_Mintegia, Izena FROM Mintegiak";
 
@@ -448,37 +446,37 @@ namespace Inbentarioa
         public DataTable ObtenerGailuakPorMintegia(int idMintegia)
         {
             DataTable table = new DataTable();
-            string query = @"SELECT g.ID_Gailuak AS ID, g.Gailu_Mota AS Gailu_Mota, 
-                    m.Izena AS Mintegi_Izena, g.Marka, g.Modeloa AS Modeloa, 
-                    g.Erosketa_data AS Erosketa_Data, 
-                    CASE WHEN e.ID_Gailuak IS NOT NULL THEN 1 ELSE 0 END AS Ezabatuta,
-                    g.EgoeraGailua AS EgoeraGailua
-                    FROM Gailuak g
-                    LEFT JOIN Mintegiak m ON g.ID_Mintegia = m.ID_Mintegia
-                    LEFT JOIN EzabatutakoGailuak e ON g.ID_Gailuak = e.ID_Gailuak
-                    WHERE g.ID_Mintegia = @idMintegia";
 
-            try
+            string query = @"
+        SELECT 
+            g.ID_Gailuak AS ID,
+            g.Gailu_Mota AS Gailu_Mota,
+            m.Izena AS Mintegi_Izena,
+            g.Marka,
+            g.Modeloa AS Modeloa,
+            g.Erosketa_data AS Erosketa_Data,
+            g.EgoeraGailua AS EgoeraGailua,
+            o.Memoria_RAM,
+            o.TxartelGrafikoa,
+            o.USB_Portuak
+        FROM Gailuak g
+        LEFT JOIN Mintegiak m ON g.ID_Mintegia = m.ID_Mintegia
+        LEFT JOIN Ordenagailuak o ON g.ID_Gailuak = o.ID_Gailuak AND g.Gailu_Mota = 'Ordenagailuak'
+        LEFT JOIN Imprimagailuak i ON g.ID_Gailuak = i.ID_Gailuak AND g.Gailu_Mota = 'Inprimagailuak'
+        LEFT JOIN BesteGailuak b ON g.ID_Gailuak = b.ID_Gailuak AND g.Gailu_Mota = 'BesteGailuak'
+        WHERE g.ID_Mintegia = @idMintegia";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                MySqlConnection connection = DBKonexioa.Konektatu();
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@idMintegia", idMintegia);
-
+                    connection.Open();
                     using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
                     {
                         adapter.Fill(table);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Errorea gailuak lortzerakoan: " + ex.Message);
-                throw;
-            }
-            finally
-            {
-                DBKonexioa.ItxiKonexioa();
             }
 
             return table;
