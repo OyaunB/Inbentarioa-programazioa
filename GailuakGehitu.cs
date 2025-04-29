@@ -53,7 +53,7 @@ namespace Inbentarioa
 
             // Configurar botones según el rol
             btAtzera.Enabled = true; // Siempre permitir volver atrás
-            BtGehitu.Enabled = (rol == "irakaslea" || rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt");
+            BtGehitu.Enabled = (rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt");
             btAldatu.Enabled = (rol == "irakaslea" || rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt");
             btEzabatu.Enabled = (rol == "zuzendaria" || rol == "ikt irakaslea" || rol == "ikt"); // Irakaslea NO puede eliminar
 
