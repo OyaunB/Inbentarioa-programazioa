@@ -149,7 +149,7 @@ namespace Inbentarioa
                 {
                     if (index != -1)
                         lines.RemoveAt(index);
-                }
+                }   
 
                 File.WriteAllLines(filePath, lines);
                 return true;
