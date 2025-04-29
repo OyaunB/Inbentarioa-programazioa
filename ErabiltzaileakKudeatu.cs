@@ -199,8 +199,7 @@ namespace Inbentarioa
                                                                                     erabiltzaileaIzanaActual);
 
             string pasahitzBerria = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen pasahitz berria (utzi hutsik ez aldatzeko):",
-                                                                           "Eguneratu Erabiltzailea",
-                                                                           "");
+                                                                           "Eguneratu Erabiltzailea");
 
             // Validar datos obligatorios
             if (string.IsNullOrWhiteSpace(izenaBerria) ||
@@ -252,16 +251,14 @@ namespace Inbentarioa
             }
             else
             {
-                MessageBox.Show("Errorea erabiltzailea eguneratzerakoan!",
-                             "Errorea",
-                             MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Errorea erabiltzailea eguneratzerakoan!");
             }
         }
         private void btEzabatu_Click_1(object sender, EventArgs e)
         {
             if (dataGridViewErabiltzailea.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Hautatu erabiltzaile bat ezabatzeko!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Hautatu erabiltzaile bat ezabatzeko!", "Errorea");
                 return;
             }
 
@@ -284,16 +281,16 @@ namespace Inbentarioa
 
                         if (!fitxategitikEzabatuta)
                         {
-                            MessageBox.Show("Erabiltzailea datu-basean ezabatu da, baina errorea fitxategitik ezabatzean!", "Abisua", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("Erabiltzailea datu-basean ezabatu da, baina errorea fitxategitik ezabatzean!");
                         }
                     }
 
-                    MessageBox.Show("Erabiltzailea ezabatu da!", "Ongi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Erabiltzailea ezabatu da!");
                     CargarDatos();
                 }
                 else
                 {
-                    MessageBox.Show("Errorea erabiltzailea ezabatzerakoan!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Errorea erabiltzailea ezabatzerakoan!");
                 }
             }
         }
