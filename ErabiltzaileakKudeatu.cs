@@ -96,14 +96,14 @@ namespace Inbentarioa
 
             if (id == -1)
             {
-                MessageBox.Show("Ezin da hurrengo IDa lortu!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ezin da hurrengo IDa lortu!");
                 return;
             }
 
             string izena = Microsoft.VisualBasic.Interaction.InputBox("Sartu erabiltzailearen izena:", "Gehitu Erabiltzailea", "");
             if (string.IsNullOrWhiteSpace(izena))
             {
-                MessageBox.Show("Bete datu guztiak!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Bete datu guztiak!", "Errorea");
                 return;
             }
 
@@ -111,7 +111,7 @@ namespace Inbentarioa
             var errolak = dbErabiltzaileak.LortuErrolak();
             if (errolak.Count == 0)
             {
-                MessageBox.Show("Ez daude errolak eskuragarri!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ez daude errolak eskuragarri!", "Errorea");
                 return;
             }
 
@@ -128,7 +128,7 @@ namespace Inbentarioa
 
                 if (string.IsNullOrWhiteSpace(erabiltzailea) || string.IsNullOrWhiteSpace(pasahitza))
                 {
-                    MessageBox.Show("Bete datu guztiak!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Bete datu guztiak!");
                     return;
                 }
 
@@ -140,17 +140,17 @@ namespace Inbentarioa
 
                     if (fitxategianGordeta)
                     {
-                        MessageBox.Show("Erabiltzailea gehitu da eta fitxategian gorde da!", "Ongi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Erabiltzailea gehitu da eta fitxategian gorde da!");
                         CargarDatos();
                     }
                     else
                     {
-                        MessageBox.Show("Erabiltzailea datu-basean gehitu da, baina errorea fitxategian gordetzean!", "Abisua", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Erabiltzailea datu-basean gehitu da, baina errorea fitxategian gordetzean!");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Errorea erabiltzailea gehitzean!", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Errorea erabiltzailea gehitzean!");
                 }
             }
         }
@@ -229,22 +229,16 @@ namespace Inbentarioa
 
                     if (fitxategiaEguneratuta)
                     {
-                        MessageBox.Show("Erabiltzailea eguneratu da datu-basean eta fitxategian!",
-                                     "Ongi",
-                                     MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Erabiltzailea eguneratu da datu-basean eta fitxategian!");
                     }
                     else
                     {
-                        MessageBox.Show("Erabiltzailea datu-basean eguneratu da, baina errorea fitxategian!",
-                                      "Abisua",
-                                      MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Erabiltzailea datu-basean eguneratu da, baina errorea fitxategian!");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Erabiltzailea eguneratu da datu-basean!",
-                                 "Ongi",
-                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Erabiltzailea eguneratu da datu-basean!");
                 }
 
                 CargarDatos(); // Actualizar la vista

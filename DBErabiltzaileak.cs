@@ -123,7 +123,7 @@ namespace Inbentarioa
             }
             catch (Exception ex)
             {
-                throw new Exception("Errorea erabiltzailea egiaztatzerakoan: " + ex.Message);
+                throw new Exception("Errorea erabiltzailea egiaztatzerakoan: ");
             }
         }
         public bool GordeErabiltzaileaFitxategian(string erabiltzaileaAntzinakoa, string erabiltzaileaBerria, string pasahitza, string errola, bool gehitu)
@@ -138,7 +138,7 @@ namespace Inbentarioa
 
                 string nuevaLinea = $"{erabiltzaileaBerria};{pasahitza};{errola}";
 
-                if (gehitu) // Actualizar o añadir
+                if (gehitu) 
                 {
                     if (index != -1)
                         lines[index] = nuevaLinea;
@@ -156,9 +156,7 @@ namespace Inbentarioa
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Errorea fitxategia eguneratzerakoan: " + ex.Message,
-                               "Errorea",
-                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Errorea fitxategia eguneratzerakoan");
                 return false;
             }
         }
@@ -178,7 +176,7 @@ namespace Inbentarioa
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Errorea ID hurrengoa lortzerakoan: " + ex.Message, "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Errorea ID hurrengoa lortzerakoan: ");
                 return -1; // O maneja el error de otra forma
             }
         }
@@ -219,10 +217,7 @@ namespace Inbentarioa
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Errorea errolak lortzerakoan: " + ex.Message,
-                              "Errorea",
-                              MessageBoxButtons.OK,
-                              MessageBoxIcon.Error);
+                MessageBox.Show("Errorea errolak lortzerakoan");
             }
 
             // Ordenar alfabéticamente antes de devolver

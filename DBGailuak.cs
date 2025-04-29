@@ -162,7 +162,7 @@ namespace Inbentarioa
                     catch (Exception ex)
                     {
                         transaction.Rollback();
-                        throw new Exception("Error al eliminar el gailua: " + ex.Message);
+                        throw new Exception("Error al eliminar el gailua");
                     }
                 }
             }
@@ -199,8 +199,7 @@ namespace Inbentarioa
         }
         public GailuakDAL()
         {
-            MySqlConnection Konektatu = DBKonexioa.Konektatu(); // Usando tu método existente
-            //string connectionString = DBKonexioa.GetConnectionString(); // zure string-etik
+            MySqlConnection Konektatu = DBKonexioa.Konektatu(); 
         }
         public bool GehituBesteGailua(int idMintegia, string marka, string modeloa, string egoera)
         {
@@ -253,7 +252,7 @@ namespace Inbentarioa
             }
             catch (Exception ex)
             {
-                Console.WriteLine("❌ Errorea: " + ex.Message);
+                Console.WriteLine("❌ Errorea");
                 throw;
             }
             finally
